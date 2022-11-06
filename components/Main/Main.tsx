@@ -16,20 +16,6 @@ export default function Footer() {
         return null;
     }
 
-    const createTwoButtonAlert = () =>
-    Alert.alert(
-      "Alert Title",
-      "My Alert Msg",
-      [
-        {
-          text: "Cancel",
-          onPress: () => console.log("Cancel Pressed"),
-          style: "cancel"
-        },
-        { text: "OK", onPress: () => console.log("OK Pressed") }
-      ]
-    );
-
     return (
         <View style={styles.main}>
             <Text style={styles.mainText}>Worlsdfsdfd</Text>
