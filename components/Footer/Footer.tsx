@@ -47,17 +47,17 @@ export default function Footer() {
         <View style={styles.footer}>
             <View style={styles.buttonBlock}>
                 <Pressable style={styles.buttonn}>
-                    <Text style={styles.mainText} onPress={() => setModalVisible(true)}>Modal</Text>
-                </Pressable>
-            </View>
-            <View style={styles.buttonBlock}>
-                <Pressable style={styles.buttonn} onPress={createTwoButtonAlert}>
-                    <Text style={styles.mainText}>Alert</Text>
+                    <Text style={styles.mainText}>1</Text>
                 </Pressable>
             </View>
             <View style={styles.buttonBlock}>
                 <Pressable style={styles.buttonn}>
-                    <Text style={styles.mainText}>HFooter</Text>
+                    <Text style={styles.mainText}>2</Text>
+                </Pressable>
+            </View>
+            <View style={styles.buttonBlock}>
+                <Pressable style={styles.buttonn}>
+                    <Text style={styles.mainText}>3</Text>
                 </Pressable>
             </View>
         </View>
@@ -86,9 +86,9 @@ const styles = StyleSheet.create({
     buttonn: {
         justifyContent: 'center',
         alignItems: 'center',
-        height: '50%',
-        width: '60%',
-        borderRadius: 7,
+        height: '70%',
+        width: '40%',
+        borderRadius: 20,
         backgroundColor: projectStyle.color.blackMain
     },
     centeredView: {
