@@ -7,9 +7,9 @@ export default function Header() {
   return (
     <View style={styles.header}>
         <View style={styles.headerContent}>
-            <View style={styles.headerContentItem}><Text style={styles.mainText}>TG</Text></View> 
+            <View style={styles.headerContentItem}><Text style={styles.mainText}>Menu</Text></View> 
             <View style={styles.headerContentItem}><Text style={styles.mainText}>All - $783</Text></View> 
-            <View style={styles.headerContentItem}><Text style={styles.mainText}>TG</Text></View> 
+            <View style={styles.headerContentItem}><Text style={styles.mainText}>Switch</Text></View> 
         </View>
     </View>
   )

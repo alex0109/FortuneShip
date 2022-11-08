@@ -5,14 +5,13 @@ import { StyleSheet, View, Text, Alert } from 'react-native'
 
 import projectStyle from '../../styles/projectStyle'
 
-export default function Footer() {
+export default function Analytics() {
 
     
 
     return (
         <View style={styles.main}>
-            <Text style={styles.mainText}>Main 2</Text>
-            <Text style={styles.mainText}>Swipe left or right</Text>
+            <Text style={styles.mainText}>Analytics 3</Text>
         </View>
     )
 }
