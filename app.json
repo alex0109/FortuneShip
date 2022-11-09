@@ -1,7 +1,9 @@
 {
   "expo": {
-    "name": "fortune-ship",
+    "name": "Fortune Ship",
     "slug": "fortune-ship",
+    "privacy": "public",
+    "description": "simple desc",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",

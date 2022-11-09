@@ -2,6 +2,9 @@ import { StyleSheet, View, Text, Button, Pressable, Alert, Modal } from 'react-n
 import React, { useState } from "react"
 
 import projectStyle from '../../styles/projectStyle'
+import Dialog from '../../assets/images/dialog.svg'
+import File from '../../assets/images/file.svg'
+import Eye from '../../assets/images/eye.svg'
 
 export default function Footer() {
 
@@ -47,17 +50,17 @@ export default function Footer() {
         <View style={styles.footer}>
             <View style={styles.buttonBlock}>
                 <Pressable style={styles.buttonn}>
-                    <Text style={styles.mainText}>1</Text>
+                    <Dialog width={30} height={30} fill="white"/>
                 </Pressable>
             </View>
             <View style={styles.buttonBlock}>
                 <Pressable style={styles.buttonn}>
-                    <Text style={styles.mainText}>2</Text>
+                  <Eye width={30} height={30} fill="white"/>
                 </Pressable>
             </View>
             <View style={styles.buttonBlock}>
                 <Pressable style={styles.buttonn}>
-                    <Text style={styles.mainText}>3</Text>
+                  <File width={30} height={30} fill="white"/>
                 </Pressable>
             </View>
         </View>
@@ -68,11 +71,11 @@ export default function Footer() {
 
 const styles = StyleSheet.create({
     footer: {
-        backgroundColor: projectStyle.color.blackBar,
+        flex: 1,
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'center',
-        flex: 1
+        backgroundColor: projectStyle.color.blackBar
     },
     mainText: {
         color: projectStyle.color.white
