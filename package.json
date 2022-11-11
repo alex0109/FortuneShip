@@ -7,7 +7,7 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
-    "publish": "publish"
+    "publish": "expo publish"
   },
   "dependencies": {
     "expo": "~46.0.16",

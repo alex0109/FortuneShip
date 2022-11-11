@@ -6,18 +6,18 @@ import Menu from '../../assets/images/menu.svg'
 import Sun from '../../assets/images/sun.svg'
 import SunTwo from '../../assets/images/sun2.svg'
 import Moon from '../../assets/images/moon.svg'
-import MoonTwo from '../../assets/images/moon2.svg'
+import MoonTwo from '../../assets/images/moon4.svg'
 
 export default function Header() {
   return (
     <View style={styles.header}>
         <View style={styles.headerContent}>
             <View style={styles.headerContentItemMenu}>
-              <Menu width={30} height={30} fill="black"/>  
+              <Menu width={25} height={25} fill="white"/>  
             </View> 
-            <View style={styles.headerContentItem}><Text style={styles.mainText}>All - $783</Text></View> 
+            <View style={styles.headerContentItem}><Text style={styles.mainText}>All - $500</Text></View> 
             <View style={styles.headerContentItemSwitch}>
-              <MoonTwo width={30} height={30} fill="black"/>  
+              <Sun width={25} height={25} fill="white"/>  
             </View> 
         </View>
     </View>

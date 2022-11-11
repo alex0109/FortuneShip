@@ -6,7 +6,7 @@ import Dialog from '../../assets/images/dialog.svg'
 import File from '../../assets/images/file.svg'
 import Eye from '../../assets/images/eye.svg'
 
-export default function Footer() {
+export default function Footer({...props}) {
 
     const [modalVisible, setModalVisible] = useState(false)
 
@@ -49,17 +49,17 @@ export default function Footer() {
         </Modal>
         <View style={styles.footer}>
             <View style={styles.buttonBlock}>
-                <Pressable style={styles.buttonn}>
+                <Pressable style={styles.buttonn} onPress={() => props.handleIndexChange(0)}>
                     <Dialog width={30} height={30} fill="white"/>
                 </Pressable>
             </View>
             <View style={styles.buttonBlock}>
-                <Pressable style={styles.buttonn}>
+                <Pressable style={styles.buttonn} onPress={() => props.handleIndexChange(1)}>
                   <Eye width={30} height={30} fill="white"/>
                 </Pressable>
             </View>
             <View style={styles.buttonBlock}>
-                <Pressable style={styles.buttonn}>
+                <Pressable style={styles.buttonn} onPress={() => props.handleIndexChange(2)}>
                   <File width={30} height={30} fill="white"/>
                 </Pressable>
             </View>
@@ -91,7 +91,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         height: '70%',
         width: '40%',
-        borderRadius: 20,
+        borderRadius: 30,
         backgroundColor: projectStyle.color.blackMain
     },
     centeredView: {
