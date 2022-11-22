@@ -3,7 +3,7 @@ import React from 'react'
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, View, Text, Alert } from 'react-native'
 
-import projectStyle from '../../styles/projectStyle'
+import colors from '../../styles/projectStyle'
 
 export default function Analytics() {
 
@@ -18,17 +18,17 @@ export default function Analytics() {
 
 const styles = StyleSheet.create({
     main: {
-        backgroundColor: projectStyle.color.blackMain,
+        backgroundColor: colors.colors.blackMain,
         alignItems: 'center',
         justifyContent: 'center',
         flex: 10
     },
     mainText: {
-        color: projectStyle.color.white,
+        color: colors.colors.white,
         fontFamily: 'Assistant'
     },
     testText: {
-        color: projectStyle.color.white,
+        color: colors.colors.white,
         fontFamily: 'Assistant',
         fontWeight: '900'
     }

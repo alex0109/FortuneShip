@@ -4,7 +4,7 @@ import { View, Text, Pressable, StyleSheet } from 'react-native'
 import Remove from '../../assets/images/remove.svg' 
 import Target from '../../assets/images/target.svg' 
 
-import projectStyle from '../../styles/projectStyle'
+import colors from '../../styles/projectStyle'
 
 const Freetarget = ({...props}) => {
   return (
@@ -33,13 +33,13 @@ const styles = StyleSheet.create({
         marginBottom: 30,
         borderBottomWidth: 0.3,
         borderStyle: 'solid',
-        borderBottomColor: projectStyle.color.gray
+        borderBottomColor: colors.colors.gray
     },
     leftItemContent: {
         flexDirection: 'row'
     },
     mainText: {
-        color: projectStyle.color.white,
+        color: colors.colors.white,
         fontFamily: 'Assistant',
         paddingLeft: 10
     },
@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
     },
     subTitle: {
         paddingLeft: 10,
-        color: projectStyle.color.success
+        color: colors.colors.success
     }
 })
 

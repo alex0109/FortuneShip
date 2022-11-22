@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { StyleSheet, View, Text, ScrollView, Pressable } from 'react-native'
 
-import projectStyle from '../../styles/projectStyle'
+import colors from '../../styles/projectStyle'
 
 import FreeFund from './FreeFund'
 import FreeTarget from './FreeTarget'
@@ -15,7 +15,6 @@ interface INewFundRow {
 }
 
 interface INewFundRows extends Array<INewFundRow>{}
-
 
 export default function Funds() {
 
@@ -47,7 +46,7 @@ export default function Funds() {
 
     return (
         <React.Fragment>
-            <ScrollView>
+            <ScrollView style={styles.funds}>
                 <View style={styles.title}>
                     <Text style={[styles.mainText, styles.h1Text]}>
                         Available Funds
@@ -108,6 +107,9 @@ export default function Funds() {
 }
 
 const styles = StyleSheet.create({
+    funds: {
+        backgroundColor: colors.colors.blackMain
+    },
     title: {
         flex: 1,
         alignItems: 'stretch',
@@ -132,7 +134,7 @@ const styles = StyleSheet.create({
         marginBottom: 30
     },
     mainText: {
-        color: projectStyle.color.white,
+        color: colors.colors.white,
         fontFamily: 'Assistant'
     },
     h1Text: {
