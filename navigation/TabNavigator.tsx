@@ -12,15 +12,15 @@ const Tab = createBottomTabNavigator();
 
 const BottomTabNavigator = () => {
   return (
-    <Tab.Navigator initialRouteName="Main" screenOptions={({ route }) => ({
+    <Tab.Navigator initialRouteName="Main tab" screenOptions={({ route }) => ({
       tabBarIcon: ({ focused }) => {
-        if(route.name == 'Main') {
+        if(route.name == 'Main tab') {
           return <Dialog width={30} height={30} fill={focused ? colors.colors.info : colors.colors.white}/>
         }
-        if(route.name == 'Funds') {
+        if(route.name == 'Funds tab') {
           return <File width={30} height={30} fill={focused ? colors.colors.info : colors.colors.white}/>
         }
-        if(route.name == 'Analytics') {
+        if(route.name == 'Analytics tab') {
           return <Eye width={30} height={40} fill={focused ? colors.colors.info : colors.colors.white}/>
         }
       },
@@ -32,9 +32,9 @@ const BottomTabNavigator = () => {
       headerShown: false, 
       tabBarShowLabel: false
     })}>
-      <Tab.Screen name='Funds' component={FundsStackNavigator} />
-      <Tab.Screen name='Main' component={MainStackNavigator} />
-      <Tab.Screen name='Analytics' component={AnalyticsStackNavigator} />
+      <Tab.Screen name='Funds tab' component={FundsStackNavigator} />
+      <Tab.Screen name='Main tab' component={MainStackNavigator} />
+      <Tab.Screen name='Analytics tab' component={AnalyticsStackNavigator} />
     </Tab.Navigator>
   );
 };

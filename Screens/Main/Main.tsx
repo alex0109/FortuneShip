@@ -4,12 +4,13 @@ import { StyleSheet, View, Text, Button } from 'react-native'
 
 import colors from '../../styles/projectStyle'
 
-export default function Footer({ navigation }) {
+//need to fix navigation safety
+export default function Main({navigation}: {navigation: any}) {
 
     return (
         <View style={styles.main}>
             <Text style={styles.mainText}>Main 2</Text>
-            <Button onPress={() => navigation.navigate("Funds")} title="Go to Funds Screen" />
+            <Button onPress={() => navigation.navigate("Funds tab")} title="Go to Funds Screen" />
         </View>
     )
 }

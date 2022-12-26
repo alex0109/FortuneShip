@@ -5,6 +5,7 @@ import { useFonts } from 'expo-font';
 import { NavigationContainer } from "@react-navigation/native";
 
 import DrawerNavigator from "./navigation/DrawerNavigator";
+import BottomTabNavigator from "./navigation/TabNavigator";
 
 import projectStyle from './styles/projectStyle';
 import Registration from './Screens/Auth/Registration';
