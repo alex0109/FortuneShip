@@ -2,7 +2,7 @@ import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 
 import Main from '../Screens/Main/Main'
-import Funds from '../Screens/Funds/Funds'
+import Accounts from '../Screens/Accounts/Accounts'
 import Analytics from '../Screens/Analytics/Analytics'
 import Registration from '../Screens/Auth/Registration'
 import Login from '../Screens/Auth/Login'
@@ -16,15 +16,15 @@ const screenOptionStyle = {
 const MainStackNavigator = () => {
   return (
     <Stack.Navigator screenOptions={screenOptionStyle}>
-      <Stack.Screen name="Main stack" component={Main} />
+      <Stack.Screen name="Main stack" options={{title: "Main"}} component={Main} />
     </Stack.Navigator>
   );
 }
 
-const FundsStackNavigator = () => {
+const AccountsStackNavigator = () => {
     return (
       <Stack.Navigator screenOptions={screenOptionStyle}>
-        <Stack.Screen name="Funds stack" component={Funds} />
+        <Stack.Screen name="Accounts stack" options={{title: "Accounts"}} component={Accounts} />
       </Stack.Navigator>
     );
   }
@@ -56,7 +56,7 @@ const LoginStackNavigator = () => {
 export { 
   MainStackNavigator, 
   AnalyticsStackNavigator, 
-  FundsStackNavigator, 
+  AccountsStackNavigator, 
   RegistrationStackNavigator,
   LoginStackNavigator 
 };

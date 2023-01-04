@@ -1,46 +1,43 @@
 import React from 'react'
 import { View, Text, Pressable, StyleSheet } from 'react-native'
+import { Cash } from '../../store/types'
 
+import customStyles from '../../styles/projectStyle'
 import Remove from '../../assets/images/remove.svg' 
 import Money from '../../assets/images/money2.svg' 
 
 
-import colors from '../../styles/projectStyle'
-
-const FreeFund = ({...props}) => {
+export default function CashAccount(cash: Cash) {
   return (
-    <View style={styles.contentItem}>
-        <View style={styles.leftItemContent}>
+    <View style={styles.contentContainer}>
+        <View style={styles.contentItem}>
             <Money width={30} height={30} fill="white"/>
             <View>
-                <Text style={[styles.mainText]}>{props.title}</Text>
-                <Text style={[styles.mainText, styles.subTitle]}>${props.cash}</Text>
+                <Text style={[styles.mainText]}>{cash.title}</Text>
+                <Text style={[styles.mainText, styles.subTitle]}>${cash.count}</Text>
             </View>
         </View>
-        <Pressable onPress={() => props.removeFund(props.id)}>
-            <Remove width={25} height={25} fill="red"/>
-        </Pressable>
     </View>
   ) 
 }
 
 const styles = StyleSheet.create({
-    contentItem: {
+    contentContainer: {
         flexDirection: 'row',
         alignItems: 'center',
-        justifyContent: 'space-between',
         height: 50,
         width: '80%',
         marginBottom: 30,
         borderBottomWidth: 0.3,
         borderStyle: 'solid',
-        borderBottomColor: colors.colors.gray
+        borderBottomColor: customStyles.colors.gray
     },
-    leftItemContent: {
-        flexDirection: 'row'
+    contentItem: {
+        flexDirection: 'row',
+        width: '100%'
     },
     mainText: {
-        color: colors.colors.white,
+        color: customStyles.colors.white,
         fontFamily: 'Assistant',
         paddingLeft: 10
     },
@@ -54,8 +51,6 @@ const styles = StyleSheet.create({
     },
     subTitle: {
         paddingLeft: 10,
-        color: colors.colors.success
+        color: customStyles.colors.success
     }
 })
-
-export default FreeFund

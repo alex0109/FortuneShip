@@ -1,6 +1,6 @@
 import React from 'react'
-import { View, Text, TextInput, Button, Pressable, StyleSheet } from 'react-native'
-import { color } from 'react-native-reanimated'
+import { View, Text, TextInput, Pressable, StyleSheet } from 'react-native'
+
 
 import colors from '../../styles/projectStyle'
 

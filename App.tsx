@@ -1,14 +1,14 @@
 import React from 'react'
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet } from 'react-native';
+import { Provider } from 'react-redux';
 import { useFonts } from 'expo-font';
-// import Swiper from 'react-native-swiper';
 import { NavigationContainer } from "@react-navigation/native";
 
-import DrawerNavigator from "./navigation/DrawerNavigator";
-import BottomTabNavigator from "./navigation/TabNavigator";
+import { store } from './store/store';
 
-import projectStyle from './styles/projectStyle';
-import Registration from './Screens/Auth/Registration';
+import DrawerNavigator from "./navigation/DrawerNavigator";
+
+import customStyles from './styles/projectStyle';
 
 export default function App(){
 
@@ -21,23 +21,23 @@ export default function App(){
     }
 
     return (
-      <React.Fragment>
-        <NavigationContainer>
-          <DrawerNavigator />
-        </NavigationContainer>
-      </React.Fragment>
+      <Provider store={store}>
+          <NavigationContainer>
+            <DrawerNavigator />
+          </NavigationContainer>
+      </Provider>
     )
 }
 
 const styles = StyleSheet.create({
   main: {
-    backgroundColor: projectStyle.colors.blackMain,
+    backgroundColor: customStyles.colors.blackMain,
     alignItems: 'center',
     justifyContent: 'center',
     flex: 10
   },
   mainText: {
-    color: projectStyle.colors.white
+    color: customStyles.colors.white
   },
   swiper: {
     flex: 1

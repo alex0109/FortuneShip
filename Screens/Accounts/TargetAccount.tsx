@@ -1,22 +1,22 @@
 import React from 'react'
 import { View, Text, Pressable, StyleSheet } from 'react-native'
+import { Target } from '../../store/types'
 
+import customStyles from '../../styles/projectStyle'
 import Remove from '../../assets/images/remove.svg' 
-import Target from '../../assets/images/target.svg' 
+import TargetIcon from '../../assets/images/target.svg' 
 
-import colors from '../../styles/projectStyle'
-
-const Freetarget = ({...props}) => {
+export default function TargetAccount(target: Target) {
   return (
     <View style={styles.contentItem}>
         <View style={styles.leftItemContent}>
-            <Target width={30} height={30} fill="white"/>
+            <TargetIcon width={30} height={30} fill="white"/>
             <View>
-                <Text style={[styles.mainText]}>{props.title}</Text>
-                <Text style={[styles.mainText, styles.subTitle]}>${props.cash}</Text>
+                <Text style={[styles.mainText]}>{target.title}</Text>
+                <Text style={[styles.mainText, styles.subTitle]}>${target.count}</Text>
             </View>
         </View>
-        <Pressable onPress={() => props.removeTarget(props.id)}>
+        <Pressable style={[styles.rightContentItem]}>
             <Remove width={25} height={25} fill="red"/>
         </Pressable>
     </View>
@@ -33,13 +33,17 @@ const styles = StyleSheet.create({
         marginBottom: 30,
         borderBottomWidth: 0.3,
         borderStyle: 'solid',
-        borderBottomColor: colors.colors.gray
+        borderBottomColor: customStyles.colors.gray
     },
     leftItemContent: {
-        flexDirection: 'row'
+        flexDirection: 'row',
+        width: '90%'
+    },
+    rightContentItem: {
+        width: '10%'
     },
     mainText: {
-        color: colors.colors.white,
+        color: customStyles.colors.white,
         fontFamily: 'Assistant',
         paddingLeft: 10
     },
@@ -53,8 +57,6 @@ const styles = StyleSheet.create({
     },
     subTitle: {
         paddingLeft: 10,
-        color: colors.colors.success
+        color: customStyles.colors.success
     }
 })
-
-export default Freetarget

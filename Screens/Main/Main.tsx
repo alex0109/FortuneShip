@@ -2,7 +2,7 @@ import React from 'react'
 
 import { StyleSheet, View, Text, Button } from 'react-native'
 
-import colors from '../../styles/projectStyle'
+import customStyles from '../../styles/projectStyle'
 
 //need to fix navigation safety
 export default function Main({navigation}: {navigation: any}) {
@@ -17,17 +17,17 @@ export default function Main({navigation}: {navigation: any}) {
 
 const styles = StyleSheet.create({
     main: {
-        backgroundColor: colors.colors.blackMain,
+        backgroundColor: customStyles.colors.blackMain,
         alignItems: 'center',
         justifyContent: 'center',
         flex: 10
     },
     mainText: {
-        color: colors.colors.white,
+        color: customStyles.colors.white,
         fontFamily: 'Assistant'
     },
     testText: {
-        color: colors.colors.white,
+        color: customStyles.colors.white,
         fontFamily: 'Assistant',
         fontWeight: '900'
     }

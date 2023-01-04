@@ -1,8 +1,7 @@
 import React from 'react'
 import { View, Text, TextInput, Button, Pressable, StyleSheet } from 'react-native'
-import { color } from 'react-native-reanimated'
 
-import colors from '../../styles/projectStyle'
+import customStyles from '../../styles/projectStyle'
 
 const Login = ({navigation} :{navigation:any}) => {
   return (
@@ -11,8 +10,8 @@ const Login = ({navigation} :{navigation:any}) => {
             <Text style={[styles.mainText, styles.title]}>Login</Text>
         </View>
         <View style={styles.registrationBox}>
-            <TextInput style={[styles.mainText, styles.registrationBoxItem ]} placeholder='Email' placeholderTextColor={colors.colors.gray}/>
-            <TextInput style={[styles.mainText, styles.registrationBoxItem ]} placeholder='Password' placeholderTextColor={colors.colors.gray}/>
+            <TextInput style={[styles.mainText, styles.registrationBoxItem ]} placeholder='Email' placeholderTextColor={customStyles.colors.gray}/>
+            <TextInput style={[styles.mainText, styles.registrationBoxItem ]} placeholder='Password' placeholderTextColor={customStyles.colors.gray}/>
         </View>
         <View style={styles.registrationLinks}>
             <Pressable onPress={() => navigation.navigate("Main tab")}>
@@ -31,7 +30,7 @@ const styles = StyleSheet.create({
       flex: 1,
       alignItems: 'center',
       justifyContent: 'center',
-      backgroundColor: colors.colors.blackMain
+      backgroundColor: customStyles.colors.blackMain
   },
   registrationTitle: {
       flex: 1,
@@ -45,17 +44,17 @@ const styles = StyleSheet.create({
   },
   registrationBoxItem: {
       fontSize: 18,
-      tintColor:  colors.colors.gray,
+      tintColor:  customStyles.colors.gray,
       marginBottom: 15,
       borderBottomWidth: 1,
-      borderBottomColor: colors.colors.white
+      borderBottomColor: customStyles.colors.white
 
   },
   registrationLinks: {
       flex: 1
   },
   mainText: {
-      color: colors.colors.white,
+      color: customStyles.colors.white,
       fontFamily: 'Assistant'
   },
   title: {
