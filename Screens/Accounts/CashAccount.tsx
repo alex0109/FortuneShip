@@ -1,9 +1,8 @@
 import React from 'react'
-import { View, Text, Pressable, StyleSheet } from 'react-native'
+import { View, Text, StyleSheet } from 'react-native'
 import { Cash } from '../../store/types'
 
 import customStyles from '../../styles/projectStyle'
-import Remove from '../../assets/images/remove.svg' 
 import Money from '../../assets/images/money2.svg' 
 
 
@@ -13,7 +12,7 @@ export default function CashAccount(cash: Cash) {
         <View style={styles.contentItem}>
             <Money width={30} height={30} fill="white"/>
             <View>
-                <Text style={[styles.mainText]}>{cash.title}</Text>
+                <Text style={[styles.mainText]}>{!cash.title ? 'Head title' : cash.title}</Text>
                 <Text style={[styles.mainText, styles.subTitle]}>${cash.count}</Text>
             </View>
         </View>

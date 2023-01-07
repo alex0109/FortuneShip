@@ -14,7 +14,14 @@ import BottomModal, { BottomModalRefProps } from './BottomModal';
 
 export default function Accounts() {
 
-    const { addCashAccount, addTargetAccount } = useActions()
+    const { addCashAccount, 
+            addTargetAccount, 
+            removeCashAccount, 
+            removeTargetAccount,
+            updateTitleCashAccount,
+            updateCountCashAccount,
+            updateTitleTargetAccount,
+            updateCountTargetAccount } = useActions()
     const { cash, targets } = useTypedSelector(state => state)
 
     const cashExample: Cash = {
@@ -59,7 +66,6 @@ export default function Accounts() {
                     <Text style={[styles.mainText, styles.h1Text]}>
                         Available Funds
                     </Text>
-                    <TextInput placeholder='Tetx'/>
                 </View>
                 {cash.length == 0 ? 
                     <View style={styles.noFundMessage}>
@@ -116,7 +122,15 @@ export default function Accounts() {
                     </View>
                 }
             </ScrollView>
-            <BottomModal modalProps={modalProps} ref={ref}/>
+            <BottomModal 
+                modalProps={modalProps} 
+                removeCashAccount={removeCashAccount} 
+                removeTargetAccount={removeTargetAccount}
+                updateTitleCashAccount={updateTitleCashAccount}
+                updateCountCashAccount={updateCountCashAccount}
+                updateTitleTargetAccount={updateTitleTargetAccount}
+                updateCountTargetAccount={updateCountTargetAccount}
+                ref={ref}/>
         </GestureHandlerRootView>
     )
 }

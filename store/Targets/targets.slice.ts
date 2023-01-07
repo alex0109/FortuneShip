@@ -13,6 +13,20 @@ export const targetsSlice = createSlice({
         removeTargetAccount: (state, action: PayloadAction<{index: number}>) => {
             return state.filter(item => item.index !== action.payload.index)
         },
+        updateTitleTargetAccount: (state, action: PayloadAction<{index: number, title: string}>) => {
+            const cashItem = state.find(item => item.index === action.payload.index);
+            if (cashItem) {
+                cashItem.title = action.payload.title;
+            }
+            return state;
+        },
+        updateCountTargetAccount: (state, action: PayloadAction<{index: number, count: number}>) => {
+            const cashItem = state.find(item => item.index === action.payload.index);
+            if (cashItem) {
+                cashItem.count = action.payload.count;
+            }
+            return state;
+        }
     }
 })
 

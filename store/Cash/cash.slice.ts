@@ -18,7 +18,20 @@ export const cashSlice = createSlice({
         removeCashAccount: (state, action: PayloadAction<{index: number}>) => {
             return state.filter(item => item.index !== action.payload.index)
         },
-        updateCashAccount: (state, action: PayloadAction<{index: number, title?: string, count?: number}>) => {}
+        updateTitleCashAccount: (state, action: PayloadAction<{index: number, title: string}>) => {
+            const cashItem = state.find(item => item.index === action.payload.index);
+            if (cashItem) {
+                cashItem.title = action.payload.title;
+            }
+            return state;
+        },
+        updateCountCashAccount: (state, action: PayloadAction<{index: number, count: number}>) => {
+            const cashItem = state.find(item => item.index === action.payload.index);
+            if (cashItem) {
+                cashItem.count = action.payload.count;
+            }
+            return state;
+        }
     }
 })
 

@@ -9,8 +9,8 @@ export default function Main({navigation}: {navigation: any}) {
 
     return (
         <View style={styles.main}>
-            <Text style={styles.mainText}>Main 2</Text>
-            <Button onPress={() => navigation.navigate("Funds tab")} title="Go to Funds Screen." />
+            <Text style={styles.mainText}>Main</Text>
+            <Button onPress={() => navigation.navigate("Accounts tab")} title="Go to Accounts Screen." />
         </View>
     )
 }

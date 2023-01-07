@@ -1,30 +1,26 @@
 import React from 'react'
-import { View, Text, Pressable, StyleSheet } from 'react-native'
+import { View, Text, StyleSheet } from 'react-native'
 import { Target } from '../../store/types'
 
 import customStyles from '../../styles/projectStyle'
-import Remove from '../../assets/images/remove.svg' 
 import TargetIcon from '../../assets/images/target.svg' 
 
 export default function TargetAccount(target: Target) {
   return (
-    <View style={styles.contentItem}>
-        <View style={styles.leftItemContent}>
+    <View style={styles.contentContainer}>
+        <View style={styles.contentItem}>
             <TargetIcon width={30} height={30} fill="white"/>
             <View>
-                <Text style={[styles.mainText]}>{target.title}</Text>
+                <Text style={[styles.mainText]}>{!target.title ? 'Head title' : target.title}</Text>
                 <Text style={[styles.mainText, styles.subTitle]}>${target.count}</Text>
             </View>
         </View>
-        <Pressable style={[styles.rightContentItem]}>
-            <Remove width={25} height={25} fill="red"/>
-        </Pressable>
     </View>
   ) 
 }
 
 const styles = StyleSheet.create({
-    contentItem: {
+    contentContainer: {
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',
@@ -35,12 +31,9 @@ const styles = StyleSheet.create({
         borderStyle: 'solid',
         borderBottomColor: customStyles.colors.gray
     },
-    leftItemContent: {
+    contentItem: {
         flexDirection: 'row',
-        width: '90%'
-    },
-    rightContentItem: {
-        width: '10%'
+        width: '100%'
     },
     mainText: {
         color: customStyles.colors.white,
