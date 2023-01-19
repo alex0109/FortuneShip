@@ -5,6 +5,7 @@ import {
   MainStackNavigator,
   AnalyticsStackNavigator,
   AccountsStackNavigator,
+  RootStackParamList,
 } from './StackNavigator';
 
 import Main from '../assets/images/moneyIconMain.svg';
@@ -12,24 +13,24 @@ import Analys from '../assets/images/analys.svg';
 import Accounts from '../assets/images/accounts.svg';
 import customStyles from '../styles/local.styles';
 
-const Tab = createBottomTabNavigator();
+const Tab = createBottomTabNavigator<RootStackParamList>();
 
 const BottomTabNavigator = () => {
   return (
     <Tab.Navigator
-      initialRouteName='Main tab'
+      initialRouteName='MainTab'
       screenOptions={({ route }) => ({
         tabBarIcon: ({ focused }) => {
-          if (route.name == 'Main tab') {
+          if (route.name == 'MainTab') {
             return (
               <Main
                 width={30}
                 height={30}
-                fill={focused ? customStyles.colors.info : customStyles.colors.white}
+                fill={focused ? customStyles.colors.info : customStyles.colors.red}
               />
             );
           }
-          if (route.name == 'Accounts tab') {
+          if (route.name == 'AccountsTab') {
             return (
               <Accounts
                 width={30}
@@ -38,7 +39,7 @@ const BottomTabNavigator = () => {
               />
             );
           }
-          if (route.name == 'Analytics tab') {
+          if (route.name == 'AnalyticsTab') {
             return (
               <Analys
                 width={30}
@@ -59,9 +60,9 @@ const BottomTabNavigator = () => {
         tabBarShowLabel: false,
       })}
     >
-      <Tab.Screen name='Accounts tab' component={AccountsStackNavigator} />
-      <Tab.Screen name='Main tab' component={MainStackNavigator} />
-      <Tab.Screen name='Analytics tab' component={AnalyticsStackNavigator} />
+      <Tab.Screen name='AccountsTab' component={AccountsStackNavigator} />
+      <Tab.Screen name='MainTab' component={MainStackNavigator} />
+      <Tab.Screen name='AnalyticsTab' component={AnalyticsStackNavigator} />
     </Tab.Navigator>
   );
 };

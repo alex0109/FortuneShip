@@ -7,7 +7,20 @@ import Analytics from '../Screens/Analytics/Analytics';
 import Registration from '../Screens/Auth/Registration';
 import Login from '../Screens/Auth/Login';
 
-const Stack = createStackNavigator();
+export type RootStackParamList = {
+  MainStack: { name: string };
+  AccountsStack: { name: string };
+  AnalyticssStack: { name: string };
+  RegistrationStack: { name: string };
+  LoginStack: { name: string };
+  MainTab: { name: string };
+  AccountsTab: { name: string };
+  AnalyticsTab: { name: string };
+  RegistrationDrawer: { name: string };
+  LoginDrawer: { name: string };
+};
+
+const Stack = createStackNavigator<RootStackParamList>();
 
 const screenOptionStyle = {
   headerShown: false,
@@ -16,7 +29,7 @@ const screenOptionStyle = {
 const MainStackNavigator = () => {
   return (
     <Stack.Navigator screenOptions={screenOptionStyle}>
-      <Stack.Screen name="Main stack" options={{ title: 'Main' }} component={Main} />
+      <Stack.Screen name='MainStack' options={{ title: 'Main' }} component={Main} />
     </Stack.Navigator>
   );
 };
@@ -24,7 +37,7 @@ const MainStackNavigator = () => {
 const AccountsStackNavigator = () => {
   return (
     <Stack.Navigator screenOptions={screenOptionStyle}>
-      <Stack.Screen name="Accounts stack" options={{ title: 'Accounts' }} component={Accounts} />
+      <Stack.Screen name='AccountsStack' options={{ title: 'Accounts' }} component={Accounts} />
     </Stack.Navigator>
   );
 };
@@ -32,7 +45,7 @@ const AccountsStackNavigator = () => {
 const AnalyticsStackNavigator = () => {
   return (
     <Stack.Navigator screenOptions={screenOptionStyle}>
-      <Stack.Screen name="Analyticss stack" component={Analytics} />
+      <Stack.Screen name='AnalyticssStack' component={Analytics} />
     </Stack.Navigator>
   );
 };
@@ -40,7 +53,7 @@ const AnalyticsStackNavigator = () => {
 const RegistrationStackNavigator = () => {
   return (
     <Stack.Navigator screenOptions={screenOptionStyle}>
-      <Stack.Screen name="Registration stack" component={Registration} />
+      <Stack.Screen name='RegistrationStack' component={Registration} />
     </Stack.Navigator>
   );
 };
@@ -48,7 +61,7 @@ const RegistrationStackNavigator = () => {
 const LoginStackNavigator = () => {
   return (
     <Stack.Navigator screenOptions={screenOptionStyle}>
-      <Stack.Screen name="Login stack" component={Login} />
+      <Stack.Screen name='LoginStack' component={Login} />
     </Stack.Navigator>
   );
 };

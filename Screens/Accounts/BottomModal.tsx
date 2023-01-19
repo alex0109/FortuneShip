@@ -1,5 +1,14 @@
-import React, { useCallback, useEffect, useImperativeHandle } from 'react';
-import { Dimensions, StyleSheet, TextInput, View, Pressable, Keyboard } from 'react-native';
+import React, { forwardRef, useCallback, useImperativeHandle, useRef, useState } from 'react';
+import {
+  Dimensions,
+  StyleSheet,
+  TextInput,
+  Text,
+  View,
+  Pressable,
+  TouchableOpacity,
+} from 'react-native';
+import { ActionCreatorWithPayload } from '@reduxjs/toolkit';
 import { Gesture, GestureDetector } from 'react-native-gesture-handler';
 import Animated, {
   Extrapolate,
@@ -8,18 +17,20 @@ import Animated, {
   useSharedValue,
   withSpring,
 } from 'react-native-reanimated';
-import { Cash, Target } from '../../store/types.js';
+
+import CustomModal, { PopupRefProps } from '../Modal/CustomModal';
 
 import customStyles from '../../styles/local.styles.js';
 import Down from '../../assets/images/remove.svg';
 import Up from '../../assets/images/plus.svg';
 import Trash from '../../assets/images/trash.svg';
-import { ActionCreatorWithPayload } from '@reduxjs/toolkit';
+import { useTypedSelector } from '../../hooks/useTypedSelector';
+import { ICash, ITarget } from '../../store/types';
 
 const { height: SCREEN_HEIGHT } = Dimensions.get('window');
 
 type BottomModalProps = {
-  modalProps: Cash | Target;
+  modalPropID: number;
   removeCashAccount: ActionCreatorWithPayload<{ index: number }, 'cash/removeCashAccount'>;
   updateTitleCashAccount: ActionCreatorWithPayload<
     { index: number; title: string },
@@ -45,10 +56,10 @@ export type BottomModalRefProps = {
   setActive: (active: boolean) => boolean;
 };
 
-const BottomModal = React.forwardRef<BottomModalRefProps, BottomModalProps>(
+const BottomModal = forwardRef<BottomModalRefProps, BottomModalProps>(
   (
     {
-      modalProps,
+      modalPropID,
       removeCashAccount,
       updateTitleCashAccount,
       updateCountCashAccount,
@@ -56,12 +67,38 @@ const BottomModal = React.forwardRef<BottomModalRefProps, BottomModalProps>(
       updateTitleTargetAccount,
       updateCountTargetAccount,
     },
-    ref
+    refModal
   ) => {
-    let MAX_TRANSLATE_Y = -SCREEN_HEIGHT / 1.7;
+    const { cash, targets } = useTypedSelector((state) => state);
+    const [addedCount, setAddedCount] = useState<number>(0);
+
+    const findModalPropByID = (index: number): ICash | ITarget => {
+      let item: ICash | ITarget;
+
+      item = cash.find((item) => item.index === index)!;
+
+      if (item === undefined) {
+        item = targets.find((item) => item.index === index)!;
+      }
+
+      return item;
+    };
+
+    const modalProps = findModalPropByID(modalPropID);
+
     const translationY = useSharedValue(0);
     const context = useSharedValue({ y: 0 });
     let isActive = useSharedValue(false);
+    let MAX_TRANSLATE_Y = -SCREEN_HEIGHT / 1.7;
+
+    const refPopup = useRef<PopupRefProps>(null);
+    const setPopupVisible = useCallback((popupVisible: boolean) => {
+      let setPopupVisible = refPopup.current?.setPopupVisible(popupVisible);
+      if (setPopupVisible) {
+        refPopup.current?.setPopupVisible(popupVisible);
+      }
+    }, []);
+    const popupVisible = refPopup.current?.popupVisible;
 
     const scrollTo = useCallback((destinition: number): void => {
       'worklet';
@@ -80,13 +117,14 @@ const BottomModal = React.forwardRef<BottomModalRefProps, BottomModalProps>(
     }, []);
 
     const countHandleChange = (index: number, newCount: any): void => {
-      newCount = Number(newCount);
       if (modalProps?.specify === 'cash') {
-        updateCountCashAccount({ index: index, count: newCount });
+        updateCountCashAccount({ index: index, count: +newCount });
+        console.log();
       } else if (modalProps?.specify === 'target') {
-        updateCountTargetAccount({ index: index, count: newCount });
+        updateCountTargetAccount({ index: index, count: +newCount });
       }
     };
+
     const titleHandleChange = (index: number, newTitle: string): void => {
       if (modalProps?.specify === 'cash') {
         updateTitleCashAccount({ index: index, title: newTitle });
@@ -95,7 +133,7 @@ const BottomModal = React.forwardRef<BottomModalRefProps, BottomModalProps>(
       }
     };
 
-    const removeModalHandler = (index: number) => {
+    const removeModalHandler = (index: number): void => {
       if (modalProps?.specify === 'cash') {
         removeCashAccount({ index: index });
         scrollTo(0);
@@ -105,7 +143,19 @@ const BottomModal = React.forwardRef<BottomModalRefProps, BottomModalProps>(
       }
     };
 
-    useImperativeHandle(ref, () => ({ scrollTo, setActive }), [scrollTo, setActive]);
+    const addCountHandler = (index: number, count: number): void => {
+      if (modalProps?.specify === 'cash') {
+        updateCountCashAccount({ index: index, count: count + addedCount });
+        setAddedCount(0);
+        setPopupVisible(false);
+      } else if (modalProps?.specify === 'target') {
+        updateCountTargetAccount({ index: index, count: count + addedCount });
+        setAddedCount(0);
+        setPopupVisible(false);
+      }
+    };
+
+    useImperativeHandle(refModal, () => ({ scrollTo, setActive }), [scrollTo, setActive]);
 
     const gesture = Gesture.Pan()
       .onStart(() => {
@@ -114,6 +164,9 @@ const BottomModal = React.forwardRef<BottomModalRefProps, BottomModalProps>(
       .onUpdate((event) => {
         translationY.value = event.translationY + context.value.y;
         translationY.value = Math.max(translationY.value, MAX_TRANSLATE_Y);
+        if (translationY.value > -SCREEN_HEIGHT / 2) {
+          scrollTo(MAX_TRANSLATE_Y);
+        }
       })
       .onEnd(() => {
         if (translationY.value > -SCREEN_HEIGHT / 3) {
@@ -142,9 +195,11 @@ const BottomModal = React.forwardRef<BottomModalRefProps, BottomModalProps>(
             <View style={[styles.modalCountContainer]}>
               <TextInput
                 style={[styles.modalTitle]}
-                defaultValue={!modalProps.title ? 'Head title' : modalProps.title}
+                defaultValue={modalProps.title}
                 onFocus={() => scrollTo(MAX_TRANSLATE_Y)}
-                onChangeText={(input) => titleHandleChange(modalProps.index, input)}
+                onSubmitEditing={({ nativeEvent }) =>
+                  titleHandleChange(modalProps.index, nativeEvent.text)
+                }
                 placeholder='Your title...'
                 placeholderTextColor={customStyles.colors.gray}
               />
@@ -152,7 +207,9 @@ const BottomModal = React.forwardRef<BottomModalRefProps, BottomModalProps>(
                 style={[styles.modalCountText]}
                 defaultValue={`${modalProps.count}`}
                 onFocus={() => scrollTo(MAX_TRANSLATE_Y)}
-                onChangeText={(input) => countHandleChange(modalProps.index, input)}
+                onSubmitEditing={({ nativeEvent }) =>
+                  countHandleChange(modalProps.index, nativeEvent.text)
+                }
                 keyboardType='numeric'
                 placeholder='Your capital...'
                 placeholderTextColor={customStyles.colors.gray}
@@ -161,7 +218,7 @@ const BottomModal = React.forwardRef<BottomModalRefProps, BottomModalProps>(
                 <Pressable onPress={() => removeModalHandler(modalProps.index)}>
                   <Trash width={60} height={60} fill='black' />
                 </Pressable>
-                <Pressable>
+                <Pressable onPress={() => setPopupVisible(true)}>
                   <Up width={60} height={60} fill='green' />
                 </Pressable>
                 <Pressable>
@@ -169,6 +226,29 @@ const BottomModal = React.forwardRef<BottomModalRefProps, BottomModalProps>(
                 </Pressable>
               </View>
             </View>
+            <CustomModal ref={refPopup} visible={popupVisible ? popupVisible : false}>
+              <Text style={[styles.popupTitle]}>How much you want to add?</Text>
+              <View style={[styles.popupContent]}>
+                <TextInput
+                  style={[styles.modalCountText]}
+                  placeholder='Your number...'
+                  placeholderTextColor={customStyles.colors.gray}
+                  keyboardType='numeric'
+                  defaultValue={`${addedCount}`}
+                  onChangeText={(input) => setAddedCount(Number(input))}
+                />
+              </View>
+              <View style={[styles.popupButtonContainer]}>
+                <TouchableOpacity onPress={() => setPopupVisible(false)}>
+                  <Text style={[styles.popupButton]}>Back</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  onPress={() => addCountHandler(modalProps.index, modalProps.count)}
+                >
+                  <Text style={[styles.popupButton]}>Add</Text>
+                </TouchableOpacity>
+              </View>
+            </CustomModal>
           </Animated.View>
         </GestureDetector>
       </React.Fragment>
@@ -189,6 +269,7 @@ const styles = StyleSheet.create({
   modalTitle: {
     justifyContent: 'center',
     textAlign: 'center',
+    width: '100%',
     fontSize: 28,
     color: customStyles.colors.white,
     fontWeight: 'bold',
@@ -207,11 +288,31 @@ const styles = StyleSheet.create({
   },
   modalCountText: {
     textAlign: 'center',
+    minWidth: '40%',
     marginBottom: 25,
     fontSize: 20,
     color: customStyles.colors.white,
     borderBottomWidth: 1,
     borderBottomColor: customStyles.colors.white,
+  },
+  popupButtonContainer: {
+    width: '100%',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  popupTitle: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    color: customStyles.colors.white,
+  },
+  popupContent: {
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  popupButton: {
+    fontSize: 16,
+    color: customStyles.colors.white,
   },
 });
 

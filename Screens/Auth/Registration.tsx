@@ -1,9 +1,21 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { View, Text, TextInput, Pressable, StyleSheet } from 'react-native';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { RootStackParamList } from '../../navigation/StackNavigator';
 
 import colors from '../../styles/local.styles';
 
-const Registration = ({ navigation }: { navigation: any }) => {
+type RegistrationScreenNavigationProp = StackNavigationProp<
+  RootStackParamList,
+  'MainTab',
+  'LoginDrawer'
+>;
+
+type RegistrationScreenProps = {
+  navigation: RegistrationScreenNavigationProp;
+};
+
+const Registration: FC<RegistrationScreenProps> = ({ navigation }) => {
   return (
     <View style={styles.registration}>
       <View style={styles.registrationTitle}>
@@ -32,16 +44,18 @@ const Registration = ({ navigation }: { navigation: any }) => {
         />
       </View>
       <View style={styles.registrationLinks}>
-        <Pressable onPress={() => navigation.navigate('Main tab')}>
+        <Pressable onPress={() => navigation.navigate('MainTab', { name: 'MainTab' })}>
           <Text style={[styles.mainText, styles.h2Text]}>Create account</Text>
         </Pressable>
-        <Pressable onPress={() => navigation.navigate('Login drawer')}>
+        <Pressable onPress={() => navigation.navigate('LoginDrawer', { name: 'LoginDrawer' })}>
           <Text style={[styles.mainText, styles.loginText]}>Login</Text>
         </Pressable>
       </View>
     </View>
   );
 };
+
+export default Registration;
 
 const styles = StyleSheet.create({
   registration: {
@@ -89,5 +103,3 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
 });
-
-export default Registration;

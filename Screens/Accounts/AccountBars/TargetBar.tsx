@@ -1,15 +1,15 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import { Target } from '../../store/types';
+import { ITarget } from '../../../store/types';
 
-import customStyles from '../../styles/local.styles';
-import TargetIcon from '../../assets/images/target.svg';
+import customStyles from '../../../styles/local.styles';
+// import TargetIcon from '../../assets/images/target.svg';
 
-export default function TargetAccount(target: Target) {
+const TargetBar: FC<ITarget> = (target) => {
   return (
     <View style={styles.contentContainer}>
       <View style={styles.contentItem}>
-        <TargetIcon width={30} height={30} fill='white' />
+        {/* <TargetIcon width={30} height={30} fill='white' /> */}
         <View>
           <Text style={[styles.mainText]}>{!target.title ? 'Head title' : target.title}</Text>
           <Text style={[styles.mainText, styles.subTitle]}>${target.count}</Text>
@@ -17,7 +17,9 @@ export default function TargetAccount(target: Target) {
       </View>
     </View>
   );
-}
+};
+
+export default TargetBar;
 
 const styles = StyleSheet.create({
   contentContainer: {

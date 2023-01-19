@@ -1,15 +1,15 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import { Cash } from '../../store/types';
+import { ICash } from '../../../store/types';
 
-import customStyles from '../../styles/local.styles';
-import Money from '../../assets/images/money2.svg';
+import customStyles from '../../../styles/local.styles';
+// import Money from '../../assets/images/money2.svg';
 
-export default function CashAccount(cash: Cash) {
+const CashBar: FC<ICash> = (cash) => {
   return (
     <View style={styles.contentContainer}>
       <View style={styles.contentItem}>
-        <Money width={30} height={30} fill='white' />
+        {/* <Money width={30} height={30} fill='white' /> */}
         <View>
           <Text style={[styles.mainText]}>{!cash.title ? 'Head title' : cash.title}</Text>
           <Text style={[styles.mainText, styles.subTitle]}>${cash.count}</Text>
@@ -17,7 +17,9 @@ export default function CashAccount(cash: Cash) {
       </View>
     </View>
   );
-}
+};
+
+export default CashBar;
 
 const styles = StyleSheet.create({
   contentContainer: {

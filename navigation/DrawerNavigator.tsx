@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { createDrawerNavigator } from '@react-navigation/drawer';
+import { getHeaderTitle } from '@react-navigation/elements';
 
 import { RegistrationStackNavigator, LoginStackNavigator } from './StackNavigator';
 import TabNavigator from './TabNavigator';
@@ -8,15 +9,19 @@ import TabNavigator from './TabNavigator';
 import Dialog from '../assets/images/dialog.svg';
 import User from '../assets/images/user.svg';
 import colors from '../styles/local.styles';
+import AccountsHeader from '../Screens/Accounts/AccountsHeader';
+import { Dimensions, View, Text } from 'react-native';
 
 const Drawer = createDrawerNavigator();
+
+const screenWidth = Dimensions.get('screen').width;
 
 const DrawerNavigator = () => {
   return (
     <Drawer.Navigator
       screenOptions={({ route }) => ({
         drawerIcon: ({ focused }) => {
-          if (route.name == 'Main drawer') {
+          if (route.name == 'MainDrawer') {
             return (
               <Dialog
                 width={30}
@@ -25,7 +30,7 @@ const DrawerNavigator = () => {
               />
             );
           }
-          if (route.name == 'Registration drawer') {
+          if (route.name == 'RegistrationDrawer') {
             return (
               <User
                 width={30}
@@ -34,7 +39,7 @@ const DrawerNavigator = () => {
               />
             );
           }
-          if (route.name == 'Login drawer') {
+          if (route.name == 'LoginDrawer') {
             return (
               <User
                 width={30}
@@ -53,20 +58,44 @@ const DrawerNavigator = () => {
         },
         headerStyle: {
           backgroundColor: colors.colors.blackBar,
+          elevation: 0,
+          shadowOpacity: 0,
         },
         headerTintColor: colors.colors.white,
         swipeEdgeWidth: 50,
       })}
     >
-      <Drawer.Screen name='Main drawer' options={{ title: 'Main' }} component={TabNavigator} />
       <Drawer.Screen
-        name='Registration drawer'
-        options={{ title: 'Registration' }}
+        name='MainDrawer'
+        options={{
+          title: 'Main',
+          headerTitleStyle: {
+            maxWidth: screenWidth,
+          },
+          headerTitle: () => {
+            return <AccountsHeader />;
+          },
+          headerRightContainerStyle: {
+            backgroundColor: 'gray',
+          },
+          headerRight: () => {
+            return (
+              <View style={{ width: screenWidth / 8 }}>
+                <Text>Theme</Text>
+              </View>
+            );
+          },
+        }}
+        component={TabNavigator}
+      />
+      <Drawer.Screen
+        name='RegistrationDrawer'
+        options={{ title: 'Registration', headerTitle: '' }}
         component={RegistrationStackNavigator}
       />
       <Drawer.Screen
-        name='Login drawer'
-        options={{ title: 'Login' }}
+        name='LoginDrawer'
+        options={{ title: 'Login', headerTitle: '' }}
         component={LoginStackNavigator}
       />
     </Drawer.Navigator>

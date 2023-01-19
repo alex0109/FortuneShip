@@ -2,10 +2,10 @@ import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { Cash, CashState } from '../types';
 
 const initialState: CashState = [
-  { index: 1, title: 'Some count', count: 999, specify: 'cash' },
-  { index: 2, title: 'On redux course', count: 13, specify: 'cash' },
-  { index: 3, title: 'On donate Toolkit', count: 89, specify: 'cash' },
-  { index: 4, title: 'TS is good', count: 34, specify: 'cash' },
+  { index: Math.random() * 10000 - 1, title: 'Puss in Boots', count: 999, specify: 'cash' },
+  { index: Math.random() * 10000 - 1, title: 'On redux course', count: 13, specify: 'cash' },
+  { index: Math.random() * 10000 - 1, title: 'On donate Toolkit', count: 89, specify: 'cash' },
+  { index: Math.random() * 10000 - 1, title: 'TS is good', count: 34, specify: 'cash' },
 ];
 
 export const cashSlice = createSlice({

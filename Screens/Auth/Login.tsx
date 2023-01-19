@@ -1,9 +1,21 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { View, Text, TextInput, Button, Pressable, StyleSheet } from 'react-native';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { RootStackParamList } from '../../navigation/StackNavigator';
 
 import customStyles from '../../styles/local.styles';
 
-const Login = ({ navigation }: { navigation: any }) => {
+type LoginScreenNavigationProp = StackNavigationProp<
+  RootStackParamList,
+  'MainTab',
+  'RegistrationDrawer'
+>;
+
+type LoginScreenProps = {
+  navigation: LoginScreenNavigationProp;
+};
+
+const Login: FC<LoginScreenProps> = ({ navigation }) => {
   return (
     <View style={styles.registration}>
       <View style={styles.registrationTitle}>
@@ -22,10 +34,12 @@ const Login = ({ navigation }: { navigation: any }) => {
         />
       </View>
       <View style={styles.registrationLinks}>
-        <Pressable onPress={() => navigation.navigate('Main tab')}>
+        <Pressable onPress={() => navigation.navigate('MainTab', { name: 'MainTab' })}>
           <Text style={[styles.mainText, styles.h2Text]}>Login</Text>
         </Pressable>
-        <Pressable onPress={() => navigation.navigate('Registration drawer')}>
+        <Pressable
+          onPress={() => navigation.navigate('RegistrationDrawer', { name: 'RegistrationDrawer' })}
+        >
           <Text style={[styles.mainText, styles.loginText]}>Create account</Text>
         </Pressable>
       </View>
