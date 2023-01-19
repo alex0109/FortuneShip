@@ -1,45 +1,44 @@
-import React from 'react'
-import { StyleSheet, View } from 'react-native';
+import React from 'react';
+import { StyleSheet } from 'react-native';
+import { Provider } from 'react-redux';
 import { useFonts } from 'expo-font';
-// import Swiper from 'react-native-swiper';
-import { NavigationContainer } from "@react-navigation/native";
+import { NavigationContainer } from '@react-navigation/native';
 
-import DrawerNavigator from "./navigation/DrawerNavigator";
-import BottomTabNavigator from "./navigation/TabNavigator";
+import { store } from './store/store';
 
-import projectStyle from './styles/projectStyle';
-import Registration from './Screens/Auth/Registration';
+import DrawerNavigator from './navigation/DrawerNavigator';
 
-export default function App(){
+import customStyles from './styles/local.styles';
 
-    const [loaded] = useFonts({
-        Assistant: require('./assets/fonts/Assistant-Regular.ttf') 
-    });
+export default function App() {
+  const [loaded] = useFonts({
+    Assistant: require('./assets/fonts/Assistant-Regular.ttf'),
+  });
 
-    if (!loaded) {
-        return null;
-    }
+  if (!loaded) {
+    return null;
+  }
 
-    return (
-      <React.Fragment>
-        <NavigationContainer>
-          <DrawerNavigator />
-        </NavigationContainer>
-      </React.Fragment>
-    )
+  return (
+    <Provider store={store}>
+      <NavigationContainer>
+        <DrawerNavigator />
+      </NavigationContainer>
+    </Provider>
+  );
 }
 
 const styles = StyleSheet.create({
   main: {
-    backgroundColor: projectStyle.colors.blackMain,
+    backgroundColor: customStyles.colors.blackMain,
     alignItems: 'center',
     justifyContent: 'center',
-    flex: 10
+    flex: 10,
   },
   mainText: {
-    color: projectStyle.colors.white
+    color: customStyles.colors.white,
   },
   swiper: {
-    flex: 1
-  }
-})
+    flex: 1,
+  },
+});
