@@ -50,5 +50,8 @@ const styles = StyleSheet.create({
     fontFamily: 'Assistant',
     fontWeight: '900',
   },
+  test : {
+    color:'black',
+    
+  }
 });
-let h = "hui";
