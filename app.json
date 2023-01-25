@@ -2,6 +2,7 @@
   "expo": {
     "name": "Fortune Ship",
     "slug": "fortune-ship",
+    "owner": "arios-company",
     "privacy": "public",
     "description": "simple desc",
     "version": "1.0.0",
