@@ -1,13 +1,13 @@
 import React from 'react';
 
 import { createDrawerNavigator } from '@react-navigation/drawer';
-import { getHeaderTitle } from '@react-navigation/elements';
+
 
 import { RegistrationStackNavigator, LoginStackNavigator } from './StackNavigator';
 import TabNavigator from './TabNavigator';
-
-import Dialog from '../assets/images/dialog.svg';
 import User from '../assets/images/user.svg';
+import Login from '../assets/images/login.svg';
+import Logout from '../assets/images/logout.svg';
 import colors from '../styles/local.styles';
 import AccountsHeader from '../Screens/Accounts/AccountsHeader';
 import { Dimensions, View, Text } from 'react-native';
@@ -23,7 +23,7 @@ const DrawerNavigator = () => {
         drawerIcon: ({ focused }) => {
           if (route.name == 'MainDrawer') {
             return (
-              <Dialog
+              <User
                 width={30}
                 height={30}
                 fill={focused ? colors.colors.info : colors.colors.white}
@@ -32,7 +32,7 @@ const DrawerNavigator = () => {
           }
           if (route.name == 'RegistrationDrawer') {
             return (
-              <User
+              <Logout
                 width={30}
                 height={30}
                 fill={focused ? colors.colors.info : colors.colors.white}
@@ -41,7 +41,7 @@ const DrawerNavigator = () => {
           }
           if (route.name == 'LoginDrawer') {
             return (
-              <User
+              <Login
                 width={30}
                 height={30}
                 fill={focused ? colors.colors.info : colors.colors.white}
@@ -68,7 +68,7 @@ const DrawerNavigator = () => {
       <Drawer.Screen
         name='MainDrawer'
         options={{
-          title: 'Main',
+          title: 'Account',
           headerTitleStyle: {
             maxWidth: screenWidth,
           },
@@ -90,7 +90,7 @@ const DrawerNavigator = () => {
       />
       <Drawer.Screen
         name='RegistrationDrawer'
-        options={{ title: 'Registration', headerTitle: '' }}
+        options={{ title: 'Logout', headerTitle: '' }}
         component={RegistrationStackNavigator}
       />
       <Drawer.Screen
