@@ -1,16 +1,12 @@
 import React, { useState } from 'react';
 
 import { createDrawerNavigator } from '@react-navigation/drawer';
-import { EventRegister } from 'react-native-event-listeners';
+import { getHeaderTitle } from '@react-navigation/elements';
 
 import { RegistrationStackNavigator, LoginStackNavigator } from './StackNavigator';
 import TabNavigator from './TabNavigator';
-
-import Dialog from '../assets/images/dialog.svg';
 import User from '../assets/images/user.svg';
-import LightTheme from '../assets/images/lightButton.svg';
-
-import { colors } from '../styles/local.style';
+import colors from '../styles/local.styles';
 import AccountsHeader from '../Screens/Accounts/AccountsHeader';
 import { Dimensions, View, Text } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
@@ -26,13 +22,31 @@ const DrawerNavigator = () => {
       screenOptions={({ route }) => ({
         drawerIcon: ({ focused }) => {
           if (route.name == 'MainDrawer') {
-            return <Dialog width={30} height={30} fill={focused ? colors.info : colors.white} />;
+            return (
+              <Dialog
+                width={30}
+                height={30}
+                fill={focused ? colors.colors.info : colors.colors.white}
+              />
+            );
           }
           if (route.name == 'RegistrationDrawer') {
-            return <User width={30} height={30} fill={focused ? colors.info : colors.white} />;
+            return (
+              <User
+                width={30}
+                height={30}
+                fill={focused ? colors.colors.info : colors.colors.white}
+              />
+            );
           }
           if (route.name == 'LoginDrawer') {
-            return <User width={30} height={30} fill={focused ? colors.info : colors.white} />;
+            return (
+              <User
+                width={30}
+                height={30}
+                fill={focused ? colors.colors.info : colors.colors.white}
+              />
+            );
           }
         },
         drawerStyle: {},
@@ -54,7 +68,7 @@ const DrawerNavigator = () => {
       <Drawer.Screen
         name='MainDrawer'
         options={{
-          title: 'Main',
+          title: 'Account',
           headerTitleStyle: {
             maxWidth: screenWidth,
           },
@@ -81,7 +95,7 @@ const DrawerNavigator = () => {
       />
       <Drawer.Screen
         name='RegistrationDrawer'
-        options={{ title: 'Registration', headerTitle: '' }}
+        options={{ title: 'Logout', headerTitle: '' }}
         component={RegistrationStackNavigator}
       />
       <Drawer.Screen
