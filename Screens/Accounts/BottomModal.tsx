@@ -1,4 +1,11 @@
-import React, { forwardRef, useCallback, useImperativeHandle, useRef, useState } from 'react';
+import React, {
+  forwardRef,
+  useCallback,
+  useContext,
+  useImperativeHandle,
+  useRef,
+  useState,
+} from 'react';
 import {
   Dimensions,
   StyleSheet,
@@ -20,12 +27,15 @@ import Animated, {
 
 import CustomModal, { PopupRefProps } from '../Modal/CustomModal';
 
-import customStyles from '../../styles/local.styles.js';
+import { colors } from '../../styles/local.style.js';
 import Down from '../../assets/images/remove.svg';
 import Up from '../../assets/images/plus.svg';
 import Trash from '../../assets/images/trash.svg';
+
 import { useTypedSelector } from '../../hooks/useTypedSelector';
 import { ICash, ITarget } from '../../store/types';
+import themeContext from '../../config/themeContext';
+import { styles } from './account.style';
 
 const { height: SCREEN_HEIGHT } = Dimensions.get('window');
 
@@ -71,14 +81,24 @@ const BottomModal = forwardRef<BottomModalRefProps, BottomModalProps>(
   ) => {
     const { cash, targets } = useTypedSelector((state) => state);
     const [addedCount, setAddedCount] = useState<number>(0);
+    const theme = useContext<{ backgroundColor?: string; color?: string }>(themeContext);
 
     const findModalPropByID = (index: number): ICash | ITarget => {
-      let item: ICash | ITarget;
+      let item: ICash | ITarget | undefined;
 
-      item = cash.find((item) => item.index === index)!;
+      item = cash.find((item) => item.index === index);
 
       if (item === undefined) {
-        item = targets.find((item) => item.index === index)!;
+        item = targets.find((item) => item.index === index);
+      }
+
+      if (item === undefined) {
+        return (item = {
+          title: '',
+          count: 0,
+          index: 0,
+          specify: 'cash',
+        });
       }
 
       return item;
@@ -133,13 +153,13 @@ const BottomModal = forwardRef<BottomModalRefProps, BottomModalProps>(
       }
     };
 
-    const removeModalHandler = (index: number): void => {
+    const removeCountHandler = (index: number): void => {
       if (modalProps?.specify === 'cash') {
+        scrollTo(0);
         removeCashAccount({ index: index });
-        scrollTo(0);
       } else if (modalProps?.specify === 'target') {
-        removeTargetAccount({ index: index });
         scrollTo(0);
+        removeTargetAccount({ index: index });
       }
     };
 
@@ -191,20 +211,29 @@ const BottomModal = forwardRef<BottomModalRefProps, BottomModalProps>(
     return (
       <React.Fragment>
         <GestureDetector gesture={gesture}>
-          <Animated.View style={[styles.bottomModalContainer, rBottomModalStyle]}>
+          <Animated.View
+            style={[
+              styles.modalContainer,
+              rBottomModalStyle,
+              { backgroundColor: theme.backgroundColor, borderTopColor: theme.color },
+            ]}
+          >
             <View style={[styles.modalCountContainer]}>
               <TextInput
-                style={[styles.modalTitle]}
+                style={[styles.modalTitle, { color: theme.color }]}
                 defaultValue={modalProps.title}
                 onFocus={() => scrollTo(MAX_TRANSLATE_Y)}
                 onSubmitEditing={({ nativeEvent }) =>
                   titleHandleChange(modalProps.index, nativeEvent.text)
                 }
                 placeholder='Your title...'
-                placeholderTextColor={customStyles.colors.gray}
+                placeholderTextColor={colors.gray}
               />
               <TextInput
-                style={[styles.modalCountText]}
+                style={[
+                  styles.modalCountText,
+                  { color: theme.color, borderBottomColor: theme.color },
+                ]}
                 defaultValue={`${modalProps.count}`}
                 onFocus={() => scrollTo(MAX_TRANSLATE_Y)}
                 onSubmitEditing={({ nativeEvent }) =>
@@ -212,10 +241,10 @@ const BottomModal = forwardRef<BottomModalRefProps, BottomModalProps>(
                 }
                 keyboardType='numeric'
                 placeholder='Your capital...'
-                placeholderTextColor={customStyles.colors.gray}
+                placeholderTextColor={colors.gray}
               />
               <View style={[styles.modalButtonsContainer]}>
-                <Pressable onPress={() => removeModalHandler(modalProps.index)}>
+                <Pressable onPress={() => removeCountHandler(modalProps.index)}>
                   <Trash width={60} height={60} fill='black' />
                 </Pressable>
                 <Pressable onPress={() => setPopupVisible(true)}>
@@ -227,25 +256,30 @@ const BottomModal = forwardRef<BottomModalRefProps, BottomModalProps>(
               </View>
             </View>
             <CustomModal ref={refPopup} visible={popupVisible ? popupVisible : false}>
-              <Text style={[styles.popupTitle]}>How much you want to add?</Text>
-              <View style={[styles.popupContent]}>
+              <Text style={[styles.modalPopUpTitle, { color: theme.color }]}>
+                How much you want to add?
+              </Text>
+              <View style={[styles.modalPopUpContent]}>
                 <TextInput
-                  style={[styles.modalCountText]}
+                  style={[
+                    styles.modalCountText,
+                    { color: theme.color, borderBottomColor: theme.color },
+                  ]}
                   placeholder='Your number...'
-                  placeholderTextColor={customStyles.colors.gray}
+                  placeholderTextColor={colors.gray}
                   keyboardType='numeric'
                   defaultValue={`${addedCount}`}
                   onChangeText={(input) => setAddedCount(Number(input))}
                 />
               </View>
-              <View style={[styles.popupButtonContainer]}>
+              <View style={[styles.modalPopUpButtonContainer]}>
                 <TouchableOpacity onPress={() => setPopupVisible(false)}>
-                  <Text style={[styles.popupButton]}>Back</Text>
+                  <Text style={[styles.modalPopUpButton, { color: theme.color }]}>Back</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
                   onPress={() => addCountHandler(modalProps.index, modalProps.count)}
                 >
-                  <Text style={[styles.popupButton]}>Add</Text>
+                  <Text style={[styles.modalPopUpButton, { color: theme.color }]}>Add</Text>
                 </TouchableOpacity>
               </View>
             </CustomModal>
@@ -256,64 +290,58 @@ const BottomModal = forwardRef<BottomModalRefProps, BottomModalProps>(
   }
 );
 
-const styles = StyleSheet.create({
-  bottomModalContainer: {
-    height: SCREEN_HEIGHT,
-    width: '100%',
-    backgroundColor: customStyles.colors.blackBar,
-    position: 'absolute',
-    top: SCREEN_HEIGHT,
-    borderRadius: 25,
-    padding: 15,
-  },
-  modalTitle: {
-    justifyContent: 'center',
-    textAlign: 'center',
-    width: '100%',
-    fontSize: 28,
-    color: customStyles.colors.white,
-    fontWeight: 'bold',
-  },
-  modalCountContainer: {
-    height: '40%',
-    width: '100%',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-  },
-  modalButtonsContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'flex-end',
-    width: '100%',
-  },
-  modalCountText: {
-    textAlign: 'center',
-    minWidth: '40%',
-    marginBottom: 25,
-    fontSize: 20,
-    color: customStyles.colors.white,
-    borderBottomWidth: 1,
-    borderBottomColor: customStyles.colors.white,
-  },
-  popupButtonContainer: {
-    width: '100%',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
-  popupTitle: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    textAlign: 'center',
-    color: customStyles.colors.white,
-  },
-  popupContent: {
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  popupButton: {
-    fontSize: 16,
-    color: customStyles.colors.white,
-  },
-});
+// const styles = StyleSheet.create({
+//   bottomModalContainer: {
+//     height: SCREEN_HEIGHT,
+//     width: '100%',
+//     position: 'absolute',
+//     top: SCREEN_HEIGHT,
+//     borderRadius: 25,
+//     padding: 15,
+//   },
+//   modalTitle: {
+//     justifyContent: 'center',
+//     textAlign: 'center',
+//     width: '100%',
+//     fontSize: 28,
+//     fontWeight: 'bold',
+//   },
+//   modalCountContainer: {
+//     height: '40%',
+//     width: '100%',
+//     justifyContent: 'space-between',
+//     alignItems: 'center',
+//   },
+//   modalButtonsContainer: {
+//     flexDirection: 'row',
+//     justifyContent: 'space-between',
+//     alignItems: 'flex-end',
+//     width: '100%',
+//   },
+//   modalCountText: {
+//     textAlign: 'center',
+//     minWidth: '40%',
+//     marginBottom: 25,
+//     fontSize: 20,
+//     borderBottomWidth: 1,
+//   },
+//   popupButtonContainer: {
+//     width: '100%',
+//     flexDirection: 'row',
+//     justifyContent: 'space-between',
+//   },
+//   popupTitle: {
+//     fontSize: 16,
+//     fontWeight: 'bold',
+//     textAlign: 'center',
+//   },
+//   popupContent: {
+//     justifyContent: 'center',
+//     alignItems: 'center',
+//   },
+//   popupButton: {
+//     fontSize: 16,
+//   },
+// });
 
 export default BottomModal;

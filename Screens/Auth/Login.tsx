@@ -1,9 +1,11 @@
-import React, { FC } from 'react';
+import React, { FC, useContext } from 'react';
 import { View, Text, TextInput, Button, Pressable, StyleSheet } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from '../../navigation/StackNavigator';
 
-import customStyles from '../../styles/local.styles';
+import themeContext from '../../config/themeContext';
+import { colors } from '../../styles/local.style';
+import { styles } from './auth.style';
 
 type LoginScreenNavigationProp = StackNavigationProp<
   RootStackParamList,
@@ -16,82 +18,43 @@ type LoginScreenProps = {
 };
 
 const Login: FC<LoginScreenProps> = ({ navigation }) => {
+  const theme = useContext<{ backgroundColor?: string; color?: string }>(themeContext);
+
   return (
-    <View style={styles.registration}>
-      <View style={styles.registrationTitle}>
-        <Text style={[styles.mainText, styles.title]}>Login</Text>
+    <View style={[styles.registration, { backgroundColor: theme.backgroundColor }]}>
+      <View style={[styles.registrationTitle]}>
+        <Text style={[styles.title, { color: theme.color }]}>Login</Text>
       </View>
-      <View style={styles.registrationBox}>
+      <View style={[styles.registrationBox]}>
         <TextInput
-          style={[styles.mainText, styles.registrationBoxItem]}
+          style={[
+            styles.registrationBoxItem,
+            { color: theme.color, borderBottomColor: theme.color },
+          ]}
           placeholder='Email'
-          placeholderTextColor={customStyles.colors.gray}
+          placeholderTextColor={colors.gray}
         />
         <TextInput
-          style={[styles.mainText, styles.registrationBoxItem]}
+          style={[
+            styles.registrationBoxItem,
+            { color: theme.color, borderBottomColor: theme.color },
+          ]}
           placeholder='Password'
-          placeholderTextColor={customStyles.colors.gray}
+          placeholderTextColor={colors.gray}
         />
       </View>
       <View style={styles.registrationLinks}>
         <Pressable onPress={() => navigation.navigate('MainTab', { name: 'MainTab' })}>
-          <Text style={[styles.mainText, styles.h2Text]}>Login</Text>
+          <Text style={[styles.h2Text, { color: theme.color }]}>Login</Text>
         </Pressable>
         <Pressable
           onPress={() => navigation.navigate('RegistrationDrawer', { name: 'RegistrationDrawer' })}
         >
-          <Text style={[styles.mainText, styles.loginText]}>Create account</Text>
+          <Text style={[styles.loginText, { color: theme.color }]}>Create account</Text>
         </Pressable>
       </View>
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  registration: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: customStyles.colors.blackMain,
-  },
-  registrationTitle: {
-    flex: 1,
-    justifyContent: 'flex-end',
-    alignItems: 'center',
-  },
-  registrationBox: {
-    flex: 1,
-    width: '40%',
-    justifyContent: 'center',
-  },
-  registrationBoxItem: {
-    fontSize: 18,
-    tintColor: customStyles.colors.gray,
-    marginBottom: 15,
-    borderBottomWidth: 1,
-    borderBottomColor: customStyles.colors.white,
-  },
-  registrationLinks: {
-    flex: 1,
-  },
-  mainText: {
-    color: customStyles.colors.white,
-    fontFamily: 'Assistant',
-  },
-  title: {
-    fontSize: 35,
-    fontWeight: '800',
-  },
-  h2Text: {
-    fontSize: 20,
-    marginBottom: 30,
-    fontWeight: '400',
-    textAlign: 'center',
-  },
-  loginText: {
-    fontSize: 16,
-    textAlign: 'center',
-  },
-});
 
 export default Login;

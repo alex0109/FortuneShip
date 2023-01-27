@@ -1,67 +1,53 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { createDrawerNavigator } from '@react-navigation/drawer';
-import { getHeaderTitle } from '@react-navigation/elements';
+import { EventRegister } from 'react-native-event-listeners';
 
 import { RegistrationStackNavigator, LoginStackNavigator } from './StackNavigator';
 import TabNavigator from './TabNavigator';
 
 import Dialog from '../assets/images/dialog.svg';
 import User from '../assets/images/user.svg';
-import colors from '../styles/local.styles';
+import LightTheme from '../assets/images/lightButton.svg';
+
+import { colors } from '../styles/local.style';
 import AccountsHeader from '../Screens/Accounts/AccountsHeader';
 import { Dimensions, View, Text } from 'react-native';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 const Drawer = createDrawerNavigator();
 
 const screenWidth = Dimensions.get('screen').width;
 
 const DrawerNavigator = () => {
+  const [mode, setMode] = useState(true);
   return (
     <Drawer.Navigator
       screenOptions={({ route }) => ({
         drawerIcon: ({ focused }) => {
           if (route.name == 'MainDrawer') {
-            return (
-              <Dialog
-                width={30}
-                height={30}
-                fill={focused ? colors.colors.info : colors.colors.white}
-              />
-            );
+            return <Dialog width={30} height={30} fill={focused ? colors.info : colors.white} />;
           }
           if (route.name == 'RegistrationDrawer') {
-            return (
-              <User
-                width={30}
-                height={30}
-                fill={focused ? colors.colors.info : colors.colors.white}
-              />
-            );
+            return <User width={30} height={30} fill={focused ? colors.info : colors.white} />;
           }
           if (route.name == 'LoginDrawer') {
-            return (
-              <User
-                width={30}
-                height={30}
-                fill={focused ? colors.colors.info : colors.colors.white}
-              />
-            );
+            return <User width={30} height={30} fill={focused ? colors.info : colors.white} />;
           }
         },
         drawerStyle: {},
         drawerLabelStyle: {
-          color: colors.colors.white,
+          color: colors.white,
         },
         drawerContentStyle: {
-          backgroundColor: colors.colors.blackBar,
+          backgroundColor: colors.blackBar,
         },
         headerStyle: {
-          backgroundColor: colors.colors.blackBar,
+          backgroundColor: colors.blackBar,
           elevation: 0,
           shadowOpacity: 0,
         },
-        headerTintColor: colors.colors.white,
+        headerTintColor: colors.white,
         swipeEdgeWidth: 50,
       })}
     >
@@ -75,13 +61,18 @@ const DrawerNavigator = () => {
           headerTitle: () => {
             return <AccountsHeader />;
           },
-          headerRightContainerStyle: {
-            backgroundColor: 'gray',
-          },
+          headerRightContainerStyle: {},
           headerRight: () => {
             return (
               <View style={{ width: screenWidth / 8 }}>
-                <Text>Theme</Text>
+                <TouchableOpacity
+                  onPress={() => {
+                    setMode(!mode);
+                    EventRegister.emit('changeTheme', mode);
+                  }}
+                >
+                  <LightTheme width={30} height={30} fill={colors.white} />
+                </TouchableOpacity>
               </View>
             );
           },

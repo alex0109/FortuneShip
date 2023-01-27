@@ -1,9 +1,10 @@
-import React, { FC } from 'react';
+import React, { FC, useContext } from 'react';
 
-import { StyleSheet, View, Text, Button } from 'react-native';
+import { View, Text, Button } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
 
-import customStyles from '../../styles/local.styles';
+import themeContext from '../../config/themeContext';
+import { styles } from './main.style.js';
 import { RootStackParamList } from '../../navigation/StackNavigator';
 
 type MainScreenNavigationProp = StackNavigationProp<
@@ -17,9 +18,10 @@ type MainScreenProps = {
 };
 
 const Main: FC<MainScreenProps> = ({ navigation }) => {
+  const theme = useContext<{ backgroundColor?: string; color?: string }>(themeContext);
   return (
-    <View style={styles.main}>
-      <Text style={styles.mainText}>Main</Text>
+    <View style={[styles.main, { backgroundColor: theme.backgroundColor }]}>
+      <Text style={[styles.mainText, { color: theme.color }]}>Main</Text>
       <Button
         onPress={() => navigation.navigate('AccountsTab', { name: 'AccountsTab' })}
         title='Go to Accounts Screen.'
@@ -33,25 +35,3 @@ const Main: FC<MainScreenProps> = ({ navigation }) => {
 };
 
 export default Main;
-
-const styles = StyleSheet.create({
-  main: {
-    backgroundColor: customStyles.colors.blackMain,
-    alignItems: 'center',
-    justifyContent: 'center',
-    flex: 10,
-  },
-  mainText: {
-    color: customStyles.colors.white,
-    fontFamily: 'Assistant',
-  },
-  testText: {
-    color: customStyles.colors.white,
-    fontFamily: 'Assistant',
-    fontWeight: '900',
-  },
-  test : {
-    color:'black',
-    
-  }
-});
