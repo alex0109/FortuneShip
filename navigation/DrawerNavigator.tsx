@@ -1,15 +1,17 @@
 import React, { useState } from 'react';
 
 import { createDrawerNavigator } from '@react-navigation/drawer';
-import { getHeaderTitle } from '@react-navigation/elements';
 
 import { RegistrationStackNavigator, LoginStackNavigator } from './StackNavigator';
 import TabNavigator from './TabNavigator';
 import User from '../assets/images/user.svg';
-import colors from '../styles/local.styles';
+import { colors } from '../styles/local.style';
 import AccountsHeader from '../Screens/Accounts/AccountsHeader';
 import { Dimensions, View, Text } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import { EventRegister } from 'react-native-event-listeners';
+import LightTheme from '../assets/images/lightButton.svg';
+import Dialog from '../assets/images/eye.svg';
 
 const Drawer = createDrawerNavigator();
 
@@ -22,31 +24,13 @@ const DrawerNavigator = () => {
       screenOptions={({ route }) => ({
         drawerIcon: ({ focused }) => {
           if (route.name == 'MainDrawer') {
-            return (
-              <Dialog
-                width={30}
-                height={30}
-                fill={focused ? colors.colors.info : colors.colors.white}
-              />
-            );
+            return <Dialog width={30} height={30} fill={focused ? colors.info : colors.white} />;
           }
           if (route.name == 'RegistrationDrawer') {
-            return (
-              <User
-                width={30}
-                height={30}
-                fill={focused ? colors.colors.info : colors.colors.white}
-              />
-            );
+            return <User width={30} height={30} fill={focused ? colors.info : colors.white} />;
           }
           if (route.name == 'LoginDrawer') {
-            return (
-              <User
-                width={30}
-                height={30}
-                fill={focused ? colors.colors.info : colors.colors.white}
-              />
-            );
+            return <User width={30} height={30} fill={focused ? colors.info : colors.white} />;
           }
         },
         drawerStyle: {},
