@@ -2,7 +2,7 @@ import { View, Text, StatusBar, StyleSheet, Dimensions } from 'react-native';
 import React, { FC } from 'react';
 import { useTypedSelector } from '../../hooks/useTypedSelector';
 
-import customStyles from '../../styles/local.styles.js';
+import { colors } from '../../styles/local.style.js';
 
 const windowWidth = Dimensions.get('window').width;
 
@@ -12,7 +12,7 @@ const AccountsHeader: FC = () => {
   return (
     <View style={[styles.headerContainer]}>
       <StatusBar />
-      <Text style={{ color: customStyles.colors.white }}>
+      <Text style={{ color: colors.white }}>
         All - {cash.reduce((pre, c) => pre + c.count, 0)}$
       </Text>
     </View>

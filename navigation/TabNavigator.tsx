@@ -11,7 +11,7 @@ import {
 import Main from '../assets/images/moneyIconMain.svg';
 import Analys from '../assets/images/analys.svg';
 import Accounts from '../assets/images/accounts.svg';
-import customStyles from '../styles/local.styles';
+import { colors } from '../styles/local.style';
 
 const Tab = createBottomTabNavigator<RootStackParamList>();
 
@@ -22,39 +22,21 @@ const BottomTabNavigator = () => {
       screenOptions={({ route }) => ({
         tabBarIcon: ({ focused }) => {
           if (route.name == 'MainTab') {
-            return (
-              <Main
-                width={30}
-                height={30}
-                fill={focused ? customStyles.colors.info : customStyles.colors.red}
-              />
-            );
+            return <Main width={30} height={30} fill={focused ? colors.info : colors.red} />;
           }
           if (route.name == 'AccountsTab') {
-            return (
-              <Accounts
-                width={30}
-                height={30}
-                fill={focused ? customStyles.colors.info : customStyles.colors.white}
-              />
-            );
+            return <Accounts width={30} height={30} fill={focused ? colors.info : colors.white} />;
           }
           if (route.name == 'AnalyticsTab') {
-            return (
-              <Analys
-                width={30}
-                height={40}
-                fill={focused ? customStyles.colors.info : customStyles.colors.white}
-              />
-            );
+            return <Analys width={30} height={40} fill={focused ? colors.info : colors.white} />;
           }
         },
         tabBarStyle: {
-          backgroundColor: customStyles.colors.blackBar,
+          backgroundColor: colors.blackBar,
           borderTopWidth: 0,
         },
         tabBarHideOnKeyboard: true,
-        tabBarActiveTintColor: customStyles.colors.warning,
+        tabBarActiveTintColor: colors.warning,
         tabBarInactiveTintColor: 'white',
         headerShown: false,
         tabBarShowLabel: false,

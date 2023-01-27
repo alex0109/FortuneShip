@@ -1,34 +1,18 @@
-import React, { FC } from 'react';
+import React, { FC, useContext } from 'react';
 
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, View, Text, Alert } from 'react-native';
+import { View, Text } from 'react-native';
 
-import customStyles from '../../styles/local.styles';
+import { styles } from './analytics.style';
+import themeContext from '../../config/themeContext';
 
 const Analytics: FC = () => {
+  const theme = useContext<{ backgroundColor?: string; color?: string }>(themeContext);
+
   return (
-    <View style={styles.main}>
-      <Text style={styles.mainText}>Analytics 3</Text>
+    <View style={[styles.main, { backgroundColor: theme.backgroundColor }]}>
+      <Text style={[{ color: theme.color }]}>Analytics 3</Text>
     </View>
   );
 };
 
 export default Analytics;
-
-const styles = StyleSheet.create({
-  main: {
-    backgroundColor: customStyles.colors.blackMain,
-    alignItems: 'center',
-    justifyContent: 'center',
-    flex: 10,
-  },
-  mainText: {
-    color: customStyles.colors.white,
-    fontFamily: 'Assistant',
-  },
-  testText: {
-    color: customStyles.colors.white,
-    fontFamily: 'Assistant',
-    fontWeight: '900',
-  },
-});
