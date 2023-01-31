@@ -6,15 +6,7 @@ import React, {
   useRef,
   useState,
 } from 'react';
-import {
-  Dimensions,
-  StyleSheet,
-  TextInput,
-  Text,
-  View,
-  Pressable,
-  TouchableOpacity,
-} from 'react-native';
+import { Dimensions, TextInput, Text, View, Pressable, TouchableOpacity } from 'react-native';
 import { ActionCreatorWithPayload } from '@reduxjs/toolkit';
 import { Gesture, GestureDetector } from 'react-native-gesture-handler';
 import Animated, {
@@ -25,17 +17,17 @@ import Animated, {
   withSpring,
 } from 'react-native-reanimated';
 
-import CustomModal, { PopupRefProps } from '../../app/shared/ui/Modal/Modal';
+import CustomModal, { PopupRefProps } from '../../../../shared/ui/Modal/Modal';
 
-import { colors } from '../../styles/local.style.js';
-import Down from '../../assets/images/remove.svg';
-import Up from '../../assets/images/plus.svg';
-import Trash from '../../assets/images/trash.svg';
+import { colors } from '../../../../shared/assets/styles/local.style';
+import Down from '../../../../shared/assets/images/remove.svg';
+import Up from '../../../../shared/assets/images/plus.svg';
+import Trash from '../../../../shared/assets/images/trash.svg';
 
-import { useTypedSelector } from '../../hooks/useTypedSelector';
-import { ICash, ITarget } from '../../store/types';
-import themeContext from '../../config/themeContext';
-import { styles } from './account.style';
+import { useTypedSelector } from '../../../../shared/lib/hooks/useTypedSelector';
+import { ICash, ITarget } from '../../lib/types/interface';
+import themeContext from '../../../../shared/lib/context/themeContext';
+import { styles } from './AccountBottomModal.styles';
 
 const { height: SCREEN_HEIGHT } = Dimensions.get('window');
 
@@ -86,10 +78,10 @@ const BottomModal = forwardRef<BottomModalRefProps, BottomModalProps>(
     const findModalPropByID = (index: number): ICash | ITarget => {
       let item: ICash | ITarget | undefined;
 
-      item = cash.find((item) => item.index === index);
+      item = cash.find((item: ICash | ITarget) => item.index === index);
 
       if (item === undefined) {
-        item = targets.find((item) => item.index === index);
+        item = targets.find((item: ICash | ITarget) => item.index === index);
       }
 
       if (item === undefined) {
@@ -287,59 +279,5 @@ const BottomModal = forwardRef<BottomModalRefProps, BottomModalProps>(
     );
   }
 );
-
-// const styles = StyleSheet.create({
-//   bottomModalContainer: {
-//     height: SCREEN_HEIGHT,
-//     width: '100%',
-//     position: 'absolute',
-//     top: SCREEN_HEIGHT,
-//     borderRadius: 25,
-//     padding: 15,
-//   },
-//   modalTitle: {
-//     justifyContent: 'center',
-//     textAlign: 'center',
-//     width: '100%',
-//     fontSize: 28,
-//     fontWeight: 'bold',
-//   },
-//   modalCountContainer: {
-//     height: '40%',
-//     width: '100%',
-//     justifyContent: 'space-between',
-//     alignItems: 'center',
-//   },
-//   modalButtonsContainer: {
-//     flexDirection: 'row',
-//     justifyContent: 'space-between',
-//     alignItems: 'flex-end',
-//     width: '100%',
-//   },
-//   modalCountText: {
-//     textAlign: 'center',
-//     minWidth: '40%',
-//     marginBottom: 25,
-//     fontSize: 20,
-//     borderBottomWidth: 1,
-//   },
-//   popupButtonContainer: {
-//     width: '100%',
-//     flexDirection: 'row',
-//     justifyContent: 'space-between',
-//   },
-//   popupTitle: {
-//     fontSize: 16,
-//     fontWeight: 'bold',
-//     textAlign: 'center',
-//   },
-//   popupContent: {
-//     justifyContent: 'center',
-//     alignItems: 'center',
-//   },
-//   popupButton: {
-//     fontSize: 16,
-//   },
-// });
 
 export default BottomModal;

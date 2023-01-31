@@ -1,29 +1,29 @@
 import React, { FC, useContext } from 'react';
-import { View, Text, TextInput, Button, Pressable, StyleSheet } from 'react-native';
+import { View, Text, TextInput, Pressable } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { RootStackParamList } from '../../navigation/StackNavigator';
+import { RootStackParamList } from '../../../../shared/lib/navigation/StackNavigator';
 
-import themeContext from '../../config/themeContext';
-import { colors } from '../../styles/local.style';
-import { styles } from './auth.style';
+import themeContext from '../../../../shared/lib/context/themeContext';
+import { colors } from '../../../../shared/assets/styles/local.style';
+import { styles } from './SignIn.styles';
 
-type LoginScreenNavigationProp = StackNavigationProp<
+type SignInScreenNavigationProp = StackNavigationProp<
   RootStackParamList,
-  'MainTab',
+  'ChartTab',
   'RegistrationDrawer'
 >;
 
-type LoginScreenProps = {
-  navigation: LoginScreenNavigationProp;
+type SignInScreenProps = {
+  navigation: SignInScreenNavigationProp;
 };
 
-const Login: FC<LoginScreenProps> = ({ navigation }) => {
+const SignIn: FC<SignInScreenProps> = ({ navigation }) => {
   const theme = useContext<{ backgroundColor?: string; color?: string }>(themeContext);
 
   return (
     <View style={[styles.registration, { backgroundColor: theme.backgroundColor }]}>
       <View style={[styles.registrationTitle]}>
-        <Text style={[styles.title, { color: theme.color }]}>Login</Text>
+        <Text style={[styles.title, { color: theme.color }]}>SignIn</Text>
       </View>
       <View style={[styles.registrationBox]}>
         <TextInput
@@ -44,11 +44,10 @@ const Login: FC<LoginScreenProps> = ({ navigation }) => {
         />
       </View>
       <View style={styles.registrationLinks}>
-        <Pressable onPress={() => navigation.navigate('MainTab', { name: 'MainTab' })}>
+        <Pressable onPress={() => navigation.navigate('ChartTab', { name: 'ChartTab' })}>
           <Text style={[styles.h2Text, { color: theme.color }]}>Login</Text>
         </Pressable>
-        <Pressable
-          onPress={() => navigation.navigate('RegistrationDrawer', { name: 'RegistrationDrawer' })}>
+        <Pressable onPress={() => navigation.navigate('SignUpDrawer', { name: 'SignUpDrawer' })}>
           <Text style={[styles.loginText, { color: theme.color }]}>Create account</Text>
         </Pressable>
       </View>
@@ -56,4 +55,4 @@ const Login: FC<LoginScreenProps> = ({ navigation }) => {
   );
 };
 
-export default Login;
+export default SignIn;
