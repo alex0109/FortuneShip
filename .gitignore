@@ -9,10 +9,6 @@ npm-debug.*
 *.mobileprovision
 *.orig.*
 web-build/
-.vscode
-.eslintignore
-.eslintrc.json
-.prettierrc.json
 
 # macOS
 .DS_Store

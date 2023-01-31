@@ -1,5 +1,5 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
-import { Target, TargetState } from '../types';
+import { ITarget, TargetState } from '../types';
 
 const initialState: TargetState = [];
 
@@ -7,7 +7,7 @@ export const targetsSlice = createSlice({
   name: 'targets',
   initialState,
   reducers: {
-    addTargetAccount: (state, action: PayloadAction<Target>) => {
+    addTargetAccount: (state, action: PayloadAction<ITarget>) => {
       state.push(action.payload);
     },
     removeTargetAccount: (state, action: PayloadAction<{ index: number }>) => {

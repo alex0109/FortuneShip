@@ -1,5 +1,5 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
-import { Cash, CashState } from '../types';
+import { ICash, CashState } from '../types';
 
 const initialState: CashState = [
   { index: Math.random() * 10000 - 1, title: 'Puss in Boots', count: 999, specify: 'cash' },
@@ -12,7 +12,7 @@ export const cashSlice = createSlice({
   name: 'cash',
   initialState,
   reducers: {
-    addCashAccount: (state, action: PayloadAction<Cash>) => {
+    addCashAccount: (state, action: PayloadAction<ICash>) => {
       state.push(action.payload);
     },
     removeCashAccount: (state, action: PayloadAction<{ index: number }>) => {
