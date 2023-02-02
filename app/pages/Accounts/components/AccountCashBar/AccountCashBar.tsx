@@ -2,7 +2,7 @@ import React, { FC, useContext } from 'react';
 import { View, Text } from 'react-native';
 import { ICash } from '../../lib/types/interface';
 
-import themeContext from '../../../../shared/lib/context/themeContext';
+import themeContext from 'shared/lib/context/themeContext';
 import { styles } from './AccountCashBar.styles';
 
 const CashBar: FC<ICash> = (cash) => {

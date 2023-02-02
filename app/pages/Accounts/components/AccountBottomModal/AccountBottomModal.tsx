@@ -17,16 +17,16 @@ import Animated, {
   withSpring,
 } from 'react-native-reanimated';
 
-import CustomModal, { PopupRefProps } from '../../../../shared/ui/Modal/Modal';
+import CustomModal, { PopupRefProps } from 'shared/ui/Modal/Modal';
 
-import { colors } from '../../../../shared/assets/styles/local.style';
-import Down from '../../../../shared/assets/images/remove.svg';
-import Up from '../../../../shared/assets/images/plus.svg';
-import Trash from '../../../../shared/assets/images/trash.svg';
+import { colors } from 'shared/assets/styles/local.style';
+import Down from 'shared/assets/images/remove.svg';
+import Up from 'shared/assets/images/plus.svg';
+import Trash from 'shared/assets/images/trash.svg';
 
-import { useTypedSelector } from '../../../../shared/lib/hooks/useTypedSelector';
+import { useTypedSelector } from 'shared/lib/hooks/useTypedSelector';
 import { ICash, ITarget } from '../../lib/types/interface';
-import themeContext from '../../../../shared/lib/context/themeContext';
+import themeContext from 'shared/lib/context/themeContext';
 import { styles } from './AccountBottomModal.styles';
 
 const { height: SCREEN_HEIGHT } = Dimensions.get('window');

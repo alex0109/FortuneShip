@@ -3,9 +3,9 @@ import React, { FC, useContext } from 'react';
 import { View, Text, Button } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
 
-import themeContext from '../../../../shared/lib/context/themeContext';
+import themeContext from 'shared/lib/context/themeContext';
 import { styles } from './Chart.styles';
-import { RootStackParamList } from '../../../../shared/lib/navigation/StackNavigator';
+import { RootStackParamList } from 'shared/lib/navigation/StackNavigator';
 
 type MainScreenNavigationProp = StackNavigationProp<
   RootStackParamList,

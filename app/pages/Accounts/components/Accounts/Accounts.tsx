@@ -4,12 +4,12 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 import CashAccount from '../AccountCashBar/AccountCashBar';
 import TargetAccount from '../AccountTargetBar/AccountTargetBar';
-import { useActions } from '../../../../shared/lib/hooks/useActions';
-import { useTypedSelector } from '../../../../shared/lib/hooks/useTypedSelector';
-import themeContext from '../../../../shared/lib/context/themeContext';
+import { useActions } from 'shared/lib/hooks/useActions';
+import { useTypedSelector } from 'shared/lib/hooks/useTypedSelector';
+import themeContext from 'shared/lib/context/themeContext';
 
 import { styles } from './Accounts.styles';
-import Plus from '../../../../shared/assets/images/plus.svg';
+import Plus from 'shared/assets/images/plus.svg';
 import BottomModal, { BottomModalRefProps } from '../AccountBottomModal/AccountBottomModal';
 import { cashExample, targetExample } from '../../lib/store/mockData';
 

@@ -2,6 +2,17 @@
   "extends": "expo/tsconfig.base",
   "compilerOptions": {
     "strict": true,
-    "jsx": "react"
+    "jsx": "react",
+    "baseUrl": ".",
+    "paths": {
+      // This needs to be mirrored in babel.config.js
+      // Components is a directory with sub directories
+      "pages/*": ["app/pages/*"],
+      "modules/*": ["app/modules/*"],
+      "shared/*": ["app/shared/*"],
+
+      // We want to expose the exports of the buttons index file
+      "app/*": ["app/*"]
+    }
   }
 }

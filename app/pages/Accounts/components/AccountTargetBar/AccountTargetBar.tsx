@@ -1,7 +1,7 @@
 import React, { FC, useContext } from 'react';
 import { View, Text } from 'react-native';
 import { ITarget } from '../../lib/types/interface';
-import themeContext from '../../../../shared/lib/context/themeContext';
+import themeContext from 'shared/lib/context/themeContext';
 import { styles } from './AccountTargetBar.styles';
 
 const TargetBar: FC<ITarget> = (target) => {
