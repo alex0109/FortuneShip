@@ -1,9 +1,14 @@
-import React, { FC, useContext } from 'react';
+import React, { useContext } from 'react';
 import { View, Text } from 'react-native';
-import { ICash } from '../../lib/types/interface';
 
 import themeContext from 'shared/lib/context/themeContext';
+
 import { styles } from './AccountCashBar.styles';
+
+import type { ICash } from '../../lib/types/interface';
+
+
+import type { FC} from 'react';
 
 const CashBar: FC<ICash> = (cash) => {
   const theme = useContext<{ backgroundColor?: string; color?: string }>(themeContext);

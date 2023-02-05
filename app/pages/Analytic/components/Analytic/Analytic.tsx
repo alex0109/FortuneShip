@@ -1,9 +1,12 @@
-import React, { FC, useContext } from 'react';
+import React, { useContext } from 'react';
 
 import { View, Text } from 'react-native';
 
-import { styles } from './Analytic.styles';
 import themeContext from 'shared/lib/context/themeContext';
+
+import { styles } from './Analytic.styles';
+
+import type { FC} from 'react';
 
 const Analytics: FC = () => {
   const theme = useContext<{ backgroundColor?: string; color?: string }>(themeContext);

@@ -1,27 +1,29 @@
-import { View, Modal, TouchableOpacity } from 'react-native';
 import React, {
-  Dispatch,
-  ReactNode,
-  SetStateAction,
   forwardRef,
   useImperativeHandle,
   useState,
   useContext,
 } from 'react';
+import { View, Modal, TouchableOpacity } from 'react-native';
 
 import themeContext from '../../lib/context/themeContext';
 
 import { styles } from './Modal.styles';
 
-type ModalProps = {
+import type {
+  Dispatch,
+  ReactNode,
+  SetStateAction} from 'react';
+
+interface ModalProps {
   children: ReactNode;
   visible: boolean;
-};
+}
 
-export type PopupRefProps = {
+export interface PopupRefProps {
   popupVisible: boolean;
   setPopupVisible: Dispatch<SetStateAction<boolean>>;
-};
+}
 
 const CustomModal = forwardRef<PopupRefProps, ModalProps>(({ children }, refPopup) => {
   const [popupVisible, setPopupVisible] = useState(false);
@@ -34,7 +36,7 @@ const CustomModal = forwardRef<PopupRefProps, ModalProps>(({ children }, refPopu
 
   return (
     <Modal animationType='fade' visible={popupVisible} transparent={true}>
-      <TouchableOpacity style={styles.modalContainer} onPressIn={() => setPopupVisible(false)}>
+      <TouchableOpacity style={styles.modalContainer} onPressIn={() => { setPopupVisible(false); }}>
         <View style={[styles.modal, { backgroundColor: theme.backgroundColor }]}>{children}</View>
       </TouchableOpacity>
     </Modal>

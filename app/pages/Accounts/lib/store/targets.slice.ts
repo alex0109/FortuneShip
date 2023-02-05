@@ -1,5 +1,7 @@
-import { PayloadAction, createSlice } from '@reduxjs/toolkit';
-import { ITarget, TargetState } from '../../../../shared/lib/store/types';
+import { createSlice } from '@reduxjs/toolkit';
+
+import type { ITarget, TargetState } from '../../../../shared/lib/store/types';
+import type { PayloadAction} from '@reduxjs/toolkit';
 
 const initialState: TargetState = [];
 
@@ -10,9 +12,7 @@ export const targetsSlice = createSlice({
     addTargetAccount: (state, action: PayloadAction<ITarget>) => {
       state.push(action.payload);
     },
-    removeTargetAccount: (state, action: PayloadAction<{ index: number }>) => {
-      return state.filter((item) => item.index !== action.payload.index);
-    },
+    removeTargetAccount: (state, action: PayloadAction<{ index: number }>) => state.filter((item) => item.index !== action.payload.index),
     updateTitleTargetAccount: (state, action: PayloadAction<{ index: number; title: string }>) => {
       const cashItem = state.find((item) => item.index === action.payload.index);
       if (cashItem) {

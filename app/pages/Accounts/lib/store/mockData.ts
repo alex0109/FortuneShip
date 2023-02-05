@@ -1,4 +1,4 @@
-import { ICash, ITarget } from '../types/interface';
+import type { ICash, ITarget } from '../types/interface';
 
 export const cashExample: ICash = {
   index: Math.random() * 10000 - 1,

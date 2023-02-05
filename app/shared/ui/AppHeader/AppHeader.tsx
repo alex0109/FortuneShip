@@ -1,10 +1,13 @@
+import React from 'react';
 import { View, Text, StatusBar, StyleSheet, Dimensions } from 'react-native';
-import React, { FC } from 'react';
-import { useTypedSelector } from '../../lib/hooks/useTypedSelector';
 
 import { colors } from '../../assets/styles/local.style';
+import { useTypedSelector } from '../../lib/hooks/useTypedSelector';
+
 
 import { styles } from './AppHeader.styles';
+
+import type { FC } from 'react';
 
 const AppHeader: FC = () => {
   const { cash } = useTypedSelector((state) => state);

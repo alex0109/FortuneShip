@@ -2,3 +2,7 @@ node_modules/
 dist/
 .vscode/
 *.svg
+react-native.config.js
+metro.config.js
+declarations.d.ts
+babel.config.js

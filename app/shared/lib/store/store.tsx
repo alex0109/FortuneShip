@@ -1,5 +1,5 @@
-import thunk from 'redux-thunk';
 import { configureStore } from '@reduxjs/toolkit';
+import thunk from 'redux-thunk';
 
 import { cashReducer } from '../../../pages/Accounts/lib/store/cash.slice';
 import { targetReducer } from '../../../pages/Accounts/lib/store/targets.slice';

@@ -1,17 +1,25 @@
-import React, { FC, useCallback, useContext, useRef, useState } from 'react';
+import React, { useCallback, useContext, useRef, useState } from 'react';
 import { View, Text, ScrollView, Pressable, TouchableOpacity } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
+import Plus from 'shared/assets/images/plus.svg';
+import themeContext from 'shared/lib/context/themeContext';
+import { useActions } from 'shared/lib/hooks/useActions';
+
+import { useTypedSelector } from 'shared/lib/hooks/useTypedSelector';
+
+import { cashExample, targetExample } from '../../lib/store/mockData';
+import BottomModal from '../AccountBottomModal/AccountBottomModal';
 import CashAccount from '../AccountCashBar/AccountCashBar';
 import TargetAccount from '../AccountTargetBar/AccountTargetBar';
-import { useActions } from 'shared/lib/hooks/useActions';
-import { useTypedSelector } from 'shared/lib/hooks/useTypedSelector';
-import themeContext from 'shared/lib/context/themeContext';
 
 import { styles } from './Accounts.styles';
-import Plus from 'shared/assets/images/plus.svg';
-import BottomModal, { BottomModalRefProps } from '../AccountBottomModal/AccountBottomModal';
-import { cashExample, targetExample } from '../../lib/store/mockData';
+
+
+import type { BottomModalRefProps } from '../AccountBottomModal/AccountBottomModal';
+
+
+import type { FC} from 'react';
 
 const Accounts: FC = () => {
   const {
@@ -35,7 +43,7 @@ const Accounts: FC = () => {
       console.log(index);
     }
 
-    let setActive = refModal?.current?.setActive(true);
+    const setActive = refModal?.current?.setActive(true);
     if (setActive) {
       refModal?.current?.scrollTo(0);
       refModal?.current?.setActive(false);
@@ -65,7 +73,7 @@ const Accounts: FC = () => {
             <View style={styles.accountsScroll}>
               <View style={styles.accountsContent}>
                 {cash.map((item) => (
-                  <TouchableOpacity key={item.index} onPress={() => handleModalOpen(item.index)}>
+                  <TouchableOpacity key={item.index} onPress={() => { handleModalOpen(item.index); }}>
                     <CashAccount key={item.index} {...item} />
                   </TouchableOpacity>
                 ))}
@@ -92,7 +100,7 @@ const Accounts: FC = () => {
             <View style={styles.accountsScroll}>
               <View style={styles.accountsContent}>
                 {targets.map((item) => (
-                  <TouchableOpacity key={item.index} onPress={() => handleModalOpen(item.index)}>
+                  <TouchableOpacity key={item.index} onPress={() => { handleModalOpen(item.index); }}>
                     <TargetAccount key={item.index} {...item} />
                   </TouchableOpacity>
                 ))}

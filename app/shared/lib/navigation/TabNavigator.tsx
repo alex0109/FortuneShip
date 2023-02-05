@@ -1,22 +1,24 @@
-import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import React from 'react';
+
+
+import Accounts from '../../assets/images/accounts.svg';
+import Analys from '../../assets/images/analys.svg';
+import Main from '../../assets/images/moneyIconMain.svg';
+import { colors } from '../../assets/styles/local.style';
 
 import {
   ChartStackNavigator,
   AnalyticsStackNavigator,
-  AccountsStackNavigator,
-  RootStackParamList,
+  AccountsStackNavigator
 } from './StackNavigator';
 
-import Main from '../../assets/images/moneyIconMain.svg';
-import Analys from '../../assets/images/analys.svg';
-import Accounts from '../../assets/images/accounts.svg';
-import { colors } from '../../assets/styles/local.style';
+import type {
+  RootStackParamList} from './StackNavigator';
 
 const Tab = createBottomTabNavigator<RootStackParamList>();
 
-const BottomTabNavigator = () => {
-  return (
+const BottomTabNavigator = () => (
     <Tab.Navigator
       initialRouteName='ChartTab'
       screenOptions={({ route }) => ({
@@ -46,6 +48,5 @@ const BottomTabNavigator = () => {
       <Tab.Screen name='AnalyticsTab' component={AnalyticsStackNavigator} />
     </Tab.Navigator>
   );
-};
 
 export default BottomTabNavigator;

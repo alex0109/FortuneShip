@@ -7,7 +7,6 @@ import React, {
   useState,
 } from 'react';
 import { Dimensions, TextInput, Text, View, Pressable, TouchableOpacity } from 'react-native';
-import { ActionCreatorWithPayload } from '@reduxjs/toolkit';
 import { Gesture, GestureDetector } from 'react-native-gesture-handler';
 import Animated, {
   Extrapolate,
@@ -17,21 +16,25 @@ import Animated, {
   withSpring,
 } from 'react-native-reanimated';
 
-import CustomModal, { PopupRefProps } from 'shared/ui/Modal/Modal';
-
-import { colors } from 'shared/assets/styles/local.style';
-import Down from 'shared/assets/images/remove.svg';
 import Up from 'shared/assets/images/plus.svg';
+import Down from 'shared/assets/images/remove.svg';
 import Trash from 'shared/assets/images/trash.svg';
+import { colors } from 'shared/assets/styles/local.style';
 
-import { useTypedSelector } from 'shared/lib/hooks/useTypedSelector';
-import { ICash, ITarget } from '../../lib/types/interface';
 import themeContext from 'shared/lib/context/themeContext';
+import { useTypedSelector } from 'shared/lib/hooks/useTypedSelector';
+import CustomModal from 'shared/ui/Modal/Modal';
+
 import { styles } from './AccountBottomModal.styles';
+
+import type { ICash, ITarget } from '../../lib/types/interface';
+
+import type { ActionCreatorWithPayload } from '@reduxjs/toolkit';
+import type { PopupRefProps } from 'shared/ui/Modal/Modal';
 
 const { height: SCREEN_HEIGHT } = Dimensions.get('window');
 
-type BottomModalProps = {
+interface BottomModalProps {
   modalPropID: number;
   removeCashAccount: ActionCreatorWithPayload<{ index: number }, 'cash/removeCashAccount'>;
   updateTitleCashAccount: ActionCreatorWithPayload<
@@ -51,12 +54,12 @@ type BottomModalProps = {
     { index: number; count: number },
     'targets/updateCountTargetAccount'
   >;
-};
+}
 
-export type BottomModalRefProps = {
+export interface BottomModalRefProps {
   scrollTo: (destinition: number) => void;
   setActive: (active: boolean) => boolean;
-};
+}
 
 const BottomModal = forwardRef<BottomModalRefProps, BottomModalProps>(
   (
@@ -100,12 +103,12 @@ const BottomModal = forwardRef<BottomModalRefProps, BottomModalProps>(
 
     const translationY = useSharedValue(0);
     const context = useSharedValue({ y: 0 });
-    let isActive = useSharedValue(false);
-    let MAX_TRANSLATE_Y = -SCREEN_HEIGHT / 1.7;
+    const isActive = useSharedValue(false);
+    const MAX_TRANSLATE_Y = -SCREEN_HEIGHT / 1.7;
 
     const refPopup = useRef<PopupRefProps>(null);
     const setPopupVisible = useCallback((popupVisible: boolean) => {
-      let setPopupVisible = refPopup.current?.setPopupVisible(popupVisible);
+      const setPopupVisible = refPopup.current?.setPopupVisible(popupVisible);
       if (setPopupVisible) {
         refPopup.current?.setPopupVisible(popupVisible);
       }
@@ -124,44 +127,42 @@ const BottomModal = forwardRef<BottomModalRefProps, BottomModalProps>(
       translationY.value = withSpring(destinition);
     }, []);
 
-    const setActive = useCallback((): boolean => {
-      return isActive.value;
-    }, []);
+    const setActive = useCallback((): boolean => isActive.value, []);
 
     const countHandleChange = (index: number, newCount: any): void => {
       if (modalProps?.specify === 'cash') {
-        updateCountCashAccount({ index: index, count: +newCount });
+        updateCountCashAccount({ index, count: +newCount });
         console.log();
       } else if (modalProps?.specify === 'target') {
-        updateCountTargetAccount({ index: index, count: +newCount });
+        updateCountTargetAccount({ index, count: +newCount });
       }
     };
 
     const titleHandleChange = (index: number, newTitle: string): void => {
       if (modalProps?.specify === 'cash') {
-        updateTitleCashAccount({ index: index, title: newTitle });
+        updateTitleCashAccount({ index, title: newTitle });
       } else if (modalProps?.specify === 'target') {
-        updateTitleTargetAccount({ index: index, title: newTitle });
+        updateTitleTargetAccount({ index, title: newTitle });
       }
     };
 
     const removeCountHandler = (index: number): void => {
       if (modalProps?.specify === 'cash') {
         scrollTo(0);
-        removeCashAccount({ index: index });
+        removeCashAccount({ index });
       } else if (modalProps?.specify === 'target') {
         scrollTo(0);
-        removeTargetAccount({ index: index });
+        removeTargetAccount({ index });
       }
     };
 
     const addCountHandler = (index: number, count: number): void => {
       if (modalProps?.specify === 'cash') {
-        updateCountCashAccount({ index: index, count: count + addedCount });
+        updateCountCashAccount({ index, count: count + addedCount });
         setAddedCount(0);
         setPopupVisible(false);
       } else if (modalProps?.specify === 'target') {
-        updateCountTargetAccount({ index: index, count: count + addedCount });
+        updateCountTargetAccount({ index, count: count + addedCount });
         setAddedCount(0);
         setPopupVisible(false);
       }
@@ -213,10 +214,12 @@ const BottomModal = forwardRef<BottomModalRefProps, BottomModalProps>(
               <TextInput
                 style={[styles.modalTitle, { color: theme.color }]}
                 defaultValue={modalProps.title}
-                onFocus={() => scrollTo(MAX_TRANSLATE_Y)}
-                onSubmitEditing={({ nativeEvent }) =>
-                  titleHandleChange(modalProps.index, nativeEvent.text)
-                }
+                onFocus={() => {
+                  scrollTo(MAX_TRANSLATE_Y);
+                }}
+                onSubmitEditing={({ nativeEvent }) => {
+                  titleHandleChange(modalProps.index, nativeEvent.text);
+                }}
                 placeholder='Your title...'
                 placeholderTextColor={colors.gray}
               />
@@ -226,19 +229,27 @@ const BottomModal = forwardRef<BottomModalRefProps, BottomModalProps>(
                   { color: theme.color, borderBottomColor: theme.color },
                 ]}
                 defaultValue={`${modalProps.count}`}
-                onFocus={() => scrollTo(MAX_TRANSLATE_Y)}
-                onSubmitEditing={({ nativeEvent }) =>
-                  countHandleChange(modalProps.index, nativeEvent.text)
-                }
+                onFocus={() => {
+                  scrollTo(MAX_TRANSLATE_Y);
+                }}
+                onSubmitEditing={({ nativeEvent }) => {
+                  countHandleChange(modalProps.index, nativeEvent.text);
+                }}
                 keyboardType='numeric'
                 placeholder='Your capital...'
                 placeholderTextColor={colors.gray}
               />
               <View style={[styles.modalButtonsContainer]}>
-                <Pressable onPress={() => removeCountHandler(modalProps.index)}>
+                <Pressable
+                  onPress={() => {
+                    removeCountHandler(modalProps.index);
+                  }}>
                   <Trash width={60} height={60} fill='black' />
                 </Pressable>
-                <Pressable onPress={() => setPopupVisible(true)}>
+                <Pressable
+                  onPress={() => {
+                    setPopupVisible(true);
+                  }}>
                   <Up width={60} height={60} fill='green' />
                 </Pressable>
                 <Pressable>
@@ -246,7 +257,7 @@ const BottomModal = forwardRef<BottomModalRefProps, BottomModalProps>(
                 </Pressable>
               </View>
             </View>
-            <CustomModal ref={refPopup} visible={popupVisible ? popupVisible : false}>
+            <CustomModal ref={refPopup} visible={popupVisible || false}>
               <Text style={[styles.modalPopUpTitle, { color: theme.color }]}>
                 How much you want to add?
               </Text>
@@ -260,15 +271,22 @@ const BottomModal = forwardRef<BottomModalRefProps, BottomModalProps>(
                   placeholderTextColor={colors.gray}
                   keyboardType='numeric'
                   defaultValue={`${addedCount}`}
-                  onChangeText={(input) => setAddedCount(Number(input))}
+                  onChangeText={(input) => {
+                    setAddedCount(Number(input));
+                  }}
                 />
               </View>
               <View style={[styles.modalPopUpButtonContainer]}>
-                <TouchableOpacity onPress={() => setPopupVisible(false)}>
+                <TouchableOpacity
+                  onPress={() => {
+                    setPopupVisible(false);
+                  }}>
                   <Text style={[styles.modalPopUpButton, { color: theme.color }]}>Back</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
-                  onPress={() => addCountHandler(modalProps.index, modalProps.count)}>
+                  onPress={() => {
+                    addCountHandler(modalProps.index, modalProps.count);
+                  }}>
                   <Text style={[styles.modalPopUpButton, { color: theme.color }]}>Add</Text>
                 </TouchableOpacity>
               </View>

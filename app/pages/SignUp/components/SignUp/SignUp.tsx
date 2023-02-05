@@ -1,11 +1,14 @@
-import React, { FC, useContext } from 'react';
+import React, { useContext } from 'react';
 import { View, Text, TextInput, Pressable, StyleSheet } from 'react-native';
-import { StackNavigationProp } from '@react-navigation/stack';
-import { RootStackParamList } from 'shared/lib/navigation/StackNavigator';
 
-import themeContext from 'shared/lib/context/themeContext';
 import { colors } from 'shared/assets/styles/local.style';
+import themeContext from 'shared/lib/context/themeContext';
+
 import { styles } from './SignUp.styles';
+
+import type { StackNavigationProp } from '@react-navigation/stack';
+import type { FC } from 'react';
+import type { RootStackParamList } from 'shared/lib/navigation/StackNavigator';
 
 type SignUpScreenNavigationProp = StackNavigationProp<
   RootStackParamList,
@@ -13,9 +16,9 @@ type SignUpScreenNavigationProp = StackNavigationProp<
   'SignInDrawer'
 >;
 
-type SignUpScreenProps = {
+interface SignUpScreenProps {
   navigation: SignUpScreenNavigationProp;
-};
+}
 
 const SignUp: FC<SignUpScreenProps> = ({ navigation }) => {
   const theme = useContext<{ backgroundColor?: string; color?: string }>(themeContext);
@@ -60,10 +63,16 @@ const SignUp: FC<SignUpScreenProps> = ({ navigation }) => {
         />
       </View>
       <View style={styles.registrationLinks}>
-        <Pressable onPress={() => navigation.navigate('ChartTab', { name: 'ChartTab' })}>
+        <Pressable
+          onPress={() => {
+            navigation.navigate('ChartTab', { name: 'ChartTab' });
+          }}>
           <Text style={[styles.h2Text, { color: theme.color }]}>Create account</Text>
         </Pressable>
-        <Pressable onPress={() => navigation.navigate('SignInDrawer', { name: 'SignInDrawer' })}>
+        <Pressable
+          onPress={() => {
+            navigation.navigate('SignInDrawer', { name: 'SignInDrawer' });
+          }}>
           <Text style={[styles.loginText, { color: theme.color }]}>Login</Text>
         </Pressable>
       </View>

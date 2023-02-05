@@ -1,6 +1,8 @@
-import { cashActions } from '../../../pages/Accounts/lib/store/cash.slice';
-import { useDispatch } from 'react-redux';
 import { bindActionCreators } from '@reduxjs/toolkit';
+import { useDispatch } from 'react-redux';
+
+import { cashActions } from '../../../pages/Accounts/lib/store/cash.slice';
+
 import { targetActions } from '../../../pages/Accounts/lib/store/targets.slice';
 
 const allActions = {

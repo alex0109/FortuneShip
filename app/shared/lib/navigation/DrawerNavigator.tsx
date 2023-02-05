@@ -1,17 +1,19 @@
+import { createDrawerNavigator } from '@react-navigation/drawer';
 import React, { useState } from 'react';
 
-import { createDrawerNavigator } from '@react-navigation/drawer';
+import { Dimensions, View } from 'react-native';
 
-import { SignInStackNavigator, SignUpStackNavigator } from './StackNavigator';
-import TabNavigator from './TabNavigator';
+import { EventRegister } from 'react-native-event-listeners';
+import { TouchableOpacity } from 'react-native-gesture-handler';
+
+import Dialog from '../../assets/images/eye.svg';
+import LightTheme from '../../assets/images/lightButton.svg';
 import User from '../../assets/images/user.svg';
 import { colors } from '../../assets/styles/local.style';
 import AppHeader from '../../ui/AppHeader/AppHeader';
-import { Dimensions, View } from 'react-native';
-import { TouchableOpacity } from 'react-native-gesture-handler';
-import { EventRegister } from 'react-native-event-listeners';
-import LightTheme from '../../assets/images/lightButton.svg';
-import Dialog from '../../assets/images/eye.svg';
+
+import { SignInStackNavigator, SignUpStackNavigator } from './StackNavigator';
+import TabNavigator from './TabNavigator';
 
 const Drawer = createDrawerNavigator();
 
@@ -55,23 +57,19 @@ const DrawerNavigator = () => {
           headerTitleStyle: {
             maxWidth: screenWidth,
           },
-          headerTitle: () => {
-            return <AppHeader />;
-          },
+          headerTitle: () => <AppHeader />,
           headerRightContainerStyle: {},
-          headerRight: () => {
-            return (
-              <View style={{ width: screenWidth / 8 }}>
-                <TouchableOpacity
-                  onPress={() => {
-                    setMode(!mode);
-                    EventRegister.emit('changeTheme', mode);
-                  }}>
-                  <LightTheme width={30} height={30} fill={colors.white} />
-                </TouchableOpacity>
-              </View>
-            );
-          },
+          headerRight: () => (
+            <View style={{ width: screenWidth / 8 }}>
+              <TouchableOpacity
+                onPress={() => {
+                  setMode(!mode);
+                  EventRegister.emit('changeTheme', mode);
+                }}>
+                <LightTheme width={30} height={30} fill={colors.white} />
+              </TouchableOpacity>
+            </View>
+          ),
         }}
         component={TabNavigator}
       />

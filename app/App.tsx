@@ -1,21 +1,19 @@
-import React, { useState, useEffect } from 'react';
-import { Provider } from 'react-redux';
-import { useFonts } from 'expo-font';
 import { NavigationContainer } from '@react-navigation/native';
+import { useFonts } from 'expo-font';
+import React, { useState, useEffect } from 'react';
 import { EventRegister } from 'react-native-event-listeners';
-
-import { store } from './shared/lib/store/store';
-import themeContext from './shared/lib/context/themeContext';
-
-import DrawerNavigator from './shared/lib/navigation/DrawerNavigator';
+import { Provider } from 'react-redux';
 
 import { theme } from './shared/assets/styles/local.style';
+import themeContext from './shared/lib/context/themeContext';
+import DrawerNavigator from './shared/lib/navigation/DrawerNavigator';
+import { store } from './shared/lib/store/store';
 
 export default function App() {
   const [mode, setMode] = useState(false);
 
   useEffect(() => {
-    let eventListener = EventRegister.addEventListener('changeTheme', (data) => {
+    const eventListener = EventRegister.addEventListener('changeTheme', (data) => {
       setMode(data);
       console.log(data);
     });
