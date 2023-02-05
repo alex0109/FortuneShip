@@ -9,6 +9,8 @@ import themeContext from './shared/lib/context/themeContext';
 import DrawerNavigator from './shared/lib/navigation/DrawerNavigator';
 import { store } from './shared/lib/store/store';
 
+import registerRootComponent from 'expo/build/launch/registerRootComponent';
+
 export default function App() {
   const [mode, setMode] = useState(false);
 
@@ -40,3 +42,5 @@ export default function App() {
     </Provider>
   );
 }
+
+registerRootComponent(App);
