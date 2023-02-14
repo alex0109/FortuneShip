@@ -1,12 +1,12 @@
 export const colors = {
-  white: '#fff',
-  gray: '#ccc',
+  white: '#f3f3f1',
+  gray: '#e9e9e9',
   red: '#FA3D16',
   success: '#38CA35',
   warning: '#FABD16',
   info: '#36BCF2',
-  blackMain: '#171616',
-  blackBar: '#474444',
+  blackMain: '#161719',
+  blackBar: '#19191c',
 };
 
 export const weights = {

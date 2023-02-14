@@ -1,5 +1,8 @@
 import { NavigationContainer } from '@react-navigation/native';
 import { useFonts } from 'expo-font';
+
+import registerRootComponent from 'expo/build/launch/registerRootComponent';
+
 import React, { useState, useEffect } from 'react';
 import { EventRegister } from 'react-native-event-listeners';
 import { Provider } from 'react-redux';
@@ -9,15 +12,12 @@ import themeContext from './shared/lib/context/themeContext';
 import DrawerNavigator from './shared/lib/navigation/DrawerNavigator';
 import { store } from './shared/lib/store/store';
 
-import registerRootComponent from 'expo/build/launch/registerRootComponent';
-
 export default function App() {
   const [mode, setMode] = useState(false);
 
   useEffect(() => {
-    const eventListener = EventRegister.addEventListener('changeTheme', (data) => {
+    const eventListener = EventRegister.addEventListener('changeTheme', (data: boolean) => {
       setMode(data);
-      console.log(data);
     });
     return () => {
       EventRegister.removeEventListener(eventListener);

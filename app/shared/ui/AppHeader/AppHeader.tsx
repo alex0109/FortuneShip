@@ -1,9 +1,8 @@
 import React from 'react';
-import { View, Text, StatusBar, StyleSheet, Dimensions } from 'react-native';
+import { View, Text, StatusBar } from 'react-native';
 
 import { colors } from '../../assets/styles/local.style';
 import { useTypedSelector } from '../../lib/hooks/useTypedSelector';
-
 
 import { styles } from './AppHeader.styles';
 

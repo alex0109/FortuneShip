@@ -1,12 +1,6 @@
-import React, {
-  forwardRef,
-  useCallback,
-  useContext,
-  useImperativeHandle,
-  useRef,
-  useState,
-} from 'react';
-import { Dimensions, TextInput, Text, View, Pressable, TouchableOpacity } from 'react-native';
+/* eslint-disable no-unused-vars */
+import React, { forwardRef, useCallback, useContext, useImperativeHandle, useRef } from 'react';
+import { Dimensions, TextInput, View, Pressable } from 'react-native';
 import { Gesture, GestureDetector } from 'react-native-gesture-handler';
 import Animated, {
   Extrapolate,
@@ -16,25 +10,26 @@ import Animated, {
   withSpring,
 } from 'react-native-reanimated';
 
-import Up from 'shared/assets/images/plus.svg';
-import Down from 'shared/assets/images/remove.svg';
-import Trash from 'shared/assets/images/trash.svg';
+import Minus from 'shared/assets/images/minus-bl.svg';
+import Plus from 'shared/assets/images/plus-bl.svg';
+import Trash from 'shared/assets/images/trash-bl.svg';
+
 import { colors } from 'shared/assets/styles/local.style';
 
 import themeContext from 'shared/lib/context/themeContext';
 import { useTypedSelector } from 'shared/lib/hooks/useTypedSelector';
-import CustomModal from 'shared/ui/Modal/Modal';
 
-import { styles } from './AccountBottomModal.styles';
+import AccountModal from '../AccountModal/AccountModal';
 
-import type { ICash, ITarget } from '../../lib/types/interface';
+import { styles } from './AccountBottomPopup.styles';
 
+import type { CashState, ICash, ITarget, TargetState } from '../../lib/types/interface';
 import type { ActionCreatorWithPayload } from '@reduxjs/toolkit';
-import type { PopupRefProps } from 'shared/ui/Modal/Modal';
+import type { ModalRefProps } from 'shared/ui/Modal/Modal';
 
 const { height: SCREEN_HEIGHT } = Dimensions.get('window');
 
-interface BottomModalProps {
+interface BottomPopupProps {
   modalPropID: number;
   removeCashAccount: ActionCreatorWithPayload<{ index: number }, 'cash/removeCashAccount'>;
   updateTitleCashAccount: ActionCreatorWithPayload<
@@ -56,12 +51,12 @@ interface BottomModalProps {
   >;
 }
 
-export interface BottomModalRefProps {
-  scrollTo: (destinition: number) => void;
-  setActive: (active: boolean) => boolean;
+export interface BottomPopupRefProps {
+  scrollTo: (destination: number) => void;
+  setActive: (arg0: boolean) => boolean;
 }
 
-const BottomModal = forwardRef<BottomModalRefProps, BottomModalProps>(
+const BottomPopup = forwardRef<BottomPopupRefProps, BottomPopupProps>(
   (
     {
       modalPropID,
@@ -72,10 +67,11 @@ const BottomModal = forwardRef<BottomModalRefProps, BottomModalProps>(
       updateTitleTargetAccount,
       updateCountTargetAccount,
     },
-    refModal
+    refPopup
   ) => {
-    const { cash, targets } = useTypedSelector((state) => state);
-    const [addedCount, setAddedCount] = useState<number>(0);
+    const { cash, targets }: { cash: CashState; targets: TargetState } = useTypedSelector(
+      (state) => state
+    );
     const theme = useContext<{ backgroundColor?: string; color?: string }>(themeContext);
 
     const findModalPropByID = (index: number): ICash | ITarget => {
@@ -106,14 +102,16 @@ const BottomModal = forwardRef<BottomModalRefProps, BottomModalProps>(
     const isActive = useSharedValue(false);
     const MAX_TRANSLATE_Y = -SCREEN_HEIGHT / 1.7;
 
-    const refPopup = useRef<PopupRefProps>(null);
-    const setPopupVisible = useCallback((popupVisible: boolean) => {
-      const setPopupVisible = refPopup.current?.setPopupVisible(popupVisible);
-      if (setPopupVisible) {
-        refPopup.current?.setPopupVisible(popupVisible);
+    const refModal = useRef<ModalRefProps>(null);
+
+    const setModalVisible = useCallback((modalVisible: boolean) => {
+      const setModalVisible = refModal.current?.setModalVisible(modalVisible);
+      if (setModalVisible) {
+        refModal.current?.setModalVisible(modalVisible);
       }
     }, []);
-    const popupVisible = refPopup.current?.popupVisible;
+
+    const modalVisible = refModal.current?.modalVisible;
 
     const scrollTo = useCallback((destinition: number): void => {
       'worklet';
@@ -132,7 +130,6 @@ const BottomModal = forwardRef<BottomModalRefProps, BottomModalProps>(
     const countHandleChange = (index: number, newCount: any): void => {
       if (modalProps?.specify === 'cash') {
         updateCountCashAccount({ index, count: +newCount });
-        console.log();
       } else if (modalProps?.specify === 'target') {
         updateCountTargetAccount({ index, count: +newCount });
       }
@@ -156,19 +153,7 @@ const BottomModal = forwardRef<BottomModalRefProps, BottomModalProps>(
       }
     };
 
-    const addCountHandler = (index: number, count: number): void => {
-      if (modalProps?.specify === 'cash') {
-        updateCountCashAccount({ index, count: count + addedCount });
-        setAddedCount(0);
-        setPopupVisible(false);
-      } else if (modalProps?.specify === 'target') {
-        updateCountTargetAccount({ index, count: count + addedCount });
-        setAddedCount(0);
-        setPopupVisible(false);
-      }
-    };
-
-    useImperativeHandle(refModal, () => ({ scrollTo, setActive }), [scrollTo, setActive]);
+    useImperativeHandle(refPopup, () => ({ scrollTo, setActive }), [scrollTo, setActive]);
 
     const gesture = Gesture.Pan()
       .onStart(() => {
@@ -208,7 +193,7 @@ const BottomModal = forwardRef<BottomModalRefProps, BottomModalProps>(
             style={[
               styles.modalContainer,
               rBottomModalStyle,
-              { backgroundColor: theme.backgroundColor, borderTopColor: theme.color },
+              { backgroundColor: theme.backgroundColor },
             ]}>
             <View style={[styles.modalCountContainer]}>
               <TextInput
@@ -244,53 +229,25 @@ const BottomModal = forwardRef<BottomModalRefProps, BottomModalProps>(
                   onPress={() => {
                     removeCountHandler(modalProps.index);
                   }}>
-                  <Trash width={60} height={60} fill='black' />
+                  <Trash width={60} height={60} />
                 </Pressable>
                 <Pressable
                   onPress={() => {
-                    setPopupVisible(true);
+                    setModalVisible(true);
                   }}>
-                  <Up width={60} height={60} fill='green' />
+                  <Plus width={60} height={60} />
                 </Pressable>
                 <Pressable>
-                  <Down width={60} height={60} fill='red' />
+                  <Minus width={60} height={60} />
                 </Pressable>
               </View>
             </View>
-            <CustomModal ref={refPopup} visible={popupVisible || false}>
-              <Text style={[styles.modalPopUpTitle, { color: theme.color }]}>
-                How much you want to add?
-              </Text>
-              <View style={[styles.modalPopUpContent]}>
-                <TextInput
-                  style={[
-                    styles.modalCountText,
-                    { color: theme.color, borderBottomColor: theme.color },
-                  ]}
-                  placeholder='Your number...'
-                  placeholderTextColor={colors.gray}
-                  keyboardType='numeric'
-                  defaultValue={`${addedCount}`}
-                  onChangeText={(input) => {
-                    setAddedCount(Number(input));
-                  }}
-                />
-              </View>
-              <View style={[styles.modalPopUpButtonContainer]}>
-                <TouchableOpacity
-                  onPress={() => {
-                    setPopupVisible(false);
-                  }}>
-                  <Text style={[styles.modalPopUpButton, { color: theme.color }]}>Back</Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                  onPress={() => {
-                    addCountHandler(modalProps.index, modalProps.count);
-                  }}>
-                  <Text style={[styles.modalPopUpButton, { color: theme.color }]}>Add</Text>
-                </TouchableOpacity>
-              </View>
-            </CustomModal>
+            <AccountModal
+              modalProps={modalProps}
+              refModal={refModal}
+              modalVisible={modalVisible}
+              setModalVisible={setModalVisible}
+            />
           </Animated.View>
         </GestureDetector>
       </React.Fragment>
@@ -298,4 +255,6 @@ const BottomModal = forwardRef<BottomModalRefProps, BottomModalProps>(
   }
 );
 
-export default BottomModal;
+BottomPopup.displayName = 'BottomPopup';
+
+export default BottomPopup;

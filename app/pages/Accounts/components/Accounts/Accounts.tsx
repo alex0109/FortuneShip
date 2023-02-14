@@ -2,24 +2,22 @@ import React, { useCallback, useContext, useRef, useState } from 'react';
 import { View, Text, ScrollView, Pressable, TouchableOpacity } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
-import Plus from 'shared/assets/images/plus.svg';
+import Plus from 'shared/assets/images/plus-bl.svg';
 import themeContext from 'shared/lib/context/themeContext';
 import { useActions } from 'shared/lib/hooks/useActions';
 
 import { useTypedSelector } from 'shared/lib/hooks/useTypedSelector';
 
 import { cashExample, targetExample } from '../../lib/store/mockData';
-import BottomModal from '../AccountBottomModal/AccountBottomModal';
+import BottomModal from '../AccountBottomModal/AccountBottomPopup';
 import CashAccount from '../AccountCashBar/AccountCashBar';
 import TargetAccount from '../AccountTargetBar/AccountTargetBar';
 
 import { styles } from './Accounts.styles';
 
+import type { BottomPopupRefProps } from '../AccountBottomModal/AccountBottomPopup';
 
-import type { BottomModalRefProps } from '../AccountBottomModal/AccountBottomModal';
-
-
-import type { FC} from 'react';
+import type { FC } from 'react';
 
 const Accounts: FC = () => {
   const {
@@ -34,22 +32,21 @@ const Accounts: FC = () => {
   } = useActions();
   const { cash, targets } = useTypedSelector((state) => state);
   const theme = useContext<{ backgroundColor?: string; color?: string }>(themeContext);
-  const refModal = useRef<BottomModalRefProps>(null);
+  const refPopup = useRef<BottomPopupRefProps>(null);
   const [modalPropID, setModalPropID] = useState<number>(cash[0].index);
 
   const handleModalOpen = useCallback((index: number) => {
     if (index !== undefined) {
       setModalPropID(index);
-      console.log(index);
     }
 
-    const setActive = refModal?.current?.setActive(true);
+    const setActive = refPopup?.current?.setActive(true);
     if (setActive) {
-      refModal?.current?.scrollTo(0);
-      refModal?.current?.setActive(false);
+      refPopup?.current?.scrollTo(0);
+      refPopup?.current?.setActive(false);
     } else {
-      refModal?.current?.scrollTo(-200);
-      refModal?.current?.setActive(true);
+      refPopup?.current?.scrollTo(-200);
+      refPopup?.current?.setActive(true);
     }
   }, []);
 
@@ -73,7 +70,11 @@ const Accounts: FC = () => {
             <View style={styles.accountsScroll}>
               <View style={styles.accountsContent}>
                 {cash.map((item) => (
-                  <TouchableOpacity key={item.index} onPress={() => { handleModalOpen(item.index); }}>
+                  <TouchableOpacity
+                    key={item.index}
+                    onPress={() => {
+                      handleModalOpen(item.index);
+                    }}>
                     <CashAccount key={item.index} {...item} />
                   </TouchableOpacity>
                 ))}
@@ -100,7 +101,11 @@ const Accounts: FC = () => {
             <View style={styles.accountsScroll}>
               <View style={styles.accountsContent}>
                 {targets.map((item) => (
-                  <TouchableOpacity key={item.index} onPress={() => { handleModalOpen(item.index); }}>
+                  <TouchableOpacity
+                    key={item.index}
+                    onPress={() => {
+                      handleModalOpen(item.index);
+                    }}>
                     <TargetAccount key={item.index} {...item} />
                   </TouchableOpacity>
                 ))}
@@ -119,7 +124,7 @@ const Accounts: FC = () => {
           updateCountCashAccount={updateCountCashAccount}
           updateTitleTargetAccount={updateTitleTargetAccount}
           updateCountTargetAccount={updateCountTargetAccount}
-          ref={refModal}
+          ref={refPopup}
         />
       </GestureHandlerRootView>
     </>

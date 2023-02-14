@@ -1,52 +1,51 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import React from 'react';
 
+import Analytic from '../../assets/images/analytic-wh.svg';
+import Card from '../../assets/images/card-wh.svg';
+import Chart from '../../assets/images/chart-wh.svg';
 
-import Accounts from '../../assets/images/accounts.svg';
-import Analys from '../../assets/images/analys.svg';
-import Main from '../../assets/images/moneyIconMain.svg';
 import { colors } from '../../assets/styles/local.style';
 
 import {
   ChartStackNavigator,
   AnalyticsStackNavigator,
-  AccountsStackNavigator
+  AccountsStackNavigator,
 } from './StackNavigator';
 
-import type {
-  RootStackParamList} from './StackNavigator';
+import type { RootStackParamList } from './StackNavigator';
 
 const Tab = createBottomTabNavigator<RootStackParamList>();
 
 const BottomTabNavigator = () => (
-    <Tab.Navigator
-      initialRouteName='ChartTab'
-      screenOptions={({ route }) => ({
-        tabBarIcon: ({ focused }) => {
-          if (route.name == 'ChartTab') {
-            return <Main width={30} height={30} fill={focused ? colors.info : colors.red} />;
-          }
-          if (route.name == 'AccountsTab') {
-            return <Accounts width={30} height={30} fill={focused ? colors.info : colors.white} />;
-          }
-          if (route.name == 'AnalyticsTab') {
-            return <Analys width={30} height={40} fill={focused ? colors.info : colors.white} />;
-          }
-        },
-        tabBarStyle: {
-          backgroundColor: colors.blackBar,
-          borderTopWidth: 0,
-        },
-        tabBarHideOnKeyboard: true,
-        tabBarActiveTintColor: colors.warning,
-        tabBarInactiveTintColor: 'white',
-        headerShown: false,
-        tabBarShowLabel: false,
-      })}>
-      <Tab.Screen name='AccountsTab' component={AccountsStackNavigator} />
-      <Tab.Screen name='ChartTab' component={ChartStackNavigator} />
-      <Tab.Screen name='AnalyticsTab' component={AnalyticsStackNavigator} />
-    </Tab.Navigator>
-  );
+  <Tab.Navigator
+    initialRouteName='ChartTab'
+    screenOptions={({ route }) => ({
+      tabBarIcon: () => {
+        if (route.name == 'AccountsTab') {
+          return <Card width={30} height={30} />;
+        }
+        if (route.name == 'ChartTab') {
+          return <Chart width={30} height={30} />;
+        }
+        if (route.name == 'AnalyticsTab') {
+          return <Analytic width={30} height={40} />;
+        }
+      },
+      tabBarStyle: {
+        backgroundColor: colors.blackBar,
+        borderTopWidth: 0,
+      },
+      tabBarHideOnKeyboard: true,
+      tabBarActiveTintColor: colors.warning,
+      tabBarInactiveTintColor: 'white',
+      headerShown: false,
+      tabBarShowLabel: false,
+    })}>
+    <Tab.Screen name='AccountsTab' component={AccountsStackNavigator} />
+    <Tab.Screen name='ChartTab' component={ChartStackNavigator} />
+    <Tab.Screen name='AnalyticsTab' component={AnalyticsStackNavigator} />
+  </Tab.Navigator>
+);
 
 export default BottomTabNavigator;

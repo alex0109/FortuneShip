@@ -6,9 +6,11 @@ import { Dimensions, View } from 'react-native';
 import { EventRegister } from 'react-native-event-listeners';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
-import Dialog from '../../assets/images/eye.svg';
-import LightTheme from '../../assets/images/lightButton.svg';
-import User from '../../assets/images/user.svg';
+import Login from '../../assets/images/login-wh.svg';
+import Logout from '../../assets/images/logout-wh.svg';
+import Sun from '../../assets/images/sun.svg';
+import User from '../../assets/images/user-wh.svg';
+
 import { colors } from '../../assets/styles/local.style';
 import AppHeader from '../../ui/AppHeader/AppHeader';
 
@@ -24,15 +26,15 @@ const DrawerNavigator = () => {
   return (
     <Drawer.Navigator
       screenOptions={({ route }) => ({
-        drawerIcon: ({ focused }) => {
+        drawerIcon: () => {
           if (route.name == 'ChartDrawer') {
-            return <Dialog width={30} height={30} fill={focused ? colors.info : colors.white} />;
+            return <User width={30} height={30} />;
           }
           if (route.name == 'SignUpDrawer') {
-            return <User width={30} height={30} fill={focused ? colors.info : colors.white} />;
+            return <Logout width={30} height={30} />;
           }
           if (route.name == 'SignInDrawer') {
-            return <User width={30} height={30} fill={focused ? colors.info : colors.white} />;
+            return <Login width={30} height={30} />;
           }
         },
         drawerStyle: {},
@@ -66,7 +68,7 @@ const DrawerNavigator = () => {
                   setMode(!mode);
                   EventRegister.emit('changeTheme', mode);
                 }}>
-                <LightTheme width={30} height={30} fill={colors.white} />
+                <Sun width={30} height={30} />
               </TouchableOpacity>
             </View>
           ),
