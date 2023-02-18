@@ -1,6 +1,8 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Dimensions } from 'react-native';
 
 import { colors } from '../../../../shared/assets/styles/local.style';
+
+const windowWidth = Dimensions.get('window').width;
 
 export const styles = StyleSheet.create({
   contentContainer: {
@@ -8,18 +10,16 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     height: 50,
-    width: '80%',
+    width: windowWidth / 1.2,
     marginBottom: 30,
     borderBottomWidth: 0.3,
     borderStyle: 'solid',
-    // borderBottomColor: customStyles.colors.gray,
   },
   contentItem: {
     flexDirection: 'row',
     width: '100%',
   },
   mainText: {
-    // color: customStyles.colors.white,
     paddingLeft: 10,
   },
   h1Text: {

@@ -25,7 +25,8 @@ export default function App() {
   });
 
   const [loaded] = useFonts({
-    Assistant: require('./shared/assets/fonts/Assistant-Regular.ttf'),
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+    Assistant: require('./shared/assets/fonts/Assistant/Assistant-Regular.ttf'),
   });
 
   if (!loaded) {

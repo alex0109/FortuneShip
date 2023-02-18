@@ -1,19 +1,16 @@
 import React, { useCallback, useContext, useRef, useState } from 'react';
-import { View, Text, ScrollView, Pressable, TouchableOpacity } from 'react-native';
+import { ScrollView } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
-import Plus from 'shared/assets/images/plus-bl.svg';
 import themeContext from 'shared/lib/context/themeContext';
 import { useActions } from 'shared/lib/hooks/useActions';
 
 import { useTypedSelector } from 'shared/lib/hooks/useTypedSelector';
 
-import { cashExample, targetExample } from '../../lib/store/mockData';
 import BottomModal from '../AccountBottomModal/AccountBottomPopup';
-import CashAccount from '../AccountCashBar/AccountCashBar';
-import TargetAccount from '../AccountTargetBar/AccountTargetBar';
 
-import { styles } from './Accounts.styles';
+import AccountsCashList from '../AccountsCashList/AccountsCashList';
+import AccountsTargetList from '../AccountsTargetList/AccountsTargetList';
 
 import type { BottomPopupRefProps } from '../AccountBottomModal/AccountBottomPopup';
 
@@ -21,8 +18,6 @@ import type { FC } from 'react';
 
 const Accounts: FC = () => {
   const {
-    addCashAccount,
-    addTargetAccount,
     removeCashAccount,
     removeTargetAccount,
     updateTitleCashAccount,
@@ -30,7 +25,7 @@ const Accounts: FC = () => {
     updateTitleTargetAccount,
     updateCountTargetAccount,
   } = useActions();
-  const { cash, targets } = useTypedSelector((state) => state);
+  const { cash } = useTypedSelector((state) => state);
   const theme = useContext<{ backgroundColor?: string; color?: string }>(themeContext);
   const refPopup = useRef<BottomPopupRefProps>(null);
   const [modalPropID, setModalPropID] = useState<number>(cash[0].index);
@@ -54,67 +49,11 @@ const Accounts: FC = () => {
     <>
       <GestureHandlerRootView style={{ flex: 1 }}>
         <ScrollView style={[{ backgroundColor: theme.backgroundColor }]}>
-          <View style={[styles.accountsTitle, { color: theme.color }]}>
-            <Text style={[styles.h1Text, { color: theme.color }]}>Available Funds</Text>
-          </View>
-          {cash.length == 0 ? (
-            <View style={styles.accountsNoFundMessage}>
-              <Text style={[styles.h2Text, { color: theme.color }]}>
-                At the moment you have no funds...
-              </Text>
-              <Pressable onPress={() => addCashAccount(cashExample)}>
-                <Plus width={30} height={30} fill={theme.color} />
-              </Pressable>
-            </View>
-          ) : (
-            <View style={styles.accountsScroll}>
-              <View style={styles.accountsContent}>
-                {cash.map((item) => (
-                  <TouchableOpacity
-                    key={item.index}
-                    onPress={() => {
-                      handleModalOpen(item.index);
-                    }}>
-                    <CashAccount key={item.index} {...item} />
-                  </TouchableOpacity>
-                ))}
-                <Pressable onPress={() => addCashAccount(cashExample)}>
-                  <Plus width={30} height={30} fill={theme.color} />
-                </Pressable>
-              </View>
-            </View>
-          )}
-
-          <View style={[styles.accountsTitle, { color: theme.color }]}>
-            <Text style={[styles.h1Text, { color: theme.color }]}>Targets</Text>
-          </View>
-          {targets.length == 0 ? (
-            <View style={styles.accountsNoFundMessage}>
-              <Text style={[styles.h2Text, { color: theme.color }]}>
-                At the moment you have no targets...
-              </Text>
-              <Pressable onPress={() => addTargetAccount(targetExample)}>
-                <Plus width={30} height={30} fill={theme.color} />
-              </Pressable>
-            </View>
-          ) : (
-            <View style={styles.accountsScroll}>
-              <View style={styles.accountsContent}>
-                {targets.map((item) => (
-                  <TouchableOpacity
-                    key={item.index}
-                    onPress={() => {
-                      handleModalOpen(item.index);
-                    }}>
-                    <TargetAccount key={item.index} {...item} />
-                  </TouchableOpacity>
-                ))}
-                <Pressable onPress={() => addTargetAccount(targetExample)}>
-                  <Plus width={30} height={30} fill={theme.color} />
-                </Pressable>
-              </View>
-            </View>
-          )}
+          <AccountsCashList
+            removeCashAccount={removeCashAccount}
+            handleModalOpen={handleModalOpen}
+          />
+          <AccountsTargetList handleModalOpen={handleModalOpen} />
         </ScrollView>
         <BottomModal
           modalPropID={modalPropID}

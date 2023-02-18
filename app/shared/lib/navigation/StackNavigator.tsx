@@ -1,5 +1,4 @@
 import { createStackNavigator } from '@react-navigation/stack';
-import React from 'react';
 
 import Accounts from 'pages/Accounts/components/Accounts/Accounts';
 import Analytics from 'pages/Analytic/components/Analytic/Analytic';
@@ -7,7 +6,9 @@ import Chart from 'pages/Chart/components/Chart/Chart';
 import SignIn from 'pages/SignIn/components/SignIn/SignIn';
 import SignUp from 'pages/SignUp/components/SignUp/SignUp';
 
-export interface RootStackParamList {
+import React from 'react';
+
+export type RootStackParamList = {
   ChartStack: { name: string };
   AccountsStack: { name: string };
   AnalyticssStack: { name: string };
@@ -18,7 +19,7 @@ export interface RootStackParamList {
   AnalyticsTab: { name: string };
   SignUpDrawer: { name: string };
   SignInDrawer: { name: string };
-}
+};
 
 const Stack = createStackNavigator<RootStackParamList>();
 

@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-import type { ICash, CashState } from '../../../../shared/lib/store/types';
-import type { PayloadAction} from '@reduxjs/toolkit';
+import type { PayloadAction } from '@reduxjs/toolkit';
+import type { ICash, CashState } from 'shared/lib/store/types';
 
 const initialState: CashState = [
   { index: Math.random() * 10000 - 1, title: 'Puss in Boots', count: 999, specify: 'cash' },
@@ -17,7 +17,8 @@ export const cashSlice = createSlice({
     addCashAccount: (state, action: PayloadAction<ICash>) => {
       state.push(action.payload);
     },
-    removeCashAccount: (state, action: PayloadAction<{ index: number }>) => state.filter((item) => item.index !== action.payload.index),
+    removeCashAccount: (state, action: PayloadAction<{ index: number }>) =>
+      state.filter((item) => item.index !== action.payload.index),
     updateTitleCashAccount: (state, action: PayloadAction<{ index: number; title: string }>) => {
       const cashItem = state.find((item) => item.index === action.payload.index);
       if (cashItem) {

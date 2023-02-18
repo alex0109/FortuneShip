@@ -10,9 +10,12 @@ import Animated, {
   withSpring,
 } from 'react-native-reanimated';
 
-import Minus from 'shared/assets/images/minus-bl.svg';
-import Plus from 'shared/assets/images/plus-bl.svg';
-import Trash from 'shared/assets/images/trash-bl.svg';
+import MinusBl from 'shared/assets/images/minus-bl.svg';
+import Minus from 'shared/assets/images/minus-wh.svg';
+import PlusBl from 'shared/assets/images/plus-bl.svg';
+import Plus from 'shared/assets/images/plus-wh.svg';
+import TrashBl from 'shared/assets/images/trash-bl.svg';
+import Trash from 'shared/assets/images/trash-wh.svg';
 
 import { colors } from 'shared/assets/styles/local.style';
 
@@ -229,16 +232,28 @@ const BottomPopup = forwardRef<BottomPopupRefProps, BottomPopupProps>(
                   onPress={() => {
                     removeCountHandler(modalProps.index);
                   }}>
-                  <Trash width={60} height={60} />
+                  {theme.backgroundColor == colors.blackMain ? (
+                    <Trash width={60} height={60} />
+                  ) : (
+                    <TrashBl width={60} height={60} />
+                  )}
                 </Pressable>
                 <Pressable
                   onPress={() => {
                     setModalVisible(true);
                   }}>
-                  <Plus width={60} height={60} />
+                  {theme.backgroundColor == colors.blackMain ? (
+                    <Plus width={60} height={60} />
+                  ) : (
+                    <PlusBl width={60} height={60} />
+                  )}
                 </Pressable>
                 <Pressable>
-                  <Minus width={60} height={60} />
+                  {theme.backgroundColor == colors.blackMain ? (
+                    <Minus width={60} height={60} />
+                  ) : (
+                    <MinusBl width={60} height={60} />
+                  )}
                 </Pressable>
               </View>
             </View>
