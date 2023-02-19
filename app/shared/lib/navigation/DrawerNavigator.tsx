@@ -1,7 +1,7 @@
-import { createDrawerNavigator } from '@react-navigation/drawer';
+import { DrawerItem, createDrawerNavigator } from '@react-navigation/drawer';
 import React, { useContext } from 'react';
 
-import { Dimensions } from 'react-native';
+import { Dimensions, View, Text } from 'react-native';
 import themeContext from 'shared/lib/context/themeContext';
 
 import AppHeaderTitle from 'shared/ui/AppHeaderTitle/AppHeaderTitle';
@@ -84,14 +84,24 @@ const DrawerNavigator = () => {
       />
       <Drawer.Screen
         name='SignUpDrawer'
-        options={{ title: 'Logout', headerTitle: '' }}
+        options={{ title: 'Logout', headerTitle: 'SIGN UP' }}
         component={SignUpStackNavigator}
       />
       <Drawer.Screen
         name='SignInDrawer'
-        options={{ title: 'Login', headerTitle: '' }}
+        options={{ title: 'Login', headerTitle: 'SIGN IN' }}
         component={SignInStackNavigator}
       />
+      <Drawer.Group>
+        <Drawer.Screen
+          name='Button'
+          component={() => (
+            <View>
+              <Text>Hello</Text>
+            </View>
+          )}
+        />
+      </Drawer.Group>
     </Drawer.Navigator>
   );
 };

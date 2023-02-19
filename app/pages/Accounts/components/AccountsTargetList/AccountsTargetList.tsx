@@ -37,7 +37,10 @@ const AccountsTargetList: FC<AccountsTargetListProps> = ({ handleModalOpen }) =>
           <Text style={[styles.h2Text, { color: theme.color }]}>
             At the moment you have no targets...
           </Text>
-          <Pressable onPress={() => addTargetAccount(targetExample)}>
+          <Pressable
+            onPress={() =>
+              addTargetAccount({ ...targetExample, index: Math.random() * 10000 - 1 })
+            }>
             {theme.backgroundColor == colors.blackMain ? (
               <Plus width={40} height={40} />
             ) : (
@@ -57,7 +60,10 @@ const AccountsTargetList: FC<AccountsTargetListProps> = ({ handleModalOpen }) =>
                 <AccountTargetBar key={item.index} {...item} />
               </TouchableOpacity>
             ))}
-            <Pressable onPress={() => addTargetAccount(targetExample)}>
+            <Pressable
+              onPress={() =>
+                addTargetAccount({ ...targetExample, index: Math.random() * 10000 - 1 })
+              }>
               {theme.backgroundColor == colors.blackMain ? (
                 <Plus width={40} height={40} />
               ) : (

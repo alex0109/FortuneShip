@@ -37,7 +37,8 @@ const AccountsCashList: FC<AccountsCashListProps> = ({ handleModalOpen }) => {
           <Text style={[styles.h2Text, { color: theme.color }]}>
             At the moment you have no funds...
           </Text>
-          <Pressable onPress={() => addCashAccount(cashExample)}>
+          <Pressable
+            onPress={() => addCashAccount({ ...cashExample, index: Math.random() * 10000 - 1 })}>
             {theme.backgroundColor == colors.blackMain ? (
               <Plus width={40} height={40} />
             ) : (
@@ -57,7 +58,8 @@ const AccountsCashList: FC<AccountsCashListProps> = ({ handleModalOpen }) => {
                 <AccountCashBar key={item.index} {...item} />
               </TouchableOpacity>
             ))}
-            <Pressable onPress={() => addCashAccount(cashExample)}>
+            <Pressable
+              onPress={() => addCashAccount({ ...cashExample, index: Math.random() * 10000 - 1 })}>
               {theme.backgroundColor == colors.blackMain ? (
                 <Plus width={40} height={40} />
               ) : (

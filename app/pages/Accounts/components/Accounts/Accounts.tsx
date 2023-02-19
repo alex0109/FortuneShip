@@ -5,8 +5,6 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import themeContext from 'shared/lib/context/themeContext';
 import { useActions } from 'shared/lib/hooks/useActions';
 
-import { useTypedSelector } from 'shared/lib/hooks/useTypedSelector';
-
 import BottomModal from '../AccountBottomModal/AccountBottomPopup';
 
 import AccountsCashList from '../AccountsCashList/AccountsCashList';
@@ -25,10 +23,9 @@ const Accounts: FC = () => {
     updateTitleTargetAccount,
     updateCountTargetAccount,
   } = useActions();
-  const { cash } = useTypedSelector((state) => state);
   const theme = useContext<{ backgroundColor?: string; color?: string }>(themeContext);
   const refPopup = useRef<BottomPopupRefProps>(null);
-  const [modalPropID, setModalPropID] = useState<number>(cash[0].index);
+  const [modalPropID, setModalPropID] = useState<number>();
 
   const handleModalOpen = useCallback((index: number) => {
     if (index !== undefined) {
@@ -49,10 +46,7 @@ const Accounts: FC = () => {
     <>
       <GestureHandlerRootView style={{ flex: 1 }}>
         <ScrollView style={[{ backgroundColor: theme.backgroundColor }]}>
-          <AccountsCashList
-            removeCashAccount={removeCashAccount}
-            handleModalOpen={handleModalOpen}
-          />
+          <AccountsCashList handleModalOpen={handleModalOpen} />
           <AccountsTargetList handleModalOpen={handleModalOpen} />
         </ScrollView>
         <BottomModal
