@@ -13,7 +13,8 @@ export const styles = StyleSheet.create({
     fontFamily: 'Assistant',
     fontWeight: '900',
   },
-  test: {
-    color: 'black',
+  rotate: {
+    transform: [{ rotateZ: '-90deg' }],
   },
+  buttonWrap: { marginTop: 20 },
 });

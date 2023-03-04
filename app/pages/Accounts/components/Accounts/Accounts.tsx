@@ -1,5 +1,5 @@
 import React, { useCallback, useContext, useRef, useState } from 'react';
-import { ScrollView } from 'react-native';
+import { Dimensions, ScrollView } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 import themeContext from 'shared/lib/context/themeContext';
@@ -13,6 +13,8 @@ import AccountsTargetList from '../AccountsTargetList/AccountsTargetList';
 import type { BottomPopupRefProps } from '../AccountBottomModal/AccountBottomPopup';
 
 import type { FC } from 'react';
+
+const { height: SCREEN_HEIGHT } = Dimensions.get('window');
 
 const Accounts: FC = () => {
   const {
@@ -28,16 +30,14 @@ const Accounts: FC = () => {
   const [modalPropID, setModalPropID] = useState<number>();
 
   const handleModalOpen = useCallback((index: number) => {
-    if (index !== undefined) {
-      setModalPropID(index);
-    }
+    setModalPropID(index);
 
     const setActive = refPopup?.current?.setActive(true);
     if (setActive) {
       refPopup?.current?.scrollTo(0);
       refPopup?.current?.setActive(false);
     } else {
-      refPopup?.current?.scrollTo(-200);
+      refPopup?.current?.scrollTo(-SCREEN_HEIGHT / 1.5);
       refPopup?.current?.setActive(true);
     }
   }, []);

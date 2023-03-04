@@ -33,7 +33,7 @@ import type { ModalRefProps } from 'shared/ui/Modal/Modal';
 const { height: SCREEN_HEIGHT } = Dimensions.get('window');
 
 interface BottomPopupProps {
-  modalPropID: number;
+  modalPropID: number | undefined;
   removeCashAccount: ActionCreatorWithPayload<{ index: number }, 'cash/removeCashAccount'>;
   updateTitleCashAccount: ActionCreatorWithPayload<
     { index: number; title: string },
@@ -98,12 +98,12 @@ const BottomPopup = forwardRef<BottomPopupRefProps, BottomPopupProps>(
       return item;
     };
 
-    const modalProps = findModalPropByID(modalPropID);
+    const modalProps = findModalPropByID(modalPropID!);
 
     const translationY = useSharedValue(0);
     const context = useSharedValue({ y: 0 });
     const isActive = useSharedValue(false);
-    const MAX_TRANSLATE_Y = -SCREEN_HEIGHT / 1.7;
+    const MAX_TRANSLATE_Y = -SCREEN_HEIGHT / 1.5;
 
     const refModal = useRef<ModalRefProps>(null);
 
@@ -165,12 +165,12 @@ const BottomPopup = forwardRef<BottomPopupRefProps, BottomPopupProps>(
       .onUpdate((event) => {
         translationY.value = event.translationY + context.value.y;
         translationY.value = Math.max(translationY.value, MAX_TRANSLATE_Y);
-        if (translationY.value > -SCREEN_HEIGHT / 2) {
+        if (translationY.value > -SCREEN_HEIGHT / 1) {
           scrollTo(MAX_TRANSLATE_Y);
         }
       })
       .onEnd(() => {
-        if (translationY.value > -SCREEN_HEIGHT / 3) {
+        if (translationY.value > -SCREEN_HEIGHT / 2) {
           scrollTo(0);
         }
       });
