@@ -1,6 +1,6 @@
-import type { ChartData } from '../../components/Chart/Chart';
+import type { ChartPieData } from '../../components/ChartPie/ChartPie';
 
-export const generateChartData = () => {
+export const generateChartPieData = () => {
   const itemsCount = Math.floor(Math.random() * 7) + 3;
   const value = [];
   for (let i = 0; i < itemsCount; i++) {
@@ -9,7 +9,7 @@ export const generateChartData = () => {
 
   const total = value.reduce((a, b) => a + b, 0);
 
-  const data: ChartData = [];
+  const data: ChartPieData = [];
   for (let i = 0; i < itemsCount; i++) {
     const percent = value[i] / total;
     data.push({
