@@ -2,8 +2,8 @@ import { DrawerItem, createDrawerNavigator } from '@react-navigation/drawer';
 import React, { useContext } from 'react';
 
 import { Dimensions, View, Text } from 'react-native';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 import themeContext from 'shared/lib/context/themeContext';
-
 import AppHeaderTitle from 'shared/ui/AppHeaderTitle/AppHeaderTitle';
 import HeaderThemeSwitch from 'shared/ui/HeaderThemeSwitch/HeaderThemeSwitch';
 
@@ -107,26 +107,18 @@ const DrawerNavigator = () => {
     // </Drawer.Navigator> */}
       <Drawer.Navigator
         drawerContent={CustomDrawerContent}
-        screenOptions={() => ({
-          drawerStyle: {},
+        screenOptions={{
+          headerShown: false,
+          drawerActiveBackgroundColor: '#aa18ea',
+          drawerActiveTintColor: '#fff',
+          drawerInactiveTintColor: '#333',
           drawerLabelStyle: {
-            color: theme.backgroundColor == colors.blackMain ? colors.white : colors.blackMain,
+            marginLeft: -25,
+            fontFamily: 'Roboto-Medium',
+            fontSize: 15,
           },
-          drawerContentStyle: {
-            backgroundColor:
-              theme.backgroundColor == colors.blackMain ? colors.blackBar : colors.gray,
-          },
-          headerStyle: {
-            backgroundColor:
-              theme.backgroundColor == colors.blackMain ? colors.blackBar : colors.gray,
-            elevation: 0,
-            shadowOpacity: 0,
-          },
-          headerTintColor:
-            theme.backgroundColor == colors.blackMain ? colors.white : colors.blackMain,
-          swipeEdgeWidth: 50,
-        })}>
-        <Drawer.Screen
+        }}>
+        {/* <Drawer.Screen
           name='SignUpDrawer'
           options={{ title: 'Sign up', headerTitle: '' }}
           component={SignUpStackNavigator}
@@ -135,6 +127,43 @@ const DrawerNavigator = () => {
           name='SignInDrawer'
           options={{ title: 'Sign in', headerTitle: '' }}
           component={SignInStackNavigator}
+        /> */}
+        <Drawer.Screen
+          name='Home'
+          component={TabNavigator}
+          options={{
+            drawerIcon: ({ color }) => <Ionicons name='home-outline' size={22} color={color} />,
+          }}
+        />
+        <Drawer.Screen
+          name='Profile'
+          component={TabNavigator}
+          options={{
+            drawerIcon: ({ color }) => <Ionicons name='person-outline' size={22} color={color} />,
+          }}
+        />
+        <Drawer.Screen
+          name='Messages'
+          component={TabNavigator}
+          options={{
+            drawerIcon: ({ color }) => (
+              <Ionicons name='chatbox-ellipses-outline' size={22} color={color} />
+            ),
+          }}
+        />
+        <Drawer.Screen
+          name='Moments'
+          component={TabNavigator}
+          options={{
+            drawerIcon: ({ color }) => <Ionicons name='timer-outline' size={22} color={color} />,
+          }}
+        />
+        <Drawer.Screen
+          name='Settings'
+          component={TabNavigator}
+          options={{
+            drawerIcon: ({ color }) => <Ionicons name='settings-outline' size={22} color={color} />,
+          }}
         />
       </Drawer.Navigator>
     </>
