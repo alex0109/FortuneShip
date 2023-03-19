@@ -1,5 +1,5 @@
-import React, { Children, useEffect } from 'react';
-import { View, Dimensions, Text } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { View, Dimensions, Button } from 'react-native';
 import { useSharedValue, withTiming } from 'react-native-reanimated';
 import Svg from 'react-native-svg';
 
@@ -8,12 +8,11 @@ import ChartSlice from '../ChartSlice/ChartSlice';
 
 import { styles } from './ChartPie.styles';
 
-import type { ReactNode, FC } from 'react';
+import type { FC } from 'react';
 
 interface ChartPieProps {
   size?: number;
   strokeWidth?: number;
-  children: ReactNode;
 }
 
 export type ChartPieDataItem = {
@@ -28,11 +27,10 @@ const { width: SCREEN_WIDTH } = Dimensions.get('window');
 const ChartPie: FC<ChartPieProps> = ({
   size = SCREEN_WIDTH * 0.8,
   strokeWidth = SCREEN_WIDTH / 15,
-  children,
 }) => {
   const progress = useSharedValue(0);
-  const [data, setData] = React.useState<ChartPieData>([]);
-  const [startAngles, setStartAngles] = React.useState<number[]>([]);
+  const [data, setData] = useState<ChartPieData>([]);
+  const [startAngles, setStartAngles] = useState<number[]>([]);
   const center = size / 2;
   const radius = (size - strokeWidth) / 3;
   const circumference = 2 * Math.PI * radius;
@@ -79,11 +77,9 @@ const ChartPie: FC<ChartPieProps> = ({
           ))}
         </Svg>
       </View>
-      {/* Need to work here */}
-      {Children.map(children, (child, i) => (
-        <Text>{i}</Text>
-      ))}
-      {/* Need to work here */}
+      <View>
+        <Button title='Refresh' onPress={refresh} />
+      </View>
     </>
   );
 };

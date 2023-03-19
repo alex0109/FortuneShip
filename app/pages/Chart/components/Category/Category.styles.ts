@@ -10,7 +10,7 @@ export const styles = StyleSheet.create({
     height: 40,
     width: 40,
     borderWidth: 2,
-    borderColor: 'red',
+    borderColor: 'green',
     borderRadius: 20,
   },
 });

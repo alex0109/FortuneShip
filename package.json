@@ -17,6 +17,7 @@
     "@react-navigation/native": "^6.0.14",
     "@react-navigation/stack": "^6.3.5",
     "@reduxjs/toolkit": "^1.9.1",
+    "@shopify/react-native-skia": "0.1.141",
     "eslint": "^8.33.0",
     "eslint-config-prettier": "^8.6.0",
     "eslint-plugin-react-native": "^4.0.0",
