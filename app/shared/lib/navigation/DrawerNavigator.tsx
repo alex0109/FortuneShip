@@ -1,8 +1,10 @@
-import { DrawerItem, createDrawerNavigator } from '@react-navigation/drawer';
+import { createDrawerNavigator } from '@react-navigation/drawer';
 import React, { useContext } from 'react';
+
 
 import { Dimensions, View, Text } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+
 import themeContext from 'shared/lib/context/themeContext';
 import AppHeaderTitle from 'shared/ui/AppHeaderTitle/AppHeaderTitle';
 import HeaderThemeSwitch from 'shared/ui/HeaderThemeSwitch/HeaderThemeSwitch';

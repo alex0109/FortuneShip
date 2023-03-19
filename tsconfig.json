@@ -12,5 +12,5 @@
       "app/*": ["app/*"]
     }
   },
-  "include": ["./app", "./declarations.d.ts"]
+  "include": ["./app/**/*", "./declarations.d.ts"]
 }

@@ -1,15 +1,17 @@
 /* eslint-disable no-unused-vars */
-import React, { RefObject, useCallback, useContext, useRef, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity } from 'react-native';
 import { colors } from 'shared/assets/styles/local.style';
 import themeContext from 'shared/lib/context/themeContext';
 import { useActions } from 'shared/lib/hooks/useActions';
-import CustomModal, { ModalRefProps } from 'shared/ui/Modal/Modal';
+
+import CustomModal from 'shared/ui/Modal/Modal';
 
 import { styles } from './AccountModal.styles';
 
 import type { ICash, ITarget } from '../../lib/types/interface';
-import type { FC } from 'react';
+import type { FC, RefObject } from 'react';
+import type { ModalRefProps } from 'shared/ui/Modal/Modal';
 
 interface AccountModalProps {
   modalProps: ICash | ITarget;
