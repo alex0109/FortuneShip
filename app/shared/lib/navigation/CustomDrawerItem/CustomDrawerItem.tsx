@@ -8,7 +8,6 @@ import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import themeContext from 'shared/lib/context/themeContext';
 
-import { styles } from './CustomDrawerItem.styles';
 // import SignIn from 'pages/SignIn/components/SignIn/SignIn';
 // import SignUp from 'pages/SignUp/components/SignUp/SignUp';
 
@@ -16,49 +15,49 @@ const CustomDrawerContent = (props) => {
   const theme = useContext<{ backgroundColor?: string; color?: string }>(themeContext);
 
   return (
-    <View style={{ flex: 1 }}>
-      <DrawerContentScrollView {...props} contentContainerStyle={{ backgroundColor: '#8200d6' }}>
-        <ImageBackground
-          source={require('../../../assets/images/menu-bg.jpeg')}
-          style={{ padding: 20 }}>
+    <View style={{ flex: 1, padding: 0, marginTop: 0 }}>
+      <DrawerContentScrollView {...props}>
+        <View
+          style={{
+            padding: 20,
+            backgroundColor: theme.backgroundColor,
+            borderBottomWidth: 1,
+            borderBottomColor: theme.color,
+          }}>
           <Image
             source={require('../../../assets/images/user-profile.jpg')}
             style={{ height: 80, width: 80, borderRadius: 40, marginBottom: 10 }}
           />
           <Text
             style={{
-              color: '#fff',
+              color: theme.color,
               fontSize: 18,
               fontFamily: 'Assistant',
               marginBottom: 5,
             }}>
             John Doe
           </Text>
-          <View style={{ flexDirection: 'row' }}>
-            <Text
-              style={{
-                color: '#fff',
-                fontFamily: 'Assistant',
-                marginRight: 5,
-              }}>
-              280 Coins
-            </Text>
-            <FontAwesome5 name='coins' size={14} color='#fff' />
-          </View>
-        </ImageBackground>
-        <View style={{ flex: 1, backgroundColor: '#fff', paddingTop: 10 }}>
+        </View>
+        <View style={{ flex: 1, paddingTop: 10 }}>
           <DrawerItemList {...props} />
         </View>
       </DrawerContentScrollView>
-      <View style={{ padding: 20, borderTopWidth: 1, borderTopColor: '#ccc' }}>
+      <View
+        style={{
+          padding: 20,
+          borderTopWidth: 1,
+          borderTopColor: theme.color,
+          backgroundColor: theme.backgroundColor,
+        }}>
         <TouchableOpacity onPress={() => {}} style={{ paddingVertical: 15 }}>
           <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-            <Ionicons name='share-social-outline' size={22} />
+            <Ionicons name='share-social-outline' size={22} color={theme.color} />
             <Text
               style={{
                 fontSize: 15,
                 fontFamily: 'Assistant',
                 marginLeft: 5,
+                color: theme.color,
               }}>
               Tell a Friend
             </Text>
@@ -66,12 +65,13 @@ const CustomDrawerContent = (props) => {
         </TouchableOpacity>
         <TouchableOpacity onPress={() => {}} style={{ paddingVertical: 15 }}>
           <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-            <Ionicons name='exit-outline' size={22} />
+            <Ionicons name='exit-outline' size={22} color={theme.color} />
             <Text
               style={{
                 fontSize: 15,
                 fontFamily: 'Assistant',
                 marginLeft: 5,
+                color: theme.color,
               }}>
               Sign Out
             </Text>

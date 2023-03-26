@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { View, Text, TextInput, Pressable, StyleSheet } from 'react-native';
+import { View, Text, TextInput, Pressable } from 'react-native';
 
 import { colors } from 'shared/assets/styles/local.style';
 import themeContext from 'shared/lib/context/themeContext';
@@ -71,7 +71,7 @@ const SignUp: FC<SignUpScreenProps> = ({ navigation }) => {
         </Pressable>
         <Pressable
           onPress={() => {
-            navigation.navigate('SignInDrawer', { name: 'SignInDrawer' });
+            navigation.navigate('SignInStack', { name: 'SignInStack' });
           }}>
           <Text style={[styles.loginText, { color: theme.color }]}>Login</Text>
         </Pressable>

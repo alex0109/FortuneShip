@@ -4,13 +4,11 @@ import React, { useContext } from 'react';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import themeContext from 'shared/lib/context/themeContext';
-import AppHeaderTitle from 'shared/ui/AppHeaderTitle/AppHeaderTitle';
 import HeaderThemeSwitch from 'shared/ui/HeaderThemeSwitch/HeaderThemeSwitch';
 
 import CustomDrawerContent from './CustomDrawerItem/CustomDrawerItem';
-import { SignInStackNavigator, SignUpStackNavigator } from './StackNavigator';
+import { SignInStackNavigator } from './StackNavigator';
 
-import TabNavigator from './TabNavigator';
 import BottomTabNavigator from './TabNavigator';
 
 const Drawer = createDrawerNavigator();
@@ -22,14 +20,24 @@ const DrawerNavigator = () => {
       drawerContent={CustomDrawerContent}
       screenOptions={{
         headerShown: true,
-        drawerActiveBackgroundColor: '#aa18ea',
-        drawerActiveTintColor: '#fff',
-        drawerInactiveTintColor: '#333',
+        drawerActiveBackgroundColor: theme.color,
+        drawerActiveTintColor: theme.backgroundColor,
+        drawerInactiveTintColor: theme.color,
+        drawerInactiveBackgroundColor: theme.backgroundColor,
+
+        headerStyle: {
+          backgroundColor: theme.backgroundColor,
+        },
+        headerTintColor: theme.color,
+        drawerStyle: {
+          backgroundColor: theme.backgroundColor,
+        },
         drawerLabelStyle: {
           marginLeft: -25,
           fontFamily: 'Assistant',
           fontSize: 15,
         },
+        headerRight: () => <HeaderThemeSwitch />,
       }}>
       <Drawer.Screen
         name='Home'
@@ -55,17 +63,10 @@ const DrawerNavigator = () => {
         }}
       />
       <Drawer.Screen
-        name='Moments'
-        component={BottomTabNavigator}
+        name='SignIn'
+        component={SignInStackNavigator}
         options={{
-          drawerIcon: ({ color }) => <Ionicons name='timer-outline' size={22} color={color} />,
-        }}
-      />
-      <Drawer.Screen
-        name='Settings'
-        component={BottomTabNavigator}
-        options={{
-          drawerIcon: ({ color }) => <Ionicons name='settings-outline' size={22} color={color} />,
+          drawerIcon: ({ color }) => <Ionicons name='ios-enter-outline' size={22} color={color} />,
         }}
       />
     </Drawer.Navigator>

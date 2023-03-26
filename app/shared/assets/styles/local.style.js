@@ -1,6 +1,6 @@
 export const colors = {
   white: '#f3f3f1',
-  gray: '#e9e9e9',
+  gray: '#8D8D8D',
   red: '#FA3D16',
   success: '#38CA35',
   warning: '#FABD16',

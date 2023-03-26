@@ -8,6 +8,7 @@ import SignIn from 'pages/SignIn/components/SignIn/SignIn';
 import SignUp from 'pages/SignUp/components/SignUp/SignUp';
 
 import React from 'react';
+// import { theme } from 'shared/assets/styles/local.style';
 
 export type RootStackParamList = {
   ChartStack: { name: string };
@@ -27,6 +28,7 @@ const Stack = createStackNavigator<RootStackParamList>();
 
 const screenOptionStyle = {
   headerShown: false,
+  animationEnabled: false,
 };
 
 const ChartStackNavigator = () => (
@@ -65,6 +67,7 @@ const SignUpStackNavigator = () => (
 const SignInStackNavigator = () => (
   <Stack.Navigator screenOptions={screenOptionStyle}>
     <Stack.Screen name='SignInStack' component={SignIn} />
+    <Stack.Screen name='SignUpDrawer' component={SignUp} />
   </Stack.Navigator>
 );
 

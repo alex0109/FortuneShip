@@ -13,7 +13,7 @@ import type { RootStackParamList } from 'shared/lib/navigation/StackNavigator';
 type SignInScreenNavigationProp = StackNavigationProp<
   RootStackParamList,
   'ChartTab',
-  'RegistrationDrawer'
+  'SignUpDrawer'
 >;
 
 interface SignInScreenProps {
