@@ -4,13 +4,6 @@ export const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
     justifyContent: 'center',
-    position: 'absolute',
-    left: 50 % -25,
-    top: 50 % -25,
-    height: 40,
-    width: 40,
-    borderWidth: 2,
-    borderColor: 'green',
-    borderRadius: 20,
+    flex: 10,
   },
 });

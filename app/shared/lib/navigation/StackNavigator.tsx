@@ -2,6 +2,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 
 import Accounts from 'pages/Accounts/components/Accounts/Accounts';
 import Analytics from 'pages/Analytic/components/Analytic/Analytic';
+import Category from 'pages/Chart/components/Category/Category';
 import Chart from 'pages/Chart/components/Chart/Chart';
 import SignIn from 'pages/SignIn/components/SignIn/SignIn';
 import SignUp from 'pages/SignUp/components/SignUp/SignUp';
@@ -10,6 +11,7 @@ import React from 'react';
 
 export type RootStackParamList = {
   ChartStack: { name: string };
+  CategoryStack: { name: string };
   AccountsStack: { name: string };
   AnalyticssStack: { name: string };
   SignUpStack: { name: string };
@@ -28,8 +30,17 @@ const screenOptionStyle = {
 };
 
 const ChartStackNavigator = () => (
-  <Stack.Navigator screenOptions={screenOptionStyle}>
-    <Stack.Screen name='ChartStack' options={{ title: 'Main' }} component={Chart} />
+  <Stack.Navigator>
+    <Stack.Screen
+      name='ChartStack'
+      options={{ title: 'Main', headerShown: false }}
+      component={Chart}
+    />
+    <Stack.Screen
+      name='CategoryStack'
+      options={{ title: 'Category', headerShown: true }}
+      component={Category}
+    />
   </Stack.Navigator>
 );
 

@@ -3,6 +3,8 @@ import { mix } from '@shopify/react-native-skia';
 import type { IPoint } from '../types/types';
 import type { SkiaMutableValue } from '@shopify/react-native-skia';
 import type { SharedValue } from 'react-native-reanimated';
+import { useRef } from 'react';
+import Animated from 'react-native-reanimated';
 
 export function moveBallInBezierCurve(
   points: IPoint[],
@@ -46,7 +48,7 @@ export function moveBallInBezierCurve(
 //   }).start();
 // };
 
-// export const positionTransform = (position: number) => {
+// export const positionTransform = (position: number[]) => {
 //   const xVal = ballAnimatedValue.interpolate({
 //     inputRange: [0, 1],
 //     outputRange: [0, 0],

@@ -1,13 +1,13 @@
 import React from 'react';
-import { View } from 'react-native';
-
-import Wallet from 'shared/assets/images/wallet-wh.svg';
+import { Text, View } from 'react-native';
 
 import { styles } from './Category.styles';
 
-const Category = () => (
+import type { FC } from 'react';
+
+const Category: FC = () => (
   <View style={[styles.container]}>
-    <Wallet width={30} height={30} />
+    <Text>Hello world!</Text>
   </View>
 );
 

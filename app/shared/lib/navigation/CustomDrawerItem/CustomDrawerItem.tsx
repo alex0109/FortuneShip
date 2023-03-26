@@ -1,21 +1,20 @@
-/* eslint-disable react/jsx-key */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 
 import { DrawerContentScrollView, DrawerItemList } from '@react-navigation/drawer';
-import React, { useState, useContext } from 'react';
+import React, { useContext } from 'react';
 import { TouchableOpacity, Text, View, Image, ImageBackground } from 'react-native';
 
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import themeContext from 'shared/lib/context/themeContext';
 
-
-
 import { styles } from './CustomDrawerItem.styles';
 // import SignIn from 'pages/SignIn/components/SignIn/SignIn';
 // import SignUp from 'pages/SignUp/components/SignUp/SignUp';
 
-
+const CustomDrawerContent = (props) => {
   const theme = useContext<{ backgroundColor?: string; color?: string }>(themeContext);
+
   return (
     <View style={{ flex: 1 }}>
       <DrawerContentScrollView {...props} contentContainerStyle={{ backgroundColor: '#8200d6' }}>
@@ -30,7 +29,7 @@ import { styles } from './CustomDrawerItem.styles';
             style={{
               color: '#fff',
               fontSize: 18,
-              fontFamily: 'Roboto-Medium',
+              fontFamily: 'Assistant',
               marginBottom: 5,
             }}>
             John Doe
@@ -39,7 +38,7 @@ import { styles } from './CustomDrawerItem.styles';
             <Text
               style={{
                 color: '#fff',
-                fontFamily: 'Roboto-Regular',
+                fontFamily: 'Assistant',
                 marginRight: 5,
               }}>
               280 Coins
@@ -58,7 +57,7 @@ import { styles } from './CustomDrawerItem.styles';
             <Text
               style={{
                 fontSize: 15,
-                fontFamily: 'Roboto-Medium',
+                fontFamily: 'Assistant',
                 marginLeft: 5,
               }}>
               Tell a Friend
@@ -71,7 +70,7 @@ import { styles } from './CustomDrawerItem.styles';
             <Text
               style={{
                 fontSize: 15,
-                fontFamily: 'Roboto-Medium',
+                fontFamily: 'Assistant',
                 marginLeft: 5,
               }}>
               Sign Out
@@ -81,6 +80,6 @@ import { styles } from './CustomDrawerItem.styles';
       </View>
     </View>
   );
-}
+};
 
 export default CustomDrawerContent;
