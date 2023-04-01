@@ -209,7 +209,7 @@ const Chart: FC = ({ navigation }) => {
         <View style={[styles.chart]}>
           <ChartPie />
           {categories.map((item: number) => (
-            <Animated.View style={[styles.container, positionTransform(item)]} key={item}>
+            <Animated.View style={[styles.categoryItem, positionTransform(item)]} key={item}>
               <View>
                 <TouchableOpacity onPress={() => navigation.push('CategoryStack')}>
                   <Wallet width={35} height={35} />

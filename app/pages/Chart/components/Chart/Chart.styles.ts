@@ -16,12 +16,13 @@ export const styles = StyleSheet.create({
   chart: {
     alignItems: 'center',
     justifyContent: 'center',
+    backgroundColor: '#ccc',
   },
   rotate: {
     transform: [{ rotateZ: '-90deg' }],
   },
   buttonWrap: { marginTop: 20 },
-  container: {
+  categoryItem: {
     alignItems: 'center',
     justifyContent: 'center',
     position: 'absolute',

@@ -32,17 +32,9 @@ const screenOptionStyle = {
 };
 
 const ChartStackNavigator = () => (
-  <Stack.Navigator>
-    <Stack.Screen
-      name='ChartStack'
-      options={{ title: 'Main', headerShown: false }}
-      component={Chart}
-    />
-    <Stack.Screen
-      name='CategoryStack'
-      options={{ title: 'Category', headerShown: true }}
-      component={Category}
-    />
+  <Stack.Navigator screenOptions={screenOptionStyle}>
+    <Stack.Screen name='ChartStack' options={{ title: 'Main' }} component={Chart} />
+    <Stack.Screen name='CategoryStack' options={{ title: 'Category' }} component={Category} />
   </Stack.Navigator>
 );
 
