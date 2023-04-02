@@ -24,7 +24,7 @@ const DrawerNavigator = () => {
         drawerActiveTintColor: theme.backgroundColor,
         drawerInactiveTintColor: theme.color,
         drawerInactiveBackgroundColor: theme.backgroundColor,
-
+        headerTitle: () => <></>,
         headerStyle: {
           backgroundColor: theme.backgroundColor,
         },
@@ -44,22 +44,6 @@ const DrawerNavigator = () => {
         component={BottomTabNavigator}
         options={{
           drawerIcon: ({ color }) => <Ionicons name='disc' size={22} color={color} />,
-        }}
-      />
-      <Drawer.Screen
-        name='Profile'
-        component={BottomTabNavigator}
-        options={{
-          drawerIcon: ({ color }) => <Ionicons name='person-outline' size={22} color={color} />,
-        }}
-      />
-      <Drawer.Screen
-        name='Messages'
-        component={BottomTabNavigator}
-        options={{
-          drawerIcon: ({ color }) => (
-            <Ionicons name='chatbox-ellipses-outline' size={22} color={color} />
-          ),
         }}
       />
       <Drawer.Screen

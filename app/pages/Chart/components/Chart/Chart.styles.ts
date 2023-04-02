@@ -14,23 +14,27 @@ export const styles = StyleSheet.create({
     fontWeight: '900',
   },
   chart: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: '#ccc',
+    position: 'relative',
   },
   rotate: {
     transform: [{ rotateZ: '-90deg' }],
   },
-  buttonWrap: { marginTop: 20 },
+  buttonWrap: {
+    marginTop: 20,
+  },
+  categorieCircle: {
+    position: 'absolute',
+    backgroundColor: 'red',
+  },
   categoryItem: {
     alignItems: 'center',
     justifyContent: 'center',
     position: 'absolute',
-    left: 50 % -25,
-    top: 100 % -25,
+    top: '30%',
+    left: '30%',
     height: 45,
     width: 45,
-    borderRadius: 20,
+    borderRadius: 40,
     backgroundColor: 'orange',
   },
   input: {

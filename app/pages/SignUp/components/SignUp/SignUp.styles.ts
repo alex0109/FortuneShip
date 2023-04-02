@@ -4,7 +4,7 @@ import { colors } from '../../../../shared/assets/styles/local.style';
 
 export const styles = StyleSheet.create({
   registration: {
-    flex: 1,
+    flex: 10,
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -14,7 +14,8 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
   },
   registrationBox: {
-    flex: 1,
+    flex: 3,
+    height: '100%',
     width: '40%',
     justifyContent: 'center',
   },
@@ -32,14 +33,10 @@ export const styles = StyleSheet.create({
     fontWeight: '800',
     fontFamily: 'Assistant',
   },
-  h2Text: {
+  authButton: {
+    textAlign: 'center',
     fontSize: 20,
-    marginBottom: 30,
-    fontWeight: '400',
-    textAlign: 'center',
-  },
-  loginText: {
-    fontSize: 16,
-    textAlign: 'center',
+    fontFamily: 'Assistant',
+    marginBottom: 20,
   },
 });

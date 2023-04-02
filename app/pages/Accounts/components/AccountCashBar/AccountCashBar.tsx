@@ -1,20 +1,20 @@
 import React, { useContext } from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 
-import CrossBl from 'shared/assets/images/cross-bl.svg';
-import Cross from 'shared/assets/images/cross-wh.svg';
-
 import { Swipeable } from 'react-native-gesture-handler';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+
 import { SafeAreaView } from 'react-navigation';
 import { colors } from 'shared/assets/styles/local.style';
 import themeContext from 'shared/lib/context/themeContext';
+
+import { useActions } from 'shared/lib/hooks/useActions';
 
 import { styles } from './AccountCashBar.styles';
 
 import type { ICash } from '../../lib/types/interface';
 
 import type { FC } from 'react';
-import { useActions } from 'shared/lib/hooks/useActions';
 
 const AccountCashBar: FC<ICash> = (cash) => {
   const { removeCashAccount } = useActions();
@@ -24,27 +24,25 @@ const AccountCashBar: FC<ICash> = (cash) => {
     <View
       style={{
         justifyContent: 'center',
+        alignItems: 'center',
         borderTopRightRadius: 5,
         borderBottomRightRadius: 5,
         backgroundColor: colors.red,
         height: 50,
       }}>
       <TouchableOpacity onPress={() => removeCashAccount({ index: cash.index })}>
-        {theme.backgroundColor == colors.blackMain ? (
-          <CrossBl width={30} height={30} />
-        ) : (
-          <Cross width={30} height={30} />
-        )}
+        <Ionicons name='md-close-outline' size={35} color={theme.color} />
       </TouchableOpacity>
     </View>
   );
 
   return (
     <Swipeable renderRightActions={onRightSwipe}>
-      <SafeAreaView style={[styles.contentContainer, { borderBottomColor: theme.color }]}>
+      <SafeAreaView
+        style={[styles.contentContainer, { borderBottomColor: theme.color, zIndex: 999 }]}>
         <View style={styles.contentItem}>
           <View>
-            <Text style={[{ color: theme.color, paddingLeft: 10 }]}>{cash.title}</Text>
+            <Text style={[styles.title, { color: theme.color }]}>{cash.title}</Text>
             <Text style={[styles.subTitle]}>${cash.count}</Text>
           </View>
         </View>

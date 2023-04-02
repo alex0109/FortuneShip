@@ -32,14 +32,10 @@ export const styles = StyleSheet.create({
     fontWeight: '800',
     fontFamily: 'Assistant',
   },
-  h2Text: {
+  authButton: {
+    textAlign: 'center',
     fontSize: 20,
-    marginBottom: 30,
-    fontWeight: '400',
-    textAlign: 'center',
-  },
-  loginText: {
-    fontSize: 16,
-    textAlign: 'center',
+    fontFamily: 'Assistant',
+    marginBottom: 20,
   },
 });

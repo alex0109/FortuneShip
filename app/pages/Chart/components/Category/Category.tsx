@@ -1,3 +1,4 @@
+import { colorsArray, iconsArray } from 'pages/Chart/lib/store/propertires';
 import React, { useContext } from 'react';
 import { ScrollView, Text, TouchableOpacity, View } from 'react-native';
 
@@ -31,7 +32,23 @@ const Category: FC = () => {
           </TouchableOpacity>
         </View>
         <View style={[styles.edit]}>
-          <Text style={[styles.title, { color: theme.color }]}>Category</Text>
+          <Text style={[styles.title, { color: theme.color }]}>Icons</Text>
+          <View style={[styles.materialContainer]}>
+            {iconsArray.map((name) => (
+              <TouchableOpacity key={Math.random()} style={[styles.iconItem]}>
+                <Ionicons name={name} size={50} color={theme.color} />
+              </TouchableOpacity>
+            ))}
+          </View>
+          <Text style={[styles.title, { color: theme.color }]}>Colors</Text>
+          <View style={[styles.materialContainer]}>
+            {colorsArray.map((color) => (
+              <TouchableOpacity
+                key={Math.random()}
+                style={[styles.iconItem, { backgroundColor: color, borderRadius: 50 }]}
+              />
+            ))}
+          </View>
         </View>
       </View>
     </ScrollView>

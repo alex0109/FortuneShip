@@ -10,12 +10,7 @@ import Animated, {
   withSpring,
 } from 'react-native-reanimated';
 
-import MinusBl from 'shared/assets/images/minus-bl.svg';
-import Minus from 'shared/assets/images/minus-wh.svg';
-import PlusBl from 'shared/assets/images/plus-bl.svg';
-import Plus from 'shared/assets/images/plus-wh.svg';
-import TrashBl from 'shared/assets/images/trash-bl.svg';
-import Trash from 'shared/assets/images/trash-wh.svg';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import { colors } from 'shared/assets/styles/local.style';
 
@@ -232,28 +227,16 @@ const BottomPopup = forwardRef<BottomPopupRefProps, BottomPopupProps>(
                   onPress={() => {
                     removeCountHandler(modalProps.index);
                   }}>
-                  {theme.backgroundColor == colors.blackMain ? (
-                    <Trash width={60} height={60} />
-                  ) : (
-                    <TrashBl width={60} height={60} />
-                  )}
+                  <Ionicons name='trash-outline' size={45} color={theme.color} />
                 </Pressable>
                 <Pressable
                   onPress={() => {
                     setModalVisible(true);
                   }}>
-                  {theme.backgroundColor == colors.blackMain ? (
-                    <Plus width={60} height={60} />
-                  ) : (
-                    <PlusBl width={60} height={60} />
-                  )}
+                  <Ionicons name='ios-remove-circle-outline' size={45} color={theme.color} />
                 </Pressable>
                 <Pressable>
-                  {theme.backgroundColor == colors.blackMain ? (
-                    <Minus width={60} height={60} />
-                  ) : (
-                    <MinusBl width={60} height={60} />
-                  )}
+                  <Ionicons name='add-outline' size={45} color={theme.color} />
                 </Pressable>
               </View>
             </View>

@@ -3,10 +3,8 @@ import { targetExample } from 'pages/Accounts/lib/store/mockData';
 import React, { useContext } from 'react';
 import { View, Text, TouchableOpacity, Pressable } from 'react-native';
 
-import PlusBl from 'shared/assets/images/plus-bl.svg';
-import Plus from 'shared/assets/images/plus-wh.svg';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
-import { colors } from 'shared/assets/styles/local.style';
 import themeContext from 'shared/lib/context/themeContext';
 import { useActions } from 'shared/lib/hooks/useActions';
 import { useTypedSelector } from 'shared/lib/hooks/useTypedSelector';
@@ -41,11 +39,7 @@ const AccountsTargetList: FC<AccountsTargetListProps> = ({ handleModalOpen }) =>
             onPress={() =>
               addTargetAccount({ ...targetExample, index: Math.random() * 10000 - 1 })
             }>
-            {theme.backgroundColor == colors.blackMain ? (
-              <Plus width={40} height={40} />
-            ) : (
-              <PlusBl width={40} height={40} />
-            )}
+            <Ionicons name='add-outline' size={35} color={theme.color} />
           </Pressable>
         </View>
       ) : (
@@ -64,11 +58,7 @@ const AccountsTargetList: FC<AccountsTargetListProps> = ({ handleModalOpen }) =>
               onPress={() =>
                 addTargetAccount({ ...targetExample, index: Math.random() * 10000 - 1 })
               }>
-              {theme.backgroundColor == colors.blackMain ? (
-                <Plus width={40} height={40} />
-              ) : (
-                <PlusBl width={40} height={40} />
-              )}
+              <Ionicons name='add-outline' size={35} color={theme.color} />
             </Pressable>
           </View>
         </View>

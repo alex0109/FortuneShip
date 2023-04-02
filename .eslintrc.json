@@ -27,6 +27,14 @@
     "react/jsx-filename-extension": ["warn", { "extensions": [".tsx"] }],
     "no-console": "error",
     "arrow-body-style": ["error", "as-needed"],
+    "@typescript-eslint/no-misused-promises": [
+      2,
+      {
+        "checksVoidReturn": {
+          "attributes": false
+        }
+      }
+    ],
     "@typescript-eslint/consistent-type-imports": ["error", { "prefer": "type-imports" }],
     "import/order": [
       "warn",

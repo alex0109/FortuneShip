@@ -1,10 +1,19 @@
 import { Canvas, Circle, useSharedValueEffect, useValue } from '@shopify/react-native-skia';
 import { moveBallInBezierCurve } from 'pages/Chart/lib/helpers/transformHelper';
 import React, { useContext, useEffect, useCallback, useRef, useState } from 'react';
-import { Animated, TouchableOpacity, View, Text, TextInput, Dimensions } from 'react-native';
+import {
+  Animated,
+  TouchableOpacity,
+  View,
+  Text,
+  TextInput,
+  Dimensions,
+  ScrollView,
+} from 'react-native';
 import { Button } from 'react-native';
 import { useSharedValue, withRepeat, withTiming } from 'react-native-reanimated';
 import Svg from 'react-native-svg';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 import Wallet from 'shared/assets/images/wallet-wh.svg';
 import themeContext from 'shared/lib/context/themeContext';
 
@@ -20,6 +29,8 @@ import type { RootStackParamList } from 'shared/lib/navigation/StackNavigator';
 interface IChartProps {
   navigation: RootStackParamList;
 }
+
+const { width, height } = Dimensions.get('window');
 
 const Chart: FC = ({ navigation }) => {
   const theme = useContext<{ backgroundColor?: string; color?: string }>(themeContext);
@@ -65,140 +76,141 @@ const Chart: FC = ({ navigation }) => {
   };
 
   const positionTransform = (position: number) => {
-    const xVal = ballAnimatedValue.interpolate({
-      inputRange: [0, 1],
-      outputRange: [0, 0],
-    });
+    // const xVal = ballAnimatedValue.interpolate({
+    //   inputRange: [0, 1],
+    //   outputRange: [0, 0],
+    // });
 
-    const yVal = ballAnimatedValue.interpolate({
-      inputRange: [0, 1],
-      outputRange: [0, 0],
-    });
+    // const yVal = ballAnimatedValue.interpolate({
+    //   inputRange: [0, 1],
+    //   outputRange: [0, 0],
+    // });
 
-    const result = { transform: [{ translateX: xVal }, { translateY: yVal }] };
+    // const result = { transform: [{ translateX: xVal }, { translateY: yVal }] };
+    const result = {};
 
-    if (position === 0) {
-      // result.transform[0].translateX = 110;
-      result.transform[0].translateX = ballAnimatedValue.interpolate({
-        inputRange: [0, 1],
-        outputRange: [0, 110],
-      });
-      // result.transform[1].translateY = 5;
-      result.transform[1].translateY = ballAnimatedValue.interpolate({
-        inputRange: [0, 1],
-        outputRange: [0, 5],
-      });
-    }
-    if (position === 1) {
-      result.transform[0].translateX = ballAnimatedValue.interpolate({
-        inputRange: [0, 1],
-        outputRange: [0, 190],
-      });
-      result.transform[1].translateY = ballAnimatedValue.interpolate({
-        inputRange: [0, 1],
-        outputRange: [0, 5],
-      });
-    }
-    if (position === 2) {
-      result.transform[0].translateX = ballAnimatedValue.interpolate({
-        inputRange: [0, 1],
-        outputRange: [0, 260],
-      });
-      result.transform[1].translateY = ballAnimatedValue.interpolate({
-        inputRange: [0, 1],
-        outputRange: [0, 30],
-      });
-    }
-    if (position === 3) {
-      result.transform[0].translateX = ballAnimatedValue.interpolate({
-        inputRange: [0, 1],
-        outputRange: [0, 295],
-      });
-      result.transform[1].translateY = ballAnimatedValue.interpolate({
-        inputRange: [0, 1],
-        outputRange: [0, 100],
-      });
-    }
-    if (position === 4) {
-      result.transform[0].translateX = ballAnimatedValue.interpolate({
-        inputRange: [0, 1],
-        outputRange: [0, 295],
-      });
-      result.transform[1].translateY = ballAnimatedValue.interpolate({
-        inputRange: [0, 1],
-        outputRange: [0, 185],
-      });
-    }
-    if (position === 5) {
-      result.transform[0].translateX = ballAnimatedValue.interpolate({
-        inputRange: [0, 1],
-        outputRange: [0, 260],
-      });
-      result.transform[1].translateY = ballAnimatedValue.interpolate({
-        inputRange: [0, 1],
-        outputRange: [0, 260],
-      });
-    }
-    if (position === 6) {
-      result.transform[0].translateX = ballAnimatedValue.interpolate({
-        inputRange: [0, 1],
-        outputRange: [0, 190],
-      });
-      result.transform[1].translateY = ballAnimatedValue.interpolate({
-        inputRange: [0, 1],
-        outputRange: [0, 295],
-      });
-    }
-    if (position === 7) {
-      result.transform[0].translateX = ballAnimatedValue.interpolate({
-        inputRange: [0, 1],
-        outputRange: [0, 110],
-      });
-      result.transform[1].translateY = ballAnimatedValue.interpolate({
-        inputRange: [0, 1],
-        outputRange: [0, 295],
-      });
-    }
-    if (position === 8) {
-      result.transform[0].translateX = ballAnimatedValue.interpolate({
-        inputRange: [0, 1],
-        outputRange: [0, 40],
-      });
-      result.transform[1].translateY = ballAnimatedValue.interpolate({
-        inputRange: [0, 1],
-        outputRange: [0, 260],
-      });
-    }
-    if (position === 9) {
-      result.transform[0].translateX = ballAnimatedValue.interpolate({
-        inputRange: [0, 1],
-        outputRange: [0, 5],
-      });
-      result.transform[1].translateY = ballAnimatedValue.interpolate({
-        inputRange: [0, 1],
-        outputRange: [0, 185],
-      });
-    }
-    if (position === 10) {
-      result.transform[0].translateX = ballAnimatedValue.interpolate({
-        inputRange: [0, 1],
-        outputRange: [0, 5],
-      });
-      result.transform[1].translateY = ballAnimatedValue.interpolate({
-        inputRange: [0, 1],
-        outputRange: [0, 100],
-      });
-    }
-    if (position === 11) {
-      result.transform[0].translateX = ballAnimatedValue.interpolate({
-        inputRange: [0, 1],
-        outputRange: [0, 40],
-      });
-      result.transform[1].translateY = ballAnimatedValue.interpolate({
-        inputRange: [0, 1],
-        outputRange: [0, 30],
-      });
-    }
+    // if (position === 0) {
+    //   // result.transform[0].translateX = 110;
+    //   result.transform[0].translateX = ballAnimatedValue.interpolate({
+    //     inputRange: [0, 1],
+    //     outputRange: [0, 110],
+    //   });
+    //   // result.transform[1].translateY = 5;
+    //   result.transform[1].translateY = ballAnimatedValue.interpolate({
+    //     inputRange: [0, 1],
+    //     outputRange: [0, 5],
+    //   });
+    // }
+    // if (position === 1) {
+    //   result.transform[0].translateX = ballAnimatedValue.interpolate({
+    //     inputRange: [0, 1],
+    //     outputRange: [0, 190],
+    //   });
+    //   result.transform[1].translateY = ballAnimatedValue.interpolate({
+    //     inputRange: [0, 1],
+    //     outputRange: [0, 5],
+    //   });
+    // }
+    // if (position === 2) {
+    //   result.transform[0].translateX = ballAnimatedValue.interpolate({
+    //     inputRange: [0, 1],
+    //     outputRange: [0, 260],
+    //   });
+    //   result.transform[1].translateY = ballAnimatedValue.interpolate({
+    //     inputRange: [0, 1],
+    //     outputRange: [0, 30],
+    //   });
+    // }
+    // if (position === 3) {
+    //   result.transform[0].translateX = ballAnimatedValue.interpolate({
+    //     inputRange: [0, 1],
+    //     outputRange: [0, 295],
+    //   });
+    //   result.transform[1].translateY = ballAnimatedValue.interpolate({
+    //     inputRange: [0, 1],
+    //     outputRange: [0, 100],
+    //   });
+    // }
+    // if (position === 4) {
+    //   result.transform[0].translateX = ballAnimatedValue.interpolate({
+    //     inputRange: [0, 1],
+    //     outputRange: [0, 295],
+    //   });
+    //   result.transform[1].translateY = ballAnimatedValue.interpolate({
+    //     inputRange: [0, 1],
+    //     outputRange: [0, 185],
+    //   });
+    // }
+    // if (position === 5) {
+    //   result.transform[0].translateX = ballAnimatedValue.interpolate({
+    //     inputRange: [0, 1],
+    //     outputRange: [0, 260],
+    //   });
+    //   result.transform[1].translateY = ballAnimatedValue.interpolate({
+    //     inputRange: [0, 1],
+    //     outputRange: [0, 260],
+    //   });
+    // }
+    // if (position === 6) {
+    //   result.transform[0].translateX = ballAnimatedValue.interpolate({
+    //     inputRange: [0, 1],
+    //     outputRange: [0, 190],
+    //   });
+    //   result.transform[1].translateY = ballAnimatedValue.interpolate({
+    //     inputRange: [0, 1],
+    //     outputRange: [0, 295],
+    //   });
+    // }
+    // if (position === 7) {
+    //   result.transform[0].translateX = ballAnimatedValue.interpolate({
+    //     inputRange: [0, 1],
+    //     outputRange: [0, 110],
+    //   });
+    //   result.transform[1].translateY = ballAnimatedValue.interpolate({
+    //     inputRange: [0, 1],
+    //     outputRange: [0, 295],
+    //   });
+    // }
+    // if (position === 8) {
+    //   result.transform[0].translateX = ballAnimatedValue.interpolate({
+    //     inputRange: [0, 1],
+    //     outputRange: [0, 40],
+    //   });
+    //   result.transform[1].translateY = ballAnimatedValue.interpolate({
+    //     inputRange: [0, 1],
+    //     outputRange: [0, 260],
+    //   });
+    // }
+    // if (position === 9) {
+    //   result.transform[0].translateX = ballAnimatedValue.interpolate({
+    //     inputRange: [0, 1],
+    //     outputRange: [0, 5],
+    //   });
+    //   result.transform[1].translateY = ballAnimatedValue.interpolate({
+    //     inputRange: [0, 1],
+    //     outputRange: [0, 185],
+    //   });
+    // }
+    // if (position === 10) {
+    //   result.transform[0].translateX = ballAnimatedValue.interpolate({
+    //     inputRange: [0, 1],
+    //     outputRange: [0, 5],
+    //   });
+    //   result.transform[1].translateY = ballAnimatedValue.interpolate({
+    //     inputRange: [0, 1],
+    //     outputRange: [0, 100],
+    //   });
+    // }
+    // if (position === 11) {
+    //   result.transform[0].translateX = ballAnimatedValue.interpolate({
+    //     inputRange: [0, 1],
+    //     outputRange: [0, 40],
+    //   });
+    //   result.transform[1].translateY = ballAnimatedValue.interpolate({
+    //     inputRange: [0, 1],
+    //     outputRange: [0, 30],
+    //   });
+    // }
 
     return result;
   };
@@ -208,15 +220,15 @@ const Chart: FC = ({ navigation }) => {
       <View style={[styles.main, { backgroundColor: theme.backgroundColor }]}>
         <View style={[styles.chart]}>
           <ChartPie />
-          {categories.map((item: number) => (
-            <Animated.View style={[styles.categoryItem, positionTransform(item)]} key={item}>
-              <View>
+          <View style={[styles.categorieCircle]}>
+            {categories.map((item: number) => (
+              <Animated.View style={[styles.categoryItem, positionTransform(item)]} key={item}>
                 <TouchableOpacity onPress={() => navigation.push('CategoryStack')}>
-                  <Wallet width={35} height={35} />
+                  <Ionicons name='md-cloudy-outline' size={35} color={'white'} />
                 </TouchableOpacity>
-              </View>
-            </Animated.View>
-          ))}
+              </Animated.View>
+            ))}
+          </View>
         </View>
       </View>
       {/* <Canvas style={{ width, height }}>

@@ -12,8 +12,11 @@ export const styles = StyleSheet.create({
     height: 50,
     width: windowWidth / 1.2,
     marginBottom: 30,
-    borderBottomWidth: 0.3,
-    borderStyle: 'solid',
+    borderTopLeftRadius: 10,
+    borderBottomLeftRadius: 10,
+    borderRightWidth: 2,
+    borderRightColor: colors.red,
+    backgroundColor: 'rgba(228, 229, 231, 0.2)',
   },
   contentItem: {
     flexDirection: 'row',
@@ -22,18 +25,15 @@ export const styles = StyleSheet.create({
   mainText: {
     paddingLeft: 10,
   },
-  h1Text: {
-    fontSize: 27,
-    fontWeight: '800',
+  title: {
+    fontSize: 16,
     fontFamily: 'Assistant',
-  },
-  h2Text: {
-    fontSize: 20,
-    fontWeight: '400',
-    fontFamily: 'Assistant',
+    paddingLeft: 10,
   },
   subTitle: {
     paddingLeft: 10,
     color: colors.success,
+    fontSize: 20,
+    fontFamily: 'Assistant',
   },
 });

@@ -17,7 +17,7 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
   },
   content: {
-    height: height * 0.6,
+    height: '100%',
     width: width,
     borderTopLeftRadius: 30,
     borderTopRightRadius: 30,
@@ -35,6 +35,18 @@ export const styles = StyleSheet.create({
   },
   edit: {
     marginTop: 20,
+  },
+  materialContainer: {
+    justifyContent: 'space-evenly',
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+  },
+  iconItem: {
+    height: 60,
+    width: 60,
+    margin: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   title: {
     fontSize: 28,

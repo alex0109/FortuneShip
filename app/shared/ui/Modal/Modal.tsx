@@ -28,13 +28,9 @@ const CustomModal = forwardRef<ModalRefProps, ModalProps>(({ children }, refModa
 
   return (
     <Modal animationType='fade' visible={modalVisible} transparent={true}>
-      <TouchableOpacity
-        style={styles.modalContainer}
-        onPressIn={() => {
-          setModalVisible(false);
-        }}>
+      <View style={styles.modalContainer}>
         <View style={[styles.modal, { backgroundColor: theme.backgroundColor }]}>{children}</View>
-      </TouchableOpacity>
+      </View>
     </Modal>
   );
 });
