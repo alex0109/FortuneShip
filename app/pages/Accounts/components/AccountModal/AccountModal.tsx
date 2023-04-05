@@ -1,20 +1,21 @@
 /* eslint-disable no-unused-vars */
+import { useCashState } from 'pages/Accounts/lib/store/cash.zus';
+import { useTargetState } from 'pages/Accounts/lib/store/target.zus';
 import React, { useContext, useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity } from 'react-native';
 import { colors } from 'shared/assets/styles/local.style';
 import themeContext from 'shared/lib/context/themeContext';
-import { useActions } from 'shared/lib/hooks/useActions';
 
 import CustomModal from 'shared/ui/Modal/Modal';
 
 import { styles } from './AccountModal.styles';
 
-import type { ICash, ITarget } from '../../lib/types/interface';
+import type { IModalProp } from '../../lib/types/interface';
 import type { FC, RefObject } from 'react';
 import type { ModalRefProps } from 'shared/ui/Modal/Modal';
 
 interface AccountModalProps {
-  modalProps: ICash | ITarget;
+  modalProps: IModalProp;
   refModal: RefObject<ModalRefProps>;
   modalVisible: boolean | undefined;
   setModalVisible: (arg0: boolean) => void;
@@ -26,19 +27,20 @@ const AccountModal: FC<AccountModalProps> = ({
   modalVisible,
   setModalVisible,
 }) => {
-  const { updateCountCashAccount, updateCountTargetAccount } = useActions();
+  const { handleChangeCashCount } = useCashState();
+  const { handleChangeTargetCount } = useTargetState();
 
   const [addedCount, setAddedCount] = useState<number>(0);
 
   const theme = useContext<{ backgroundColor?: string; color?: string }>(themeContext);
 
-  const addCountHandler = (index: number, count: number): void => {
-    if (modalProps?.specify === 'cash') {
-      updateCountCashAccount({ index, count: count + addedCount });
+  const addCountHandler = (index: string, count: number): void => {
+    if (modalProps?.type === '0') {
+      handleChangeCashCount(index, count + addedCount);
       setAddedCount(0);
       setModalVisible(false);
-    } else if (modalProps?.specify === 'target') {
-      updateCountTargetAccount({ index, count: count + addedCount });
+    } else if (modalProps?.type === '1') {
+      handleChangeTargetCount(index, count + addedCount);
       setAddedCount(0);
       setModalVisible(false);
     }

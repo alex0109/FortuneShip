@@ -1,15 +1,20 @@
 export interface ICash {
-  index: number;
+  index: string;
   title: string;
   count: number;
-  specify: 'cash';
 }
 
 export interface ITarget {
-  index: number;
+  index: string;
   title: string;
   count: number;
-  specify: 'target';
+}
+
+export interface IModalProp {
+  index: string;
+  title: string;
+  count: number;
+  type: '0' | '1';
 }
 
 export type CashState = ICash[];

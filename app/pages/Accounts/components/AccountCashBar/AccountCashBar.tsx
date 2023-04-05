@@ -1,3 +1,4 @@
+import { useCashState } from 'pages/Accounts/lib/store/cash.zus';
 import React, { useContext } from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 
@@ -8,8 +9,6 @@ import { SafeAreaView } from 'react-navigation';
 import { colors } from 'shared/assets/styles/local.style';
 import themeContext from 'shared/lib/context/themeContext';
 
-import { useActions } from 'shared/lib/hooks/useActions';
-
 import { styles } from './AccountCashBar.styles';
 
 import type { ICash } from '../../lib/types/interface';
@@ -17,7 +16,8 @@ import type { ICash } from '../../lib/types/interface';
 import type { FC } from 'react';
 
 const AccountCashBar: FC<ICash> = (cash) => {
-  const { removeCashAccount } = useActions();
+  const { handleDeleteCashCount } = useCashState();
+
   const theme = useContext<{ backgroundColor?: string; color?: string }>(themeContext);
 
   const onRightSwipe = () => (
@@ -30,7 +30,7 @@ const AccountCashBar: FC<ICash> = (cash) => {
         backgroundColor: colors.red,
         height: 50,
       }}>
-      <TouchableOpacity onPress={() => removeCashAccount({ index: cash.index })}>
+      <TouchableOpacity onPress={() => handleDeleteCashCount(cash.index)}>
         <Ionicons name='md-close-outline' size={35} color={theme.color} />
       </TouchableOpacity>
     </View>
@@ -38,13 +38,10 @@ const AccountCashBar: FC<ICash> = (cash) => {
 
   return (
     <Swipeable renderRightActions={onRightSwipe}>
-      <SafeAreaView
-        style={[styles.contentContainer, { borderBottomColor: theme.color, zIndex: 999 }]}>
+      <SafeAreaView style={[styles.contentContainer, { borderBottomColor: theme.color }]}>
         <View style={styles.contentItem}>
-          <View>
-            <Text style={[styles.title, { color: theme.color }]}>{cash.title}</Text>
-            <Text style={[styles.subTitle]}>${cash.count}</Text>
-          </View>
+          <Text style={[styles.title, { color: theme.color }]}>{cash.title}</Text>
+          <Text style={[styles.subTitle]}>${cash.count}</Text>
         </View>
       </SafeAreaView>
     </Swipeable>

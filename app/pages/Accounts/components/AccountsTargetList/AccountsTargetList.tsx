@@ -1,13 +1,11 @@
 /* eslint-disable no-unused-vars */
-import { targetExample } from 'pages/Accounts/lib/store/mockData';
+import { useTargetState } from 'pages/Accounts/lib/store/target.zus';
 import React, { useContext } from 'react';
 import { View, Text, TouchableOpacity, Pressable } from 'react-native';
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import themeContext from 'shared/lib/context/themeContext';
-import { useActions } from 'shared/lib/hooks/useActions';
-import { useTypedSelector } from 'shared/lib/hooks/useTypedSelector';
 
 import AccountTargetBar from '../AccountTargetBar/AccountTargetBar';
 
@@ -17,12 +15,11 @@ import type { ITarget } from 'pages/Accounts/lib/types/interface';
 import type { FC } from 'react';
 
 interface AccountsTargetListProps {
-  handleModalOpen: (index: number) => void;
+  handleModalOpen: (index: string) => void;
 }
 
 const AccountsTargetList: FC<AccountsTargetListProps> = ({ handleModalOpen }) => {
-  const { addTargetAccount } = useActions();
-  const { targets } = useTypedSelector((state) => state);
+  const { targets, handleAddTargetCount } = useTargetState();
   const theme = useContext<{ backgroundColor?: string; color?: string }>(themeContext);
 
   return (
@@ -35,10 +32,7 @@ const AccountsTargetList: FC<AccountsTargetListProps> = ({ handleModalOpen }) =>
           <Text style={[styles.h2Text, { color: theme.color }]}>
             At the moment you have no targets...
           </Text>
-          <Pressable
-            onPress={() =>
-              addTargetAccount({ ...targetExample, index: Math.random() * 10000 - 1 })
-            }>
+          <Pressable onPress={() => handleAddTargetCount('New target', 0)}>
             <Ionicons name='add-outline' size={35} color={theme.color} />
           </Pressable>
         </View>
@@ -54,10 +48,7 @@ const AccountsTargetList: FC<AccountsTargetListProps> = ({ handleModalOpen }) =>
                 <AccountTargetBar key={item.index} {...item} />
               </TouchableOpacity>
             ))}
-            <Pressable
-              onPress={() =>
-                addTargetAccount({ ...targetExample, index: Math.random() * 10000 - 1 })
-              }>
+            <Pressable onPress={() => handleAddTargetCount('New target', 0)}>
               <Ionicons name='add-outline' size={35} color={theme.color} />
             </Pressable>
           </View>

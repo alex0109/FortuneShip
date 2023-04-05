@@ -1,13 +1,11 @@
 /* eslint-disable no-unused-vars */
-import { cashExample } from 'pages/Accounts/lib/store/mockData';
+import { useCashState } from 'pages/Accounts/lib/store/cash.zus';
 import React, { useContext } from 'react';
 import { View, Text, TouchableOpacity, Pressable } from 'react-native';
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import themeContext from 'shared/lib/context/themeContext';
-import { useActions } from 'shared/lib/hooks/useActions';
-import { useTypedSelector } from 'shared/lib/hooks/useTypedSelector';
 
 import AccountCashBar from '../AccountCashBar/AccountCashBar';
 
@@ -17,12 +15,11 @@ import type { ICash } from 'pages/Accounts/lib/types/interface';
 import type { FC } from 'react';
 
 interface AccountsCashListProps {
-  handleModalOpen: (index: number) => void;
+  handleModalOpen: (index: string) => void;
 }
 
 const AccountsCashList: FC<AccountsCashListProps> = ({ handleModalOpen }) => {
-  const { addCashAccount } = useActions();
-  const { cash } = useTypedSelector((state) => state);
+  const { cash, handleAddCashCount } = useCashState();
   const theme = useContext<{ backgroundColor?: string; color?: string }>(themeContext);
 
   return (
@@ -35,8 +32,7 @@ const AccountsCashList: FC<AccountsCashListProps> = ({ handleModalOpen }) => {
           <Text style={[styles.h2Text, { color: theme.color }]}>
             At the moment you have no funds...
           </Text>
-          <Pressable
-            onPress={() => addCashAccount({ ...cashExample, index: Math.random() * 10000 - 1 })}>
+          <Pressable onPress={() => handleAddCashCount('New count', 0)}>
             <Ionicons name='add-outline' size={35} color={theme.color} />
           </Pressable>
         </View>
@@ -52,8 +48,7 @@ const AccountsCashList: FC<AccountsCashListProps> = ({ handleModalOpen }) => {
                 <AccountCashBar key={item.index} {...item} />
               </TouchableOpacity>
             ))}
-            <Pressable
-              onPress={() => addCashAccount({ ...cashExample, index: Math.random() * 10000 - 1 })}>
+            <Pressable onPress={() => handleAddCashCount('New count', 0)}>
               <Ionicons name='add-outline' size={35} color={theme.color} />
             </Pressable>
           </View>

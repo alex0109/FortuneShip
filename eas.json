@@ -16,6 +16,14 @@
       },
       "credentialsSource": "remote"
     },
+    "preview2": {
+      "android": {
+        "gradleCommand": ":app:assembleRelease"
+      }
+    },
+    "preview3": {
+      "developmentClient": true
+    },
     "production": {
       "channel": "production"
     }

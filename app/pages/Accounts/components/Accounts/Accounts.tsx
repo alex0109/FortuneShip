@@ -3,7 +3,6 @@ import { Dimensions, ScrollView } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 import themeContext from 'shared/lib/context/themeContext';
-import { useActions } from 'shared/lib/hooks/useActions';
 
 import BottomModal from '../AccountBottomModal/AccountBottomPopup';
 
@@ -17,19 +16,11 @@ import type { FC } from 'react';
 const { height: SCREEN_HEIGHT } = Dimensions.get('window');
 
 const Accounts: FC = () => {
-  const {
-    removeCashAccount,
-    removeTargetAccount,
-    updateTitleCashAccount,
-    updateCountCashAccount,
-    updateTitleTargetAccount,
-    updateCountTargetAccount,
-  } = useActions();
   const theme = useContext<{ backgroundColor?: string; color?: string }>(themeContext);
   const refPopup = useRef<BottomPopupRefProps>(null);
-  const [modalPropID, setModalPropID] = useState<number>();
+  const [modalPropID, setModalPropID] = useState<string>();
 
-  const handleModalOpen = useCallback((index: number) => {
+  const handleModalOpen = useCallback((index: string) => {
     setModalPropID(index);
 
     const setActive = refPopup?.current?.setActive(true);
@@ -49,16 +40,7 @@ const Accounts: FC = () => {
           <AccountsCashList handleModalOpen={handleModalOpen} />
           <AccountsTargetList handleModalOpen={handleModalOpen} />
         </ScrollView>
-        <BottomModal
-          modalPropID={modalPropID}
-          removeCashAccount={removeCashAccount}
-          removeTargetAccount={removeTargetAccount}
-          updateTitleCashAccount={updateTitleCashAccount}
-          updateCountCashAccount={updateCountCashAccount}
-          updateTitleTargetAccount={updateTitleTargetAccount}
-          updateCountTargetAccount={updateCountTargetAccount}
-          ref={refPopup}
-        />
+        <BottomModal modalPropID={modalPropID} ref={refPopup} />
       </GestureHandlerRootView>
     </>
   );

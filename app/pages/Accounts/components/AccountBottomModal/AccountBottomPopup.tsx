@@ -1,4 +1,6 @@
 /* eslint-disable no-unused-vars */
+import { useCashState } from 'pages/Accounts/lib/store/cash.zus';
+import { useTargetState } from 'pages/Accounts/lib/store/target.zus';
 import React, { forwardRef, useCallback, useContext, useImperativeHandle, useRef } from 'react';
 import { Dimensions, TextInput, View, Pressable } from 'react-native';
 import { Gesture, GestureDetector } from 'react-native-gesture-handler';
@@ -15,20 +17,19 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import { colors } from 'shared/assets/styles/local.style';
 
 import themeContext from 'shared/lib/context/themeContext';
-import { useTypedSelector } from 'shared/lib/hooks/useTypedSelector';
 
 import AccountModal from '../AccountModal/AccountModal';
 
 import { styles } from './AccountBottomPopup.styles';
 
-import type { CashState, ICash, ITarget, TargetState } from '../../lib/types/interface';
+import type { ICash, IModalProp, ITarget } from '../../lib/types/interface';
 import type { ActionCreatorWithPayload } from '@reduxjs/toolkit';
 import type { ModalRefProps } from 'shared/ui/Modal/Modal';
 
 const { height: SCREEN_HEIGHT } = Dimensions.get('window');
 
 interface BottomPopupProps {
-  modalPropID: number | undefined;
+  modalPropID: string;
   removeCashAccount: ActionCreatorWithPayload<{ index: number }, 'cash/removeCashAccount'>;
   updateTitleCashAccount: ActionCreatorWithPayload<
     { index: number; title: string },
@@ -55,45 +56,37 @@ export interface BottomPopupRefProps {
 }
 
 const BottomPopup = forwardRef<BottomPopupRefProps, BottomPopupProps>(
-  (
-    {
-      modalPropID,
-      removeCashAccount,
-      updateTitleCashAccount,
-      updateCountCashAccount,
-      removeTargetAccount,
-      updateTitleTargetAccount,
-      updateCountTargetAccount,
-    },
-    refPopup
-  ) => {
-    const { cash, targets }: { cash: CashState; targets: TargetState } = useTypedSelector(
-      (state) => state
-    );
+  ({ modalPropID }, refPopup) => {
+    const { cash, handleDeleteCashCount, handleChangeCashTitle, handleChangeCashCount } =
+      useCashState();
+    const { targets, handleDeleteTargetCount, handleChangeTargetTitle, handleChangeTargetCount } =
+      useTargetState();
+
     const theme = useContext<{ backgroundColor?: string; color?: string }>(themeContext);
 
-    const findModalPropByID = (index: number): ICash | ITarget => {
+    const findModalPropByID = (index: string): IModalProp => {
       let item: ICash | ITarget | undefined;
+      const modalPropType = index?.split('_')[0];
 
-      item = cash.find((item: ICash | ITarget) => item.index === index);
-
-      if (item === undefined) {
+      if (modalPropType == '1') {
         item = targets.find((item: ICash | ITarget) => item.index === index);
       }
-
-      if (item === undefined) {
-        return (item = {
+      if (modalPropType == '0') {
+        item = cash.find((item: ICash | ITarget) => item.index === index);
+      }
+      if (item == undefined) {
+        return {
           title: '',
           count: 0,
-          index: 0,
-          specify: 'cash',
-        });
+          index: '0',
+          type: '0',
+        };
       }
 
-      return item;
+      return { ...item, type: modalPropType };
     };
 
-    const modalProps = findModalPropByID(modalPropID!);
+    const modalProps = findModalPropByID(modalPropID);
 
     const translationY = useSharedValue(0);
     const context = useSharedValue({ y: 0 });
@@ -125,29 +118,29 @@ const BottomPopup = forwardRef<BottomPopupRefProps, BottomPopupProps>(
 
     const setActive = useCallback((): boolean => isActive.value, []);
 
-    const countHandleChange = (index: number, newCount: any): void => {
-      if (modalProps?.specify === 'cash') {
-        updateCountCashAccount({ index, count: +newCount });
-      } else if (modalProps?.specify === 'target') {
-        updateCountTargetAccount({ index, count: +newCount });
+    const titleHandleChange = (index: string, newTitle: string): void => {
+      if (modalProps?.type === '0') {
+        handleChangeCashTitle(index, newTitle);
+      } else if (modalProps?.type === '1') {
+        handleChangeTargetTitle(index, newTitle);
       }
     };
 
-    const titleHandleChange = (index: number, newTitle: string): void => {
-      if (modalProps?.specify === 'cash') {
-        updateTitleCashAccount({ index, title: newTitle });
-      } else if (modalProps?.specify === 'target') {
-        updateTitleTargetAccount({ index, title: newTitle });
+    const countChangeHandler = (index: string, newCount: string): void => {
+      if (modalProps?.type === '0') {
+        handleChangeCashCount(index, +newCount);
+      } else if (modalProps?.type === '1') {
+        handleChangeTargetCount(index, +newCount);
       }
     };
 
-    const removeCountHandler = (index: number): void => {
-      if (modalProps?.specify === 'cash') {
+    const removeCountHandler = (index: string): void => {
+      if (modalProps?.type === '0') {
         scrollTo(0);
-        removeCashAccount({ index });
-      } else if (modalProps?.specify === 'target') {
+        handleDeleteCashCount(index);
+      } else if (modalProps?.type === '1') {
         scrollTo(0);
-        removeTargetAccount({ index });
+        handleDeleteTargetCount(index);
       }
     };
 
@@ -216,7 +209,7 @@ const BottomPopup = forwardRef<BottomPopupRefProps, BottomPopupProps>(
                   scrollTo(MAX_TRANSLATE_Y);
                 }}
                 onSubmitEditing={({ nativeEvent }) => {
-                  countHandleChange(modalProps.index, nativeEvent.text);
+                  countChangeHandler(modalProps.index, nativeEvent.text);
                 }}
                 keyboardType='numeric'
                 placeholder='Your capital...'
@@ -235,7 +228,10 @@ const BottomPopup = forwardRef<BottomPopupRefProps, BottomPopupProps>(
                   }}>
                   <Ionicons name='ios-remove-circle-outline' size={45} color={theme.color} />
                 </Pressable>
-                <Pressable>
+                <Pressable
+                  onPress={() => {
+                    setModalVisible(true);
+                  }}>
                   <Ionicons name='add-outline' size={45} color={theme.color} />
                 </Pressable>
               </View>

@@ -1,3 +1,4 @@
+import { useTargetState } from 'pages/Accounts/lib/store/target.zus';
 import React, { useContext } from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import { Swipeable } from 'react-native-gesture-handler';
@@ -9,8 +10,6 @@ import Cross from 'shared/assets/images/cross-wh.svg';
 import { colors } from 'shared/assets/styles/local.style';
 import themeContext from 'shared/lib/context/themeContext';
 
-import { useActions } from 'shared/lib/hooks/useActions';
-
 import { styles } from './AccountTargetBar.styles';
 
 import type { ITarget } from '../../lib/types/interface';
@@ -18,7 +17,8 @@ import type { ITarget } from '../../lib/types/interface';
 import type { FC } from 'react';
 
 const AccountTargetBar: FC<ITarget> = (target) => {
-  const { removeTargetAccount } = useActions();
+  const { handleDeleteTargetCount } = useTargetState();
+
   const theme = useContext<{ backgroundColor?: string; color?: string }>(themeContext);
 
   const onRightSwipe = () => (
@@ -30,7 +30,7 @@ const AccountTargetBar: FC<ITarget> = (target) => {
         backgroundColor: colors.red,
         height: 50,
       }}>
-      <TouchableOpacity onPress={() => removeTargetAccount({ index: target.index })}>
+      <TouchableOpacity onPress={() => handleDeleteTargetCount(target.index)}>
         {theme.backgroundColor == colors.blackMain ? (
           <CrossBl width={30} height={30} />
         ) : (

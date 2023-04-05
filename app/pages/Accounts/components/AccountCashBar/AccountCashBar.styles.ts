@@ -9,7 +9,8 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    height: 50,
+    maxHeight: 50,
+    height: '100%',
     width: windowWidth / 1.2,
     marginBottom: 30,
     borderTopLeftRadius: 10,
@@ -19,10 +20,9 @@ export const styles = StyleSheet.create({
     backgroundColor: 'rgba(228, 229, 231, 0.2)',
   },
   contentItem: {
-    flexDirection: 'row',
+    flexDirection: 'column',
     width: '100%',
-  },
-  mainText: {
+    height: '100%',
     paddingLeft: 10,
   },
   title: {
@@ -33,7 +33,7 @@ export const styles = StyleSheet.create({
   subTitle: {
     paddingLeft: 10,
     color: colors.success,
-    fontSize: 20,
+    fontSize: 16,
     fontFamily: 'Assistant',
   },
 });
