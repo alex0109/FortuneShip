@@ -10,14 +10,15 @@ import { styles } from './Category.styles';
 
 import type { FC } from 'react';
 
-const Category: FC = () => {
+const Category: FC = ({ route }) => {
   const theme = useContext<{ backgroundColor?: string; color?: string }>(themeContext);
+  const { title, count, color } = route.params;
 
   return (
-    <ScrollView style={[styles.container]}>
-      <View style={[styles.header]}>
-        <Text style={[styles.title, { color: theme.backgroundColor }]}>Category</Text>
-        <Text style={[styles.title, { color: theme.backgroundColor }]}>589$</Text>
+    <ScrollView style={[styles.container, { backgroundColor: color }]}>
+      <View style={[styles.header, { backgroundColor: color }]}>
+        <Text style={[styles.title, { color: theme.backgroundColor }]}>{title}</Text>
+        <Text style={[styles.title, { color: theme.backgroundColor }]}>{count}$</Text>
       </View>
       <View style={[styles.content, { backgroundColor: theme.backgroundColor }]}>
         <View style={[styles.belt]}>

@@ -1,5 +1,5 @@
 import React, { forwardRef, useImperativeHandle, useState, useContext } from 'react';
-import { View, Modal, TouchableOpacity } from 'react-native';
+import { View, Modal } from 'react-native';
 
 import themeContext from '../../lib/context/themeContext';
 

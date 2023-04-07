@@ -1,12 +1,16 @@
+import { getPercantageForCategory } from 'pages/Chart/lib/helpers/helpers';
+
 import React, { useEffect, useState } from 'react';
 import { View, Dimensions, Button } from 'react-native';
 import { useSharedValue, withTiming } from 'react-native-reanimated';
 import Svg from 'react-native-svg';
 
-import { generateChartPieData } from '../../lib/store/data';
+import { categories } from '../../lib/store/data';
 import ChartSlice from '../ChartSlice/ChartSlice';
 
 import { styles } from './ChartPie.styles';
+
+import type { ICategory } from 'pages/Chart/lib/types/types';
 
 import type { FC } from 'react';
 
@@ -15,13 +19,6 @@ interface ChartPieProps {
   strokeWidth?: number;
 }
 
-export type ChartPieDataItem = {
-  color: string;
-  percent: number;
-};
-
-export type ChartPieData = ChartPieDataItem[];
-
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
 
 const ChartPie: FC<ChartPieProps> = ({
@@ -29,14 +26,14 @@ const ChartPie: FC<ChartPieProps> = ({
   strokeWidth = SCREEN_WIDTH / 15,
 }) => {
   const progress = useSharedValue(0);
-  const [data, setData] = useState<ChartPieData>([]);
+  const [data, setData] = useState<ICategory[]>([]);
   const [startAngles, setStartAngles] = useState<number[]>([]);
   const center = size / 2;
   const radius = (size - strokeWidth) / 3;
   const circumference = 2 * Math.PI * radius;
 
   const refresh = () => {
-    const generatedData = generateChartPieData();
+    const generatedData = getPercantageForCategory(categories);
 
     let angle = 0;
     const angles: number[] = [];

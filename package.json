@@ -26,7 +26,7 @@
     "react": "18.0.0",
     "react-dom": "18.0.0",
     "react-hook-form": "^7.43.9",
-    "react-native": "0.69.6",
+    "react-native": "0.69.9",
     "react-native-event-listeners": "^1.0.7",
     "react-native-gesture-handler": "~2.5.0",
     "react-native-reanimated": "~2.9.1",

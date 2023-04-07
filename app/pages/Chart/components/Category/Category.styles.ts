@@ -7,12 +7,10 @@ export const styles = StyleSheet.create({
   container: {
     flexDirection: 'column',
     flex: 10,
-    backgroundColor: colors.warning,
   },
   header: {
     height: height * 0.3,
     width: width,
-    backgroundColor: colors.warning,
     justifyContent: 'center',
     alignItems: 'center',
   },

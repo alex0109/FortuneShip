@@ -24,6 +24,8 @@ export const styles = StyleSheet.create({
   },
   categorieCircle: {
     position: 'absolute',
+    left: '35%',
+    top: '40%',
     backgroundColor: 'red',
   },
   categoryItem: {
