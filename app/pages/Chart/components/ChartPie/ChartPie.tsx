@@ -1,11 +1,12 @@
 import { getPercantageForCategory } from 'pages/Chart/lib/helpers/helpers';
 
 import React, { useEffect, useState } from 'react';
-import { View, Dimensions, Button } from 'react-native';
+import { View, Dimensions } from 'react-native';
 import { useSharedValue, withTiming } from 'react-native-reanimated';
 import Svg from 'react-native-svg';
 
-import { categories } from '../../lib/store/data';
+import { useTypedSelector } from 'shared/lib/hooks/useTypedSelector';
+
 import ChartSlice from '../ChartSlice/ChartSlice';
 
 import { styles } from './ChartPie.styles';
@@ -32,6 +33,8 @@ const ChartPie: FC<ChartPieProps> = ({
   const radius = (size - strokeWidth) / 3;
   const circumference = 2 * Math.PI * radius;
 
+  const { categories } = useTypedSelector((state) => state);
+
   const refresh = () => {
     const generatedData = getPercantageForCategory(categories);
 
@@ -53,7 +56,7 @@ const ChartPie: FC<ChartPieProps> = ({
 
   useEffect(() => {
     refresh();
-  }, []);
+  }, [categories]);
 
   return (
     <>
@@ -73,9 +76,6 @@ const ChartPie: FC<ChartPieProps> = ({
             />
           ))}
         </Svg>
-      </View>
-      <View>
-        <Button title='Refresh' onPress={refresh} />
       </View>
     </>
   );

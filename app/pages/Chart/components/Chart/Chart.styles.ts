@@ -22,10 +22,10 @@ export const styles = StyleSheet.create({
   buttonWrap: {
     marginTop: 20,
   },
-  categorieCircle: {
+  categoriesCircle: {
     position: 'absolute',
     left: '35%',
-    top: '40%',
+    top: '43%',
     backgroundColor: 'red',
   },
   categoryItem: {
@@ -38,6 +38,18 @@ export const styles = StyleSheet.create({
     width: 45,
     borderRadius: 40,
     backgroundColor: 'orange',
+  },
+  addItemCircle: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    position: 'absolute',
+    top: '30%',
+    left: '30%',
+    height: 45,
+    width: 45,
+    borderRadius: 40,
+    borderStyle: 'dashed',
+    borderWidth: 2,
   },
   input: {
     margin: 10,

@@ -1,12 +1,10 @@
 import { Dimensions, StyleSheet } from 'react-native';
-import { colors } from 'shared/assets/styles/local.style';
 
 const { width, height } = Dimensions.get('window');
 
 export const styles = StyleSheet.create({
   container: {
     flexDirection: 'column',
-    flex: 10,
   },
   header: {
     height: height * 0.3,
@@ -49,5 +47,6 @@ export const styles = StyleSheet.create({
   title: {
     fontSize: 28,
     fontWeight: 'bold',
+    textAlign: 'center',
   },
 });

@@ -1,24 +1,43 @@
 import { colorsArray, iconsArray } from 'pages/Chart/lib/store/propertires';
+
 import React, { useContext } from 'react';
-import { ScrollView, Text, TouchableOpacity, View } from 'react-native';
+import { ScrollView, Text, TextInput, TouchableOpacity, View } from 'react-native';
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import themeContext from 'shared/lib/context/themeContext';
 
+import { useActions } from 'shared/lib/hooks/useActions';
+
 import { styles } from './Category.styles';
 
+import type { ICategory } from 'pages/Chart/lib/types/types';
 import type { FC } from 'react';
 
-const Category: FC = ({ route }) => {
+interface CategoryProps {
+  category: ICategory;
+}
+
+const Category: FC<CategoryProps> = ({ category }) => {
   const theme = useContext<{ backgroundColor?: string; color?: string }>(themeContext);
-  const { title, count, color } = route.params;
+  const { handleChangeCountCategory } = useActions();
+
+  const { index, title, count, color } = category;
 
   return (
-    <ScrollView style={[styles.container, { backgroundColor: color }]}>
+    <ScrollView style={[styles.container, { backgroundColor: color, flex: 1 }]}>
       <View style={[styles.header, { backgroundColor: color }]}>
         <Text style={[styles.title, { color: theme.backgroundColor }]}>{title}</Text>
-        <Text style={[styles.title, { color: theme.backgroundColor }]}>{count}$</Text>
+        <TextInput
+          style={[styles.title, { color: theme.backgroundColor }]}
+          defaultValue={count.toString()}
+          onSubmitEditing={({ nativeEvent }) => {
+            handleChangeCountCategory({ index: index, count: +nativeEvent.text });
+          }}
+          keyboardType='numeric'
+          placeholder='Your capital...'
+          placeholderTextColor={theme.backgroundColor}
+        />
       </View>
       <View style={[styles.content, { backgroundColor: theme.backgroundColor }]}>
         <View style={[styles.belt]}>

@@ -3,11 +3,17 @@ export interface IPoint {
   y: number;
 }
 
+interface IHistory {
+  date: string;
+  count: number;
+}
+
 export interface ICategory {
-  index: number;
+  index: string;
   title: string;
   count: number;
   icon: string;
   color: string;
   percent: number;
+  history: IHistory[];
 }

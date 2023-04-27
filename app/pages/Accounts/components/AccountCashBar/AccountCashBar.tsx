@@ -9,14 +9,16 @@ import { SafeAreaView } from 'react-navigation';
 import { colors } from 'shared/assets/styles/local.style';
 import themeContext from 'shared/lib/context/themeContext';
 
+import { useActions } from 'shared/lib/hooks/useActions';
+
 import { styles } from './AccountCashBar.styles';
 
-import type { ICash } from '../../lib/types/interface';
+import type { ICash } from '../../lib/types/interfaces';
 
 import type { FC } from 'react';
 
 const AccountCashBar: FC<ICash> = (cash) => {
-  const { handleDeleteCashCount } = useCashState();
+  const { handleDeleteCashCount } = useActions();
 
   const theme = useContext<{ backgroundColor?: string; color?: string }>(themeContext);
 
@@ -30,7 +32,7 @@ const AccountCashBar: FC<ICash> = (cash) => {
         backgroundColor: colors.red,
         height: 50,
       }}>
-      <TouchableOpacity onPress={() => handleDeleteCashCount(cash.index)}>
+      <TouchableOpacity onPress={() => handleDeleteCashCount({ index: cash.index })}>
         <Ionicons name='md-close-outline' size={35} color={theme.color} />
       </TouchableOpacity>
     </View>

@@ -14,7 +14,7 @@ export interface IModalProp {
   index: string;
   title: string;
   count: number;
-  type: '0' | '1';
+  type: string;
 }
 
 export type CashState = ICash[];

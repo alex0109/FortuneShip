@@ -1,16 +1,15 @@
 /* eslint-disable no-unused-vars */
-import { useCashState } from 'pages/Accounts/lib/store/cash.zus';
-import { useTargetState } from 'pages/Accounts/lib/store/target.zus';
 import React, { useContext, useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity } from 'react-native';
 import { colors } from 'shared/assets/styles/local.style';
 import themeContext from 'shared/lib/context/themeContext';
 
+import { useActions } from 'shared/lib/hooks/useActions';
 import CustomModal from 'shared/ui/Modal/Modal';
 
 import { styles } from './AccountModal.styles';
 
-import type { IModalProp } from '../../lib/types/interface';
+import type { IModalProp } from '../../lib/types/interfaces';
 import type { FC, RefObject } from 'react';
 import type { ModalRefProps } from 'shared/ui/Modal/Modal';
 
@@ -27,8 +26,7 @@ const AccountModal: FC<AccountModalProps> = ({
   modalVisible,
   setModalVisible,
 }) => {
-  const { handleChangeCashCount } = useCashState();
-  const { handleChangeTargetCount } = useTargetState();
+  const { handleChangeCashCount, handleChangeTargetCount } = useActions();
 
   const [addedCount, setAddedCount] = useState<number>(0);
 
@@ -36,11 +34,11 @@ const AccountModal: FC<AccountModalProps> = ({
 
   const addCountHandler = (index: string, count: number): void => {
     if (modalProps?.type === '0') {
-      handleChangeCashCount(index, count + addedCount);
+      handleChangeCashCount({ index: index, count: count + addedCount });
       setAddedCount(0);
       setModalVisible(false);
     } else if (modalProps?.type === '1') {
-      handleChangeTargetCount(index, count + addedCount);
+      handleChangeTargetCount({ index: index, count: count + addedCount });
       setAddedCount(0);
       setModalVisible(false);
     }
