@@ -1,9 +1,8 @@
 /* eslint-disable no-unused-vars */
 
+import Ionicons from '@expo/vector-icons/Ionicons';
 import React, { useContext } from 'react';
 import { View, Text, TouchableOpacity, Pressable } from 'react-native';
-
-import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import themeContext from 'shared/lib/context/themeContext';
 

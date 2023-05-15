@@ -1,6 +1,7 @@
+import Ionicons from '@expo/vector-icons/Ionicons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import React, { useContext } from 'react';
-import Ionicons from 'react-native-vector-icons/Ionicons';
+import { TouchableOpacity } from 'react-native';
 import themeContext from 'shared/lib/context/themeContext';
 
 import { colors } from '../../assets/styles/local.style';
@@ -12,7 +13,6 @@ import {
 } from './StackNavigator';
 
 import type { RootStackParamList } from './StackNavigator';
-import { Text, Touchable, TouchableOpacity } from 'react-native';
 
 const Tab = createBottomTabNavigator<RootStackParamList>();
 

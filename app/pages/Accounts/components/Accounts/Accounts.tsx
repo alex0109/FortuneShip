@@ -32,17 +32,15 @@ const Accounts: FC = () => {
   }, []);
 
   return (
-    <>
-      <GestureHandlerRootView style={{ flex: 1 }}>
-        <ScrollView style={[{ backgroundColor: theme.backgroundColor }]}>
-          <AccountsCashList handleModalOpen={handleBtmShtOpen} />
-          <AccountsTargetList handleModalOpen={handleBtmShtOpen} />
-        </ScrollView>
-        <BottomSheet ref={bottomSheetRef}>
-          <AccountBSContent scrollTo={scrollTo} accountID={accountID} />
-        </BottomSheet>
-      </GestureHandlerRootView>
-    </>
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <ScrollView style={[{ backgroundColor: theme.backgroundColor }]} alwaysBounceVertical={false}>
+        <AccountsCashList handleModalOpen={handleBtmShtOpen} />
+        <AccountsTargetList handleModalOpen={handleBtmShtOpen} />
+      </ScrollView>
+      <BottomSheet ref={bottomSheetRef}>
+        <AccountBSContent scrollTo={scrollTo} accountID={accountID} />
+      </BottomSheet>
+    </GestureHandlerRootView>
   );
 };
 

@@ -1,13 +1,14 @@
+import Ionicons from '@expo/vector-icons/Ionicons';
 import { colorsArray, iconsArray } from 'pages/Chart/lib/store/propertires';
 
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { ScrollView, Text, TextInput, TouchableOpacity, View } from 'react-native';
-
-import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import themeContext from 'shared/lib/context/themeContext';
 
 import { useActions } from 'shared/lib/hooks/useActions';
+
+import { useTypedSelector } from 'shared/lib/hooks/useTypedSelector';
 
 import { styles } from './Category.styles';
 
@@ -15,24 +16,43 @@ import type { ICategory } from 'pages/Chart/lib/types/types';
 import type { FC } from 'react';
 
 interface CategoryProps {
-  category: ICategory;
+  categoryID: string;
 }
 
-const Category: FC<CategoryProps> = ({ category }) => {
+const Category: FC<CategoryProps> = ({ categoryID }) => {
   const theme = useContext<{ backgroundColor?: string; color?: string }>(themeContext);
   const { handleChangeCountCategory } = useActions();
+  const { categories } = useTypedSelector((state) => state);
 
-  const { index, title, count, color } = category;
+  const findModalPropByID = (index: string): ICategory => {
+    const item: ICategory | undefined = categories.find((item: ICategory) => item.index === index);
+
+    if (item == undefined) {
+      return {
+        index: '0',
+        title: 'Tests',
+        count: 0,
+        icon: 'flask',
+        color: '#fff',
+        percent: 0,
+        history: [],
+      };
+    }
+
+    return { ...item };
+  };
+
+  const category = findModalPropByID(categoryID);
 
   return (
-    <ScrollView style={[styles.container, { backgroundColor: color, flex: 1 }]}>
-      <View style={[styles.header, { backgroundColor: color }]}>
-        <Text style={[styles.title, { color: theme.backgroundColor }]}>{title}</Text>
+    <ScrollView style={[styles.container, { backgroundColor: category?.color, flex: 1 }]}>
+      <View style={[styles.header, { backgroundColor: category?.color }]}>
+        <Text style={[styles.title, { color: theme.backgroundColor }]}>{category?.title}</Text>
         <TextInput
           style={[styles.title, { color: theme.backgroundColor }]}
-          defaultValue={count.toString()}
-          onSubmitEditing={({ nativeEvent }) => {
-            handleChangeCountCategory({ index: index, count: +nativeEvent.text });
+          defaultValue={category?.count.toString()}
+          onChangeText={(enteredText) => {
+            handleChangeCountCategory({ index: category?.index, count: +enteredText });
           }}
           keyboardType='numeric'
           placeholder='Your capital...'

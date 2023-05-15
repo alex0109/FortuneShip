@@ -1,7 +1,6 @@
+import Ionicons from '@expo/vector-icons/Ionicons';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import React, { useContext } from 'react';
-
-import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import themeContext from 'shared/lib/context/themeContext';
 import HeaderThemeSwitch from 'shared/ui/HeaderThemeSwitch/HeaderThemeSwitch';

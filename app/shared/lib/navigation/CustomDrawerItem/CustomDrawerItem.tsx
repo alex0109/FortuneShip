@@ -1,11 +1,10 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 
+import Ionicons from '@expo/vector-icons/Ionicons';
 import { DrawerContentScrollView, DrawerItemList } from '@react-navigation/drawer';
 import React, { useContext } from 'react';
-import { TouchableOpacity, Text, View, Image, ImageBackground } from 'react-native';
+import { TouchableOpacity, Text, View, Image } from 'react-native';
 
-import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
-import Ionicons from 'react-native-vector-icons/Ionicons';
 import themeContext from 'shared/lib/context/themeContext';
 
 // import SignIn from 'pages/SignIn/components/SignIn/SignIn';

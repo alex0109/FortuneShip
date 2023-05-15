@@ -1,10 +1,10 @@
+import Ionicons from '@expo/vector-icons/Ionicons';
 import BottomSheet from 'app/modules/BottomSheet/BottomSheet';
 import { getCoordinatesForIndex } from 'pages/Chart/lib/helpers/helpers';
 import { mockCat } from 'pages/Chart/lib/store/data';
 
-import React, { useCallback, useContext, useEffect, useRef, useState } from 'react';
+import React, { useCallback, useContext, useRef, useState } from 'react';
 import { Dimensions, TouchableOpacity, View } from 'react-native';
-import Ionicons from 'react-native-vector-icons/Ionicons';
 import themeContext from 'shared/lib/context/themeContext';
 
 import { useActions } from 'shared/lib/hooks/useActions';
@@ -16,7 +16,6 @@ import ChartPie from '../ChartPie/ChartPie';
 import { styles } from './Chart.styles';
 
 import type { BottomSheetRefProps } from 'app/modules/BottomSheet/BottomSheet';
-import type { ICategory } from 'pages/Chart/lib/types/types';
 import type { FC } from 'react';
 
 const { height: SCREEN_HEIGHT } = Dimensions.get('window');
@@ -27,13 +26,11 @@ const Chart: FC = () => {
   const { handleAddCategory } = useActions();
   const { categories } = useTypedSelector((state) => state);
   const bottomSheetRef = useRef<BottomSheetRefProps>(null);
-  const [category, setCategory] = useState<ICategory>(mockCat);
+  const [categoryID, setCategoryID] = useState<string>(mockCat.index);
   // const scrollTo = bottomSheetRef?.current?.scrollTo;
 
   const handleBtmShtOpen = useCallback((index: string) => {
-    const categoryToBottomSheet: ICategory = categories.find((item) => item.index === index)!;
-
-    setCategory(categoryToBottomSheet);
+    setCategoryID(index);
     const isActive = bottomSheetRef?.current?.isActive();
     if (isActive) {
       bottomSheetRef?.current?.scrollTo(0);
@@ -43,7 +40,7 @@ const Chart: FC = () => {
   }, []);
 
   const handleAddButtonClick = () => {
-    handleAddCategory(mockCat);
+    handleAddCategory();
   };
 
   return (
@@ -65,15 +62,19 @@ const Chart: FC = () => {
                 </View>
               );
             })}
-            <TouchableOpacity onPress={handleAddButtonClick}>
-              <View style={[styles.addItemCircle, { borderColor: theme.color }]}>
-                <Ionicons name={'add-outline'} size={35} color={theme.color} />
-              </View>
-            </TouchableOpacity>
+            {categories.length >= 12 ? (
+              <></>
+            ) : (
+              <TouchableOpacity onPress={handleAddButtonClick}>
+                <View style={[styles.addItemCircle, { borderColor: theme.color }]}>
+                  <Ionicons name={'add-outline'} size={35} color={theme.color} />
+                </View>
+              </TouchableOpacity>
+            )}
           </View>
         </View>
         <BottomSheet ref={bottomSheetRef}>
-          <Category category={category} />
+          <Category categoryID={categoryID} />
         </BottomSheet>
       </View>
     </>

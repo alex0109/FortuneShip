@@ -1,7 +1,6 @@
+import Ionicons from '@expo/vector-icons/Ionicons';
 import React, { useCallback, useContext, useRef } from 'react';
 import { Dimensions, TextInput, View, Pressable } from 'react-native';
-
-import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import { colors } from 'shared/assets/styles/local.style';
 
@@ -110,8 +109,8 @@ const AccountBSContent: FC<BottomPopupProps> = ({ scrollTo, accountID }) => {
           onFocus={() => {
             scrollTo(MAX_TRANSLATE_Y);
           }}
-          onSubmitEditing={({ nativeEvent }) => {
-            titleHandleChange(modalProps.index, nativeEvent.text);
+          onChangeText={(enteredText) => {
+            titleHandleChange(modalProps.index, enteredText);
           }}
           placeholder='Your title...'
           placeholderTextColor={colors.gray}
@@ -122,8 +121,8 @@ const AccountBSContent: FC<BottomPopupProps> = ({ scrollTo, accountID }) => {
           onFocus={() => {
             scrollTo(MAX_TRANSLATE_Y);
           }}
-          onSubmitEditing={({ nativeEvent }) => {
-            countChangeHandler(modalProps.index, nativeEvent.text);
+          onChangeText={(enteredText) => {
+            countChangeHandler(modalProps.index, enteredText);
           }}
           keyboardType='numeric'
           placeholder='Your capital...'

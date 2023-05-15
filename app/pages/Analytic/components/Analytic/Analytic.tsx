@@ -10,12 +10,15 @@ import {
 } from '@shopify/react-native-skia';
 
 import { curveBasis, line, scaleLinear, scaleTime } from 'd3';
+import { getHistory, getWeekHistory } from 'pages/Analytic/lib/helpers/helpers';
 import React from 'react';
 import { Easing, View, Pressable, Text, StyleSheet } from 'react-native';
 
-import { animatedData, originalData } from '../../lib/store/Data';
+import { useTypedSelector } from 'shared/lib/hooks/useTypedSelector';
 
-import type { DataPoint } from '../../lib/store/Data';
+import { animatedData } from '../../lib/store/Data';
+
+import type { IDataPoint } from '../../lib/types/types';
 import type { SkPath } from '@shopify/react-native-skia';
 
 interface GraphData {
@@ -25,6 +28,11 @@ interface GraphData {
 }
 
 const Analytic = () => {
+  const { categories } = useTypedSelector((state) => state);
+
+  const monthData: IDataPoint[] = getHistory(categories);
+  const weekData: IDataPoint[] = getWeekHistory(monthData);
+
   const transition = useValue(1);
   const state = useValue({
     current: 0,
@@ -34,18 +42,18 @@ const Analytic = () => {
   const GRAPH_HEIGHT = 400;
   const GRAPH_WIDTH = 360;
 
-  const makeGraph = (data: DataPoint[]): GraphData => {
-    const max = Math.max(...data.map((val) => val.value));
-    const min = Math.min(...data.map((val) => val.value));
+  const makeGraph = (data: IDataPoint[]): GraphData => {
+    const max = Math.max(...data.map((val) => val.count));
+    const min = Math.min(...data.map((val) => val.count));
     const y = scaleLinear().domain([0, max]).range([GRAPH_HEIGHT, 35]);
 
     const x = scaleTime()
-      .domain([new Date(2000, 1, 1), new Date(2000, 1, 15)])
+      .domain([new Date(2023, 4, 1), new Date(2023, 4, 15)])
       .range([10, GRAPH_WIDTH - 10]);
 
-    const curvedLine = line<DataPoint>()
+    const curvedLine = line<IDataPoint>()
       .x((d) => x(new Date(d.date)))
-      .y((d) => y(d.value))
+      .y((d) => y(d.count))
       .curve(curveBasis)(data);
 
     const skPath = Skia.Path.MakeFromSVGString(curvedLine);
@@ -69,7 +77,7 @@ const Analytic = () => {
     });
   };
 
-  const graphData = [makeGraph(originalData), makeGraph(animatedData)];
+  const graphData = [makeGraph(animatedData), makeGraph(monthData)];
 
   const path = useComputedValue(() => {
     const start = graphData[state.current.current].curve;
@@ -110,10 +118,10 @@ const Analytic = () => {
       </Canvas>
       <View style={styles.buttonContainer}>
         <Pressable onPress={() => transitionStart(0)} style={styles.buttonStyle}>
-          <Text style={styles.textStyle}>Graph 1</Text>
+          <Text style={styles.textStyle}>Week</Text>
         </Pressable>
         <Pressable onPress={() => transitionStart(1)} style={styles.buttonStyle}>
-          <Text style={styles.textStyle}>Graph 2</Text>
+          <Text style={styles.textStyle}>Month</Text>
         </Pressable>
       </View>
     </View>

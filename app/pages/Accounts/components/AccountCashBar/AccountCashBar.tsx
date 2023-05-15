@@ -1,9 +1,9 @@
-import { useCashState } from 'pages/Accounts/lib/store/cash.zus';
+import Ionicons from '@expo/vector-icons/Ionicons';
+
 import React, { useContext } from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 
 import { Swipeable } from 'react-native-gesture-handler';
-import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import { SafeAreaView } from 'react-navigation';
 import { colors } from 'shared/assets/styles/local.style';
