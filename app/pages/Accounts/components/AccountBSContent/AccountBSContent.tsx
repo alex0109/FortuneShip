@@ -103,31 +103,35 @@ const AccountBSContent: FC<BottomPopupProps> = ({ scrollTo, accountID }) => {
   return (
     <>
       <View style={[styles.modalCountContainer]}>
-        <TextInput
-          style={[styles.modalTitle, { color: theme.color }]}
-          defaultValue={modalProps.title}
-          onFocus={() => {
-            scrollTo(MAX_TRANSLATE_Y);
-          }}
-          onChangeText={(enteredText) => {
-            titleHandleChange(modalProps.index, enteredText);
-          }}
-          placeholder='Your title...'
-          placeholderTextColor={colors.gray}
-        />
-        <TextInput
-          style={[styles.modalCountText, { color: theme.color, borderBottomColor: theme.color }]}
-          defaultValue={`${modalProps.count}`}
-          onFocus={() => {
-            scrollTo(MAX_TRANSLATE_Y);
-          }}
-          onChangeText={(enteredText) => {
-            countChangeHandler(modalProps.index, enteredText);
-          }}
-          keyboardType='numeric'
-          placeholder='Your capital...'
-          placeholderTextColor={colors.gray}
-        />
+        <View>
+          <TextInput
+            style={[styles.modalTitle, { color: theme.color }]}
+            defaultValue={modalProps.title}
+            onFocus={() => {
+              scrollTo(MAX_TRANSLATE_Y);
+            }}
+            onChangeText={(enteredText) => {
+              titleHandleChange(modalProps.index, enteredText);
+            }}
+            placeholder='Your title...'
+            placeholderTextColor={colors.gray}
+          />
+        </View>
+        <View>
+          <TextInput
+            style={[styles.modalCountText, { color: theme.color, borderBottomColor: theme.color }]}
+            defaultValue={`${modalProps.count}`}
+            onFocus={() => {
+              scrollTo(MAX_TRANSLATE_Y);
+            }}
+            onChangeText={(enteredText) => {
+              countChangeHandler(modalProps.index, enteredText);
+            }}
+            keyboardType='numeric'
+            placeholder='Your capital...'
+            placeholderTextColor={colors.gray}
+          />
+        </View>
         <View style={[styles.modalButtonsContainer]}>
           <Pressable
             onPress={() => {

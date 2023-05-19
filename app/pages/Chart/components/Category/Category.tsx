@@ -21,7 +21,7 @@ interface CategoryProps {
 
 const Category: FC<CategoryProps> = ({ categoryID }) => {
   const theme = useContext<{ backgroundColor?: string; color?: string }>(themeContext);
-  const { handleChangeCountCategory } = useActions();
+  const { handleChangeCountCategory, handleChangeCategoryTitle } = useActions();
   const { categories } = useTypedSelector((state) => state);
 
   const findModalPropByID = (index: string): ICategory => {
@@ -47,7 +47,15 @@ const Category: FC<CategoryProps> = ({ categoryID }) => {
   return (
     <ScrollView style={[styles.container, { backgroundColor: category?.color, flex: 1 }]}>
       <View style={[styles.header, { backgroundColor: category?.color }]}>
-        <Text style={[styles.title, { color: theme.backgroundColor }]}>{category?.title}</Text>
+        <TextInput
+          style={[styles.title, { color: theme.backgroundColor }]}
+          defaultValue={category?.title}
+          onChangeText={(enteredText) => {
+            handleChangeCategoryTitle({ index: category?.index, title: enteredText });
+          }}
+          placeholder='Your title...'
+          placeholderTextColor={theme.backgroundColor}
+        />
         <TextInput
           style={[styles.title, { color: theme.backgroundColor }]}
           defaultValue={category?.count.toString()}
@@ -55,7 +63,7 @@ const Category: FC<CategoryProps> = ({ categoryID }) => {
             handleChangeCountCategory({ index: category?.index, count: +enteredText });
           }}
           keyboardType='numeric'
-          placeholder='Your capital...'
+          placeholder='Your count...'
           placeholderTextColor={theme.backgroundColor}
         />
       </View>

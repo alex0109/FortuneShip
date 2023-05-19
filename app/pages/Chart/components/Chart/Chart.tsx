@@ -73,7 +73,7 @@ const Chart: FC = () => {
             )}
           </View>
         </View>
-        <BottomSheet ref={bottomSheetRef}>
+        <BottomSheet scrollLimit={100} ref={bottomSheetRef}>
           <Category categoryID={categoryID} />
         </BottomSheet>
       </View>

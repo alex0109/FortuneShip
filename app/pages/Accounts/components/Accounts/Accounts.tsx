@@ -37,7 +37,7 @@ const Accounts: FC = () => {
         <AccountsCashList handleModalOpen={handleBtmShtOpen} />
         <AccountsTargetList handleModalOpen={handleBtmShtOpen} />
       </ScrollView>
-      <BottomSheet ref={bottomSheetRef}>
+      <BottomSheet scrollLimit={300} ref={bottomSheetRef}>
         <AccountBSContent scrollTo={scrollTo} accountID={accountID} />
       </BottomSheet>
     </GestureHandlerRootView>

@@ -1,12 +1,14 @@
 import React, { forwardRef, useCallback, useContext, useImperativeHandle } from 'react';
-import { Dimensions, View } from 'react-native';
+import { Dimensions, View, StyleSheet } from 'react-native';
 import { Gesture, GestureDetector } from 'react-native-gesture-handler';
 import Animated, {
   Extrapolate,
   interpolate,
+  useAnimatedProps,
   useAnimatedStyle,
   useSharedValue,
   withSpring,
+  withTiming,
 } from 'react-native-reanimated';
 import themeContext from 'shared/lib/context/themeContext';
 
@@ -14,10 +16,9 @@ import { styles } from './BottomSheet.styles';
 
 const { height: SCREEN_HEIGHT } = Dimensions.get('window');
 
-const MAX_TRANSLATE_Y = -SCREEN_HEIGHT + 50;
-
 type BottomSheetProps = {
   children?: React.ReactNode;
+  scrollLimit: number;
 };
 
 export type BottomSheetRefProps = {
@@ -26,8 +27,10 @@ export type BottomSheetRefProps = {
 };
 
 const BottomSheet = forwardRef<BottomSheetRefProps, BottomSheetProps>(
-  ({ children }, bottomSheetRef) => {
+  ({ children, scrollLimit }, bottomSheetRef) => {
     const theme = useContext<{ backgroundColor?: string; color?: string }>(themeContext);
+
+    const MAX_TRANSLATE_Y = -SCREEN_HEIGHT + scrollLimit;
 
     const translateY = useSharedValue(0);
     const active = useSharedValue(false);
@@ -72,21 +75,47 @@ const BottomSheet = forwardRef<BottomSheetRefProps, BottomSheetProps>(
       };
     });
 
+    const rBackDropStyle = useAnimatedStyle(
+      () => ({
+        opacity: withTiming(active.value ? 1 : 0),
+      }),
+      []
+    );
+
+    const rbackDropProps = useAnimatedProps(
+      () => ({
+        pointerEvents: active.value ? 'auto' : 'none',
+      }),
+      []
+    );
+
     return (
-      <GestureDetector gesture={gesture}>
+      <>
         <Animated.View
+          onTouchStart={() => {
+            scrollTo(0);
+          }}
+          animatedProps={rbackDropProps}
           style={[
-            styles.bottomSheetContainer,
-            rBottomSheetStyle,
-            {
-              backgroundColor: theme.backgroundColor,
-              borderTopColor: theme.color,
-            },
-          ]}>
-          <View style={styles.line} />
-          {children}
-        </Animated.View>
-      </GestureDetector>
+            rBackDropStyle,
+            { ...StyleSheet.absoluteFillObject, backgroundColor: 'rgba(0, 0, 0, 0.4)' },
+          ]}
+        />
+        <GestureDetector gesture={gesture}>
+          <Animated.View
+            style={[
+              styles.bottomSheetContainer,
+              rBottomSheetStyle,
+              {
+                backgroundColor: theme.backgroundColor,
+                borderTopColor: theme.color,
+              },
+            ]}>
+            <View style={styles.line} />
+            {children}
+          </Animated.View>
+        </GestureDetector>
+      </>
     );
   }
 );

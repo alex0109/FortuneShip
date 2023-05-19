@@ -63,10 +63,8 @@ export const styles = StyleSheet.create({
   modalTitle: {
     justifyContent: 'center',
     textAlign: 'center',
-    alignContent: 'center',
-    alignItems: 'center',
-    width: '100%',
-    fontSize: 28,
+    width: 300,
+    fontSize: 24,
     fontWeight: 'bold',
     fontFamily: 'Assistant',
   },
@@ -83,7 +81,7 @@ export const styles = StyleSheet.create({
   },
   modalCountText: {
     textAlign: 'center',
-    minWidth: '40%',
+    minWidth: '30%',
     marginBottom: 25,
     fontSize: 20,
     borderBottomWidth: 1,

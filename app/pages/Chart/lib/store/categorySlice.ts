@@ -215,8 +215,13 @@ export const categoriesSlice = createSlice({
       return state;
     },
     handleChangeCountCategory: (state, action: PayloadAction<{ index: string; count: number }>) => {
-      const itemToChange = state.find((item) => item.index === action.payload.index);
-      itemToChange!.count = action.payload.count;
+      const categoryToChange = state.find((item) => item.index === action.payload.index);
+      categoryToChange!.count = action.payload.count;
+      return state;
+    },
+    handleChangeCategoryTitle: (state, action: PayloadAction<{ index: string; title: string }>) => {
+      const categoryToChange = state.find((count) => count.index === action.payload.index);
+      categoryToChange!.title = action.payload.title;
       return state;
     },
   },
