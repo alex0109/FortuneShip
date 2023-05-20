@@ -1,22 +1,11 @@
-import {
-  Canvas,
-  Line,
-  Path,
-  runTiming,
-  Skia,
-  useComputedValue,
-  useValue,
-  vec,
-} from '@shopify/react-native-skia';
+import { Canvas, Line, Path, Skia, vec } from '@shopify/react-native-skia';
 
 import { curveBasis, line, scaleLinear, scaleTime } from 'd3';
-import { getHistory, getWeekHistory } from 'pages/Analytic/lib/helpers/helpers';
+import { getHistory } from 'pages/Analytic/lib/helpers/helpers';
 import React from 'react';
-import { Easing, View, Pressable, Text, StyleSheet } from 'react-native';
+import { View, Pressable, Text, StyleSheet } from 'react-native';
 
 import { useTypedSelector } from 'shared/lib/hooks/useTypedSelector';
-
-import { animatedData } from '../../lib/store/Data';
 
 import type { IDataPoint } from '../../lib/types/types';
 import type { SkPath } from '@shopify/react-native-skia';
@@ -30,100 +19,48 @@ interface GraphData {
 const Analytic = () => {
   const { categories } = useTypedSelector((state) => state);
 
-  const monthData: IDataPoint[] = getHistory(categories);
-  const weekData: IDataPoint[] = getWeekHistory(monthData);
-
-  const transition = useValue(1);
-  const state = useValue({
-    current: 0,
-    next: 1,
-  });
-
   const GRAPH_HEIGHT = 400;
-  const GRAPH_WIDTH = 360;
+  const GRAPH_WIDTH = 370;
+  const data = getHistory(categories);
 
   const makeGraph = (data: IDataPoint[]): GraphData => {
-    const max = Math.max(...data.map((val) => val.count));
     const min = Math.min(...data.map((val) => val.count));
-    const y = scaleLinear().domain([0, max]).range([GRAPH_HEIGHT, 35]);
+    const max = Math.max(...data.map((val) => val.count));
 
-    const x = scaleTime()
-      .domain([new Date(2023, 4, 1), new Date(2023, 4, 15)])
+    const getYAxis = scaleLinear().domain([0, max]).range([GRAPH_HEIGHT, 35]);
+    const getXAxis = scaleTime()
+      .domain([new Date(data[0].date), new Date(data[data.length - 1].date)])
       .range([10, GRAPH_WIDTH - 10]);
 
     const curvedLine = line<IDataPoint>()
-      .x((d) => x(new Date(d.date)))
-      .y((d) => y(d.count))
+      .x((d) => getXAxis(new Date(d.date)))
+      .y((d) => getYAxis(d.count))
       .curve(curveBasis)(data);
 
-    const skPath = Skia.Path.MakeFromSVGString(curvedLine);
+    const skPath = Skia.Path.MakeFromSVGString(curvedLine!);
 
     return {
-      max,
       min,
+      max,
       curve: skPath!,
     };
   };
 
-  const transitionStart = (end: number) => {
-    state.current = {
-      current: end,
-      next: state.current.current,
-    };
-    transition.current = 0;
-    runTiming(transition, 1, {
-      duration: 750,
-      easing: Easing.inOut(Easing.cubic),
-    });
-  };
-
-  const graphData = [makeGraph(animatedData), makeGraph(monthData)];
-
-  const path = useComputedValue(() => {
-    const start = graphData[state.current.current].curve;
-    const end = graphData[state.current.next].curve;
-    const result = start.interpolate(end, transition.current);
-    return result?.toSVGString() ?? '0';
-  }, [state, transition]);
+  const graphData = makeGraph(data);
 
   return (
     <View style={styles.container}>
-      <Canvas
-        style={{
-          width: GRAPH_WIDTH,
-          height: GRAPH_HEIGHT,
-        }}>
-        <Line
-          p1={vec(10, 130)}
-          p2={vec(400, 130)}
-          color='lightgrey'
-          style='stroke'
-          strokeWidth={1}
-        />
-        <Line
-          p1={vec(10, 250)}
-          p2={vec(400, 250)}
-          color='lightgrey'
-          style='stroke'
-          strokeWidth={1}
-        />
-        <Line
-          p1={vec(10, 370)}
-          p2={vec(400, 370)}
-          color='lightgrey'
-          style='stroke'
-          strokeWidth={1}
-        />
-        <Path style='stroke' path={path} strokeWidth={4} color='#6231ff' />
-      </Canvas>
-      <View style={styles.buttonContainer}>
-        <Pressable onPress={() => transitionStart(0)} style={styles.buttonStyle}>
-          <Text style={styles.textStyle}>Week</Text>
-        </Pressable>
-        <Pressable onPress={() => transitionStart(1)} style={styles.buttonStyle}>
-          <Text style={styles.textStyle}>Month</Text>
-        </Pressable>
+      <View style={{ flexDirection: 'row' }}>
+        <Canvas style={{ height: GRAPH_HEIGHT, width: GRAPH_WIDTH }}>
+          <Line strokeWidth={1} color='lightGrey' p1={vec(10, 130)} p2={vec(400, 130)} />
+          <Line strokeWidth={1} color='lightGrey' p1={vec(10, 250)} p2={vec(400, 250)} />
+          <Line strokeWidth={1} color='lightGrey' p1={vec(10, 370)} p2={vec(400, 370)} />
+          <Path path={graphData.curve} color='purple' strokeWidth={4} style='stroke' />
+        </Canvas>
       </View>
+      <Pressable style={styles.buttonStyle} onPress={() => {}}>
+        <Text style={styles.textStyle}>Month</Text>
+      </Pressable>
     </View>
   );
 };

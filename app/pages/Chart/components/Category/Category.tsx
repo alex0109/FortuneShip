@@ -1,7 +1,7 @@
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { colorsArray, iconsArray } from 'pages/Chart/lib/store/propertires';
 
-import React, { useContext, useEffect } from 'react';
+import React, { useCallback, useContext, useEffect, useRef } from 'react';
 import { ScrollView, Text, TextInput, TouchableOpacity, View } from 'react-native';
 
 import themeContext from 'shared/lib/context/themeContext';
@@ -10,10 +10,13 @@ import { useActions } from 'shared/lib/hooks/useActions';
 
 import { useTypedSelector } from 'shared/lib/hooks/useTypedSelector';
 
+import CategoryModal from '../CategoryModal/CategoryModal';
+
 import { styles } from './Category.styles';
 
 import type { ICategory } from 'pages/Chart/lib/types/types';
 import type { FC } from 'react';
+import type { ModalRefProps } from 'shared/ui/Modal/Modal';
 
 interface CategoryProps {
   categoryID: string;
@@ -43,6 +46,17 @@ const Category: FC<CategoryProps> = ({ categoryID }) => {
   };
 
   const category = findModalPropByID(categoryID);
+
+  const refModal = useRef<ModalRefProps>(null);
+
+  const setModalVisible = useCallback((modalVisible: boolean) => {
+    const setModalVisible = refModal.current?.setModalVisible(modalVisible);
+    if (setModalVisible) {
+      refModal.current?.setModalVisible(modalVisible);
+    }
+  }, []);
+
+  const modalVisible = refModal.current?.modalVisible;
 
   return (
     <ScrollView style={[styles.container, { backgroundColor: category?.color, flex: 1 }]}>
@@ -98,6 +112,7 @@ const Category: FC<CategoryProps> = ({ categoryID }) => {
             ))}
           </View>
         </View>
+        {/* <CategoryModal /> */}
       </View>
     </ScrollView>
   );

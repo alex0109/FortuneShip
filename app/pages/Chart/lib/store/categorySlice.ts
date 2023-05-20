@@ -18,7 +18,7 @@ const initialState: ICategory[] = [
     history: [
       {
         date: '2023-04-01',
-        count: 21,
+        count: 2,
       },
     ],
   },
@@ -214,6 +214,8 @@ export const categoriesSlice = createSlice({
       });
       return state;
     },
+    handleDeleteCategory: (state, action: PayloadAction<{ index: string }>) =>
+      state.filter((item) => item.index !== action.payload.index),
     handleChangeCountCategory: (state, action: PayloadAction<{ index: string; count: number }>) => {
       const categoryToChange = state.find((item) => item.index === action.payload.index);
       categoryToChange!.count = action.payload.count;
