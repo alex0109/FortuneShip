@@ -3,9 +3,11 @@ import { Canvas, Line, Path, Skia, vec } from '@shopify/react-native-skia';
 import { curveBasis, line, scaleLinear, scaleTime } from 'd3';
 import { getHistory } from 'pages/Analytic/lib/helpers/helpers';
 import React from 'react';
-import { View, Pressable, Text, StyleSheet } from 'react-native';
+import { View, Pressable, Text } from 'react-native';
 
 import { useTypedSelector } from 'shared/lib/hooks/useTypedSelector';
+
+import { styles } from './Analytic.styles';
 
 import type { IDataPoint } from '../../lib/types/types';
 import type { SkPath } from '@shopify/react-native-skia';
@@ -21,7 +23,7 @@ const Analytic = () => {
 
   const GRAPH_HEIGHT = 400;
   const GRAPH_WIDTH = 370;
-  const data = getHistory(categories);
+  const history = getHistory(categories);
 
   const makeGraph = (data: IDataPoint[]): GraphData => {
     const min = Math.min(...data.map((val) => val.count));
@@ -46,17 +48,21 @@ const Analytic = () => {
     };
   };
 
-  const graphData = makeGraph(data);
+  const graphData = makeGraph(history);
 
   return (
     <View style={styles.container}>
       <View style={{ flexDirection: 'row' }}>
-        <Canvas style={{ height: GRAPH_HEIGHT, width: GRAPH_WIDTH }}>
-          <Line strokeWidth={1} color='lightGrey' p1={vec(10, 130)} p2={vec(400, 130)} />
-          <Line strokeWidth={1} color='lightGrey' p1={vec(10, 250)} p2={vec(400, 250)} />
-          <Line strokeWidth={1} color='lightGrey' p1={vec(10, 370)} p2={vec(400, 370)} />
-          <Path path={graphData.curve} color='purple' strokeWidth={4} style='stroke' />
-        </Canvas>
+        {graphData ? (
+          <Canvas style={{ height: GRAPH_HEIGHT, width: GRAPH_WIDTH }}>
+            <Line strokeWidth={1} color='lightGrey' p1={vec(10, 130)} p2={vec(400, 130)} />
+            <Line strokeWidth={1} color='lightGrey' p1={vec(10, 250)} p2={vec(400, 250)} />
+            <Line strokeWidth={1} color='lightGrey' p1={vec(10, 370)} p2={vec(400, 370)} />
+            <Path path={graphData.curve} color='purple' strokeWidth={4} style='stroke' />
+          </Canvas>
+        ) : (
+          <Text>sdfs</Text>
+        )}
       </View>
       <Pressable style={styles.buttonStyle} onPress={() => {}}>
         <Text style={styles.textStyle}>Month</Text>
@@ -64,27 +70,5 @@ const Analytic = () => {
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    alignItems: 'center',
-    backgroundColor: 'white',
-    flex: 1,
-  },
-  buttonContainer: {
-    flexDirection: 'row',
-  },
-  buttonStyle: {
-    marginRight: 20,
-    backgroundColor: '#6231ff',
-    paddingVertical: 5,
-    paddingHorizontal: 20,
-    borderRadius: 10,
-  },
-  textStyle: {
-    color: 'white',
-    fontSize: 20,
-  },
-});
 
 export default Analytic;

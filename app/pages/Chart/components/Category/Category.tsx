@@ -20,11 +20,13 @@ import type { ModalRefProps } from 'shared/ui/Modal/Modal';
 
 interface CategoryProps {
   categoryID: string;
+  scrollTo: (destination: number) => void;
 }
 
-const Category: FC<CategoryProps> = ({ categoryID }) => {
+const Category: FC<CategoryProps> = ({ categoryID, scrollTo }) => {
   const theme = useContext<{ backgroundColor?: string; color?: string }>(themeContext);
-  const { handleChangeCountCategory, handleChangeCategoryTitle } = useActions();
+  const { handleChangeCountCategory, handleChangeCategoryTitle, handleDeleteCategory } =
+    useActions();
   const { categories } = useTypedSelector((state) => state);
 
   const findModalPropByID = (index: string): ICategory => {
@@ -47,16 +49,21 @@ const Category: FC<CategoryProps> = ({ categoryID }) => {
 
   const category = findModalPropByID(categoryID);
 
-  const refModal = useRef<ModalRefProps>(null);
+  const refCategoryModal = useRef<ModalRefProps>(null);
 
   const setModalVisible = useCallback((modalVisible: boolean) => {
-    const setModalVisible = refModal.current?.setModalVisible(modalVisible);
+    const setModalVisible = refCategoryModal.current?.setModalVisible(modalVisible);
     if (setModalVisible) {
-      refModal.current?.setModalVisible(modalVisible);
+      refCategoryModal.current?.setModalVisible(modalVisible);
     }
   }, []);
 
-  const modalVisible = refModal.current?.modalVisible;
+  const modalVisible = refCategoryModal.current?.modalVisible;
+
+  const deleteCategoryHandler = (index: string) => {
+    scrollTo(0);
+    handleDeleteCategory({ index: index });
+  };
 
   return (
     <ScrollView style={[styles.container, { backgroundColor: category?.color, flex: 1 }]}>
@@ -83,13 +90,13 @@ const Category: FC<CategoryProps> = ({ categoryID }) => {
       </View>
       <View style={[styles.content, { backgroundColor: theme.backgroundColor }]}>
         <View style={[styles.belt]}>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={() => deleteCategoryHandler(categoryID)}>
             <Ionicons name='trash-outline' size={35} color={theme.color} />
           </TouchableOpacity>
           <TouchableOpacity>
             <Ionicons name='file-tray-full-outline' size={35} color={theme.color} />
           </TouchableOpacity>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={() => setModalVisible(true)}>
             <Ionicons name='add-outline' size={35} color={theme.color} />
           </TouchableOpacity>
         </View>
@@ -112,7 +119,12 @@ const Category: FC<CategoryProps> = ({ categoryID }) => {
             ))}
           </View>
         </View>
-        {/* <CategoryModal /> */}
+        <CategoryModal
+          categoryID={categoryID}
+          refCategoryModal={refCategoryModal}
+          modalVisible={modalVisible}
+          setModalVisible={setModalVisible}
+        />
       </View>
     </ScrollView>
   );

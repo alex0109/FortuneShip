@@ -1,5 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
+import moment from 'moment';
+
 import { makeid } from '../helpers/helpers';
 
 import { getRandomColor } from './data';
@@ -17,7 +19,7 @@ const initialState: ICategory[] = [
     percent: 0,
     history: [
       {
-        date: '2023-04-01',
+        date: moment().format('YYYY-MM-01'),
         count: 2,
       },
     ],
@@ -31,11 +33,11 @@ const initialState: ICategory[] = [
     percent: 0,
     history: [
       {
-        date: '2023-04-02',
+        date: moment().format('YYYY-MM-02'),
         count: 23,
       },
       {
-        date: '2023-04-03',
+        date: moment().format('YYYY-MM-03'),
         count: 31,
       },
     ],
@@ -49,11 +51,11 @@ const initialState: ICategory[] = [
     percent: 0,
     history: [
       {
-        date: '2023-04-03',
+        date: moment().format('YYYY-MM-03'),
         count: 1,
       },
       {
-        date: '2023-04-25',
+        date: moment().format('YYYY-MM-15'),
         count: 80,
       },
     ],
@@ -67,11 +69,11 @@ const initialState: ICategory[] = [
     percent: 0,
     history: [
       {
-        date: '2023-04-04',
+        date: moment().format('YYYY-MM-04'),
         count: 18,
       },
       {
-        date: '2023-04-07',
+        date: moment().format('YYYY-MM-07'),
         count: 18,
       },
     ],
@@ -85,11 +87,11 @@ const initialState: ICategory[] = [
     percent: 0,
     history: [
       {
-        date: '2023-04-06',
+        date: moment().format('YYYY-MM-06'),
         count: 36,
       },
       {
-        date: '2023-04-08',
+        date: moment().format('YYYY-MM-08'),
         count: 7,
       },
     ],
@@ -103,11 +105,11 @@ const initialState: ICategory[] = [
     percent: 0,
     history: [
       {
-        date: '2023-04-09T00:00:00Z',
+        date: moment().format('YYYY-MM-09'),
         count: 19,
       },
       {
-        date: '2023-04-10T00:00:00Z',
+        date: moment().format('YYYY-MM-10'),
         count: 2,
       },
     ],
@@ -121,15 +123,15 @@ const initialState: ICategory[] = [
     percent: 0,
     history: [
       {
-        date: '2023-04-11T00:00:00Z',
+        date: moment().format('YYYY-MM-11'),
         count: 53,
       },
       {
-        date: '2023-04-12T00:00:00Z',
+        date: moment().format('YYYY-MM-12'),
         count: 10,
       },
       {
-        date: '2023-04-13T00:00:00Z',
+        date: moment().format('YYYY-MM-13'),
         count: 5,
       },
     ],
@@ -143,27 +145,23 @@ const initialState: ICategory[] = [
     percent: 0,
     history: [
       {
-        date: '2023-04-21T00:00:00Z',
+        date: moment().format('YYYY-MM-21'),
         count: 12,
       },
       {
-        date: '2023-04-22T00:00:00Z',
+        date: moment().format('YYYY-MM-22'),
         count: 1,
       },
       {
-        date: '2023-04-23T00:00:00Z',
+        date: moment().format('YYYY-MM-23'),
         count: 1,
       },
       {
-        date: '2023-04-24T00:00:00Z',
+        date: moment().format('YYYY-MM-24'),
         count: 1,
       },
       {
-        date: '2023-04-26T00:00:00Z',
-        count: 1,
-      },
-      {
-        date: '2023-04-27T00:00:00Z',
+        date: moment().format('YYYY-MM-26'),
         count: 1,
       },
     ],
@@ -186,7 +184,7 @@ const initialState: ICategory[] = [
     percent: 0,
     history: [
       {
-        date: '2023-04-25T00:00:00Z',
+        date: moment().format('YYYY-MM-25'),
         count: 98,
       },
     ],
@@ -201,13 +199,13 @@ export const categoriesSlice = createSlice({
       state.push({
         index: makeid(),
         title: 'Tests',
-        count: 100,
+        count: 0,
         icon: 'flask',
         color: getRandomColor(),
         percent: 0,
         history: [
           {
-            date: '2000-02-01T05:00:00.000Z',
+            date: moment().format('YYYY-MM-DD'),
             count: 1,
           },
         ],
@@ -224,6 +222,15 @@ export const categoriesSlice = createSlice({
     handleChangeCategoryTitle: (state, action: PayloadAction<{ index: string; title: string }>) => {
       const categoryToChange = state.find((count) => count.index === action.payload.index);
       categoryToChange!.title = action.payload.title;
+      return state;
+    },
+    handleTopUpCategory: (state, action: PayloadAction<{ index: string; count: number }>) => {
+      const categoryToChange = state.find((count) => count.index === action.payload.index);
+      categoryToChange!.count += action.payload.count;
+      categoryToChange!.history.push({
+        date: moment().format('YYYY-MM-DD'),
+        count: action.payload.count,
+      });
       return state;
     },
   },

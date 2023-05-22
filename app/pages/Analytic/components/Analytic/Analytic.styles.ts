@@ -1,13 +1,23 @@
 import { StyleSheet } from 'react-native';
 
 export const styles = StyleSheet.create({
-  main: {
+  container: {
     alignItems: 'center',
-    justifyContent: 'center',
-    flex: 10,
+    backgroundColor: 'white',
+    flex: 1,
   },
-  testText: {
-    fontFamily: 'Assistant',
-    fontWeight: '900',
+  buttonContainer: {
+    flexDirection: 'row',
+  },
+  buttonStyle: {
+    marginRight: 20,
+    backgroundColor: '#6231ff',
+    paddingVertical: 5,
+    paddingHorizontal: 20,
+    borderRadius: 10,
+  },
+  textStyle: {
+    color: 'white',
+    fontSize: 20,
   },
 });

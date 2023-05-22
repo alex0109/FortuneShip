@@ -27,7 +27,7 @@ const Chart: FC = () => {
   const { categories } = useTypedSelector((state) => state);
   const bottomSheetRef = useRef<BottomSheetRefProps>(null);
   const [categoryID, setCategoryID] = useState<string>(mockCat.index);
-  // const scrollTo = bottomSheetRef?.current?.scrollTo;
+  const scrollTo = bottomSheetRef?.current?.scrollTo;
 
   const handleBtmShtOpen = useCallback((index: string) => {
     setCategoryID(index);
@@ -39,10 +39,6 @@ const Chart: FC = () => {
     }
   }, []);
 
-  const handleAddButtonClick = () => {
-    handleAddCategory();
-  };
-
   return (
     <>
       <View style={[styles.main, { backgroundColor: theme.backgroundColor }]}>
@@ -52,7 +48,7 @@ const Chart: FC = () => {
             {categories.map((item, index) => {
               const { x, y } = getCoordinatesForIndex(-index + 1, categories.length);
 
-              return (
+              return item ? (
                 <View
                   key={index}
                   style={[styles.categoryItem, { left: x, top: y, backgroundColor: item.color }]}>
@@ -60,12 +56,14 @@ const Chart: FC = () => {
                     <Ionicons name={item.icon} size={35} color={'white'} />
                   </TouchableOpacity>
                 </View>
+              ) : (
+                <></>
               );
             })}
             {categories.length >= 12 ? (
               <></>
             ) : (
-              <TouchableOpacity onPress={handleAddButtonClick}>
+              <TouchableOpacity onPress={() => handleAddCategory()}>
                 <View style={[styles.addItemCircle, { borderColor: theme.color }]}>
                   <Ionicons name={'add-outline'} size={35} color={theme.color} />
                 </View>
@@ -74,7 +72,7 @@ const Chart: FC = () => {
           </View>
         </View>
         <BottomSheet scrollLimit={100} ref={bottomSheetRef}>
-          <Category categoryID={categoryID} />
+          <Category categoryID={categoryID} scrollTo={scrollTo!} />
         </BottomSheet>
       </View>
     </>

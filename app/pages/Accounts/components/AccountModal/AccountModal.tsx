@@ -7,6 +7,8 @@ import themeContext from 'shared/lib/context/themeContext';
 import { useActions } from 'shared/lib/hooks/useActions';
 import CustomModal from 'shared/ui/Modal/Modal';
 
+import ModalTitle from 'shared/ui/ModalTitle/ModalTitle';
+
 import { styles } from './AccountModal.styles';
 
 import type { IModalProp } from '../../lib/types/interfaces';
@@ -46,16 +48,13 @@ const AccountModal: FC<AccountModalProps> = ({
 
   return (
     <CustomModal ref={refModal} visible={modalVisible || false}>
-      <Text style={[styles.modalPopUpTitle, { color: theme.color }]}>
-        How much you want to add?
-      </Text>
+      <ModalTitle>How much you want to add?</ModalTitle>
       <View style={[styles.modalPopUpContent]}>
         <TextInput
           style={[styles.modalCountText, { color: theme.color, borderBottomColor: theme.color }]}
           placeholder='Your number...'
           placeholderTextColor={colors.gray}
           keyboardType='numeric'
-          defaultValue={`${addedCount}`}
           onChangeText={(input) => {
             setAddedCount(Number(input));
           }}

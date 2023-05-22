@@ -7,7 +7,7 @@ export const styles = StyleSheet.create({
     flexDirection: 'column',
   },
   header: {
-    height: height * 0.3,
+    height: height * 0.2,
     width: width,
     justifyContent: 'center',
     alignItems: 'center',

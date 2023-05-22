@@ -3,7 +3,7 @@ export interface IPoint {
   y: number;
 }
 
-interface IHistory {
+export interface IHistory {
   date: string;
   count: number;
 }
