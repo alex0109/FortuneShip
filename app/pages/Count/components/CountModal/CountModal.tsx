@@ -1,47 +1,48 @@
+/* eslint-disable no-unused-vars */
 import React, { useContext, useState } from 'react';
-import { Text, TextInput, TouchableOpacity, View } from 'react-native';
-
+import { View, Text, TextInput, TouchableOpacity } from 'react-native';
 import { colors } from 'shared/assets/styles/local.style';
 import themeContext from 'shared/lib/context/themeContext';
+
 import { useActions } from 'shared/lib/hooks/useActions';
 import CustomModal from 'shared/ui/Modal/Modal';
 
 import ModalTitle from 'shared/ui/ModalTitle/ModalTitle';
 
-import { styles } from './CategoryModal.styles';
+import { styles } from './CountModal.styles';
 
+import type { ICount } from 'pages/Count/lib/types/interfaces';
 import type { FC, RefObject } from 'react';
 import type { ModalRefProps } from 'shared/ui/Modal/Modal';
 
-interface CategoryModal {
-  categoryID: string;
-  refCategoryModal: RefObject<ModalRefProps>;
+interface CountModalProps {
+  countElement: ICount;
+  refModal: RefObject<ModalRefProps>;
   modalVisible: boolean | undefined;
   setModalVisible: (arg0: boolean) => void;
 }
 
-const CategoryModal: FC<CategoryModal> = ({
-  categoryID,
-  refCategoryModal,
+const CountModal: FC<CountModalProps> = ({
+  countElement,
+  refModal,
   modalVisible,
   setModalVisible,
 }) => {
-  const { handleTopUpCategory } = useActions();
+  const { handleTopUpCount } = useActions();
 
   const [addedCount, setAddedCount] = useState<number>(0);
 
   const theme = useContext<{ backgroundColor?: string; color?: string }>(themeContext);
 
-  const addCountHandler = (index: string, count: number): void => {
-    if (count > 0) {
-      handleTopUpCategory({ index: index, value: count });
-      setAddedCount(0);
-    }
+  const addCountHandler = (index: string): void => {
+    handleTopUpCount({ index: index, value: addedCount });
+    setAddedCount(0);
     setModalVisible(false);
   };
+
   return (
-    <CustomModal ref={refCategoryModal} visible={modalVisible || false}>
-      <ModalTitle>Your consumption</ModalTitle>
+    <CustomModal ref={refModal} visible={modalVisible || false}>
+      <ModalTitle>How much you want to add?</ModalTitle>
       <View style={[styles.modalPopUpContent]}>
         <TextInput
           style={[styles.modalCountText, { color: theme.color, borderBottomColor: theme.color }]}
@@ -62,7 +63,7 @@ const CategoryModal: FC<CategoryModal> = ({
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() => {
-            addCountHandler(categoryID, addedCount);
+            addCountHandler(countElement.index);
           }}>
           <Text style={[styles.modalPopUpButton, { color: theme.color }]}>Add</Text>
         </TouchableOpacity>
@@ -71,4 +72,4 @@ const CategoryModal: FC<CategoryModal> = ({
   );
 };
 
-export default CategoryModal;
+export default CountModal;

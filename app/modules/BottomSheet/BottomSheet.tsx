@@ -56,7 +56,7 @@ const BottomSheet = forwardRef<BottomSheetRefProps, BottomSheetProps>(
         translateY.value = Math.max(translateY.value, MAX_TRANSLATE_Y);
       })
       .onEnd(() => {
-        if (translateY.value > -SCREEN_HEIGHT / 1.5) {
+        if (translateY.value > -SCREEN_HEIGHT / 1.8) {
           scrollTo(0);
         }
       });

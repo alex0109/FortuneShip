@@ -4,7 +4,7 @@ import { getCoordinatesForIndex } from 'pages/Chart/lib/helpers/helpers';
 import { mockCat } from 'pages/Chart/lib/store/data';
 
 import React, { useCallback, useContext, useRef, useState } from 'react';
-import { Dimensions, TouchableOpacity, View } from 'react-native';
+import { Dimensions, TouchableOpacity, View, Text } from 'react-native';
 import themeContext from 'shared/lib/context/themeContext';
 
 import { useActions } from 'shared/lib/hooks/useActions';
@@ -31,6 +31,7 @@ const Chart: FC = () => {
 
   const handleBtmShtOpen = useCallback((index: string) => {
     setCategoryID(index);
+
     const isActive = bottomSheetRef?.current?.isActive();
     if (isActive) {
       bottomSheetRef?.current?.scrollTo(0);
@@ -50,11 +51,22 @@ const Chart: FC = () => {
 
               return item ? (
                 <View
-                  key={index}
+                  key={item.index}
                   style={[styles.categoryItem, { left: x, top: y, backgroundColor: item.color }]}>
                   <TouchableOpacity onPress={() => handleBtmShtOpen(item.index)}>
                     <Ionicons name={item.icon} size={35} color={'white'} />
                   </TouchableOpacity>
+                  <View
+                    style={{
+                      position: 'absolute',
+                      top: 45,
+                      width: '100%',
+                      justifyContent: 'flex-end',
+                    }}>
+                    <Text style={{ textAlign: 'center', fontWeight: 'bold', color: theme.color }}>
+                      {item.count}
+                    </Text>
+                  </View>
                 </View>
               ) : (
                 <></>

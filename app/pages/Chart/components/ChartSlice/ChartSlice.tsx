@@ -4,16 +4,7 @@ import { Circle } from 'react-native-svg';
 
 import type { FC } from 'react';
 
-export type PieChartDataItem = {
-  color: string;
-  percent: number;
-};
-
-const AnimatedCircle = Animated.createAnimatedComponent(Circle);
-
-export type PieChartData = PieChartDataItem[];
-
-const ChartSlice: FC<{
+interface ChartSliceProps {
   center: number;
   radius: number;
   strokeWidth: number;
@@ -22,7 +13,27 @@ const ChartSlice: FC<{
   angle: number;
   percent: number;
   progress: Animated.SharedValue<number>;
-}> = ({ center, radius, strokeWidth, circumference, color, angle, percent, progress }) => {
+}
+
+export type PieChartDataItem = {
+  color: string;
+  percent: number;
+};
+
+export type PieChartData = PieChartDataItem[];
+
+const AnimatedCircle = Animated.createAnimatedComponent(Circle);
+
+const ChartSlice: FC<ChartSliceProps> = ({
+  center,
+  radius,
+  strokeWidth,
+  circumference,
+  color,
+  angle,
+  percent,
+  progress,
+}) => {
   const animatedProps = useAnimatedProps(() => {
     const strokeDashoffset = interpolate(
       progress.value,
@@ -53,7 +64,6 @@ const ChartSlice: FC<{
       strokeDasharray={circumference}
       originX={center}
       originY={center}
-      // @ts-ignore
       animatedProps={animatedProps}
     />
   );

@@ -27,6 +27,7 @@ export default function App() {
 
   const [loaded] = useFonts({
     Assistant: require('./shared/assets/fonts/Assistant/Assistant-Regular.ttf'),
+    AssistantBold: require('./shared/assets/fonts/Assistant/Assistant-Bold.ttf'),
   });
 
   if (!loaded) {

@@ -1,4 +1,4 @@
-import { makeid } from '../helpers/helpers';
+import { makeid } from 'shared/lib/utils/generatorID';
 
 import type { ICategory } from '../types/types';
 

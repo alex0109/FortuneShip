@@ -1,14 +1,13 @@
 import { createStackNavigator } from '@react-navigation/stack';
 
-import Accounts from 'pages/Accounts/components/Accounts/Accounts';
-import Analytics from 'pages/Analytic/components/Analytic/Analytic';
+import Accounts from 'pages/Accounts/Accounts/Accounts';
+import Analytic from 'pages/Analytic/components/Analytic/Analytic';
 import Category from 'pages/Chart/components/Category/Category';
 import Chart from 'pages/Chart/components/Chart/Chart';
 import SignIn from 'pages/SignIn/components/SignIn/SignIn';
 import SignUp from 'pages/SignUp/components/SignUp/SignUp';
 
 import React from 'react';
-// import { theme } from 'shared/assets/styles/local.style';
 
 export type RootStackParamList = {
   ChartStack: { name: string };
@@ -46,7 +45,7 @@ const AccountsStackNavigator = () => (
 
 const AnalyticsStackNavigator = () => (
   <Stack.Navigator screenOptions={screenOptionStyle}>
-    <Stack.Screen name='AnalyticssStack' component={Analytics} />
+    <Stack.Screen name='AnalyticssStack' component={Analytic} />
   </Stack.Navigator>
 );
 

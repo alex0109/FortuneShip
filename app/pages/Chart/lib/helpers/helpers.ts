@@ -48,15 +48,3 @@ export function moveBallInBezierCurve(points: IPoint[], progress: SharedValue<nu
   // y.current = mix(progress.value, y.current, yt);
   return { x: xt, y: yt };
 }
-
-export function makeid() {
-  let result = '';
-  const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-  const charactersLength = characters.length;
-  let counter = 0;
-  while (counter < 24) {
-    result += characters.charAt(Math.floor(Math.random() * charactersLength));
-    counter += 1;
-  }
-  return result;
-}

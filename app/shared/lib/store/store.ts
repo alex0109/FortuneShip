@@ -1,7 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { cashReducers } from 'pages/Accounts/lib/store/cashSlice';
-import { targetReducers } from 'pages/Accounts/lib/store/targetSlice';
+import { targetReducers } from 'pages/Target/lib/store/targetSlice';
 import { categoriesReducer } from 'pages/Chart/lib/store/categorySlice';
+import { countReducers } from 'pages/Count/lib/store/countSlice';
 import thunk from 'redux-thunk';
 
 // import { cashReducer } from '../../../pages/Accounts/lib/store/cash.slice';
@@ -10,7 +10,7 @@ import thunk from 'redux-thunk';
 const store = configureStore({
   reducer: {
     categories: categoriesReducer,
-    cash: cashReducers,
+    count: countReducers,
     target: targetReducers,
   },
   middleware: [thunk],

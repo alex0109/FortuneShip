@@ -66,7 +66,7 @@ const Category: FC<CategoryProps> = ({ categoryID, scrollTo }) => {
   };
 
   return (
-    <ScrollView style={[styles.container, { backgroundColor: category?.color, flex: 1 }]}>
+    <ScrollView style={[styles.container, { backgroundColor: category?.color }]}>
       <View style={[styles.header, { backgroundColor: category?.color }]}>
         <TextInput
           style={[styles.title, { color: theme.backgroundColor }]}

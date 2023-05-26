@@ -16,9 +16,6 @@ export const styles = StyleSheet.create({
   chart: {
     position: 'relative',
   },
-  rotate: {
-    transform: [{ rotateZ: '-90deg' }],
-  },
   buttonWrap: {
     marginTop: 20,
   },
@@ -26,25 +23,19 @@ export const styles = StyleSheet.create({
     position: 'absolute',
     left: '35%',
     top: '43%',
-    backgroundColor: 'red',
   },
   categoryItem: {
     alignItems: 'center',
     justifyContent: 'center',
     position: 'absolute',
-    top: '30%',
-    left: '30%',
     height: 45,
     width: 45,
     borderRadius: 40,
-    backgroundColor: 'orange',
   },
   addItemCircle: {
     alignItems: 'center',
     justifyContent: 'center',
     position: 'absolute',
-    top: '30%',
-    left: '30%',
     height: 45,
     width: 45,
     borderRadius: 40,
