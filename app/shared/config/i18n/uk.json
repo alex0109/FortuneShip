@@ -1,0 +1,37 @@
+{
+    "translation":{
+        "Home":"Україна",
+        "SignIn":"Вхід",
+        "Sign Out":"Бахмут",
+        "Tell a Friend":"Розповісти друзям",
+        "Language":"Солов'їна",
+        "John Doe":"Жоооо Байден",
+        "email":"електронна пошта",
+        "This field is required!":"Це поле обов'язкове!",
+        "Your password is too short!":"Ваш пароль занадто короткий!",
+        "Your password is too long!":"Ваш пароль занадто довгий!",
+        "Email":"Ємейл",
+        "Password":"Пароль",
+        "Login":"Логін",
+        "Login with Google":"Логін за допомогою Google",
+        "Create account":"Створити аккаунт",
+        "Its not an email!":"Це не емейл!",
+        "Your name is too short!":"Ваше ім'я занадто коротке!",
+        "Username":"Ім'я користувача",
+        "Confirm Password":"Підтвердити пароль",  
+        "SignUp":"Реєстрація",
+        "Passwords should match!":"Паролі повинні співпадати!",
+        "Your title...":"Ваша назва...",
+        "Your count...":"Ваш рахунок...",
+        "Your number...":"Ваше число...",
+        "Back":"Назад",
+        "Add":"Додати",
+        "New target":"Нова ціль",
+        "Counts":"Рахунки",
+        "New count":"Новий рахунок",
+        "At the moment you have no funds...":"На даний момент у вас немає коштів...",
+        "Targets":"Цілі",
+        "At the moment you have no targets...":"На даний момент у вас немає цілей..."
+
+    }
+}

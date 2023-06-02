@@ -1,9 +1,10 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
-
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { DrawerContentScrollView, DrawerItemList } from '@react-navigation/drawer';
 import React, { useContext } from 'react';
+import { useTranslation } from 'react-i18next';
 import { TouchableOpacity, Text, View, Image } from 'react-native';
+import i18n from 'shared/config/i18n/i18n';
 
 import themeContext from 'shared/lib/context/themeContext';
 
@@ -12,7 +13,7 @@ import themeContext from 'shared/lib/context/themeContext';
 
 const CustomDrawerContent = (props) => {
   const theme = useContext<{ backgroundColor?: string; color?: string }>(themeContext);
-
+  const {t, i18n} = useTranslation();
   return (
     <View style={{ flex: 1, padding: 0, marginTop: 0 }}>
       <DrawerContentScrollView {...props}>
@@ -34,7 +35,7 @@ const CustomDrawerContent = (props) => {
               fontFamily: 'Assistant',
               marginBottom: 5,
             }}>
-            John Doe
+            {i18n.t('John Doe')}
           </Text>
         </View>
         <View style={{ flex: 1, paddingTop: 10 }}>
@@ -58,7 +59,21 @@ const CustomDrawerContent = (props) => {
                 marginLeft: 5,
                 color: theme.color,
               }}>
-              Tell a Friend
+              {i18n.t('Tell a Friend')}
+            </Text>
+          </View>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => {i18n.language === 'en'? i18n.changeLanguage('uk')! : i18n.changeLanguage('en')!}} style={{ paddingVertical: 15 }}>
+          <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+            <Ionicons name='language-outline' size={22} color={theme.color} />
+            <Text
+              style={{
+                fontSize: 15,
+                fontFamily: 'Assistant',
+                marginLeft: 5,
+                color: theme.color,
+              }}>
+              {i18n.t('Language')}
             </Text>
           </View>
         </TouchableOpacity>
@@ -72,7 +87,7 @@ const CustomDrawerContent = (props) => {
                 marginLeft: 5,
                 color: theme.color,
               }}>
-              Sign Out
+              {i18n.t('Sign Out')}
             </Text>
           </View>
         </TouchableOpacity>

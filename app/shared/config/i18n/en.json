@@ -1,0 +1,37 @@
+{
+    "translation":{
+        "Home":"Home",
+        "SignIn":"SignIn",
+        "Sign Out":"Sign Out",
+        "Tell a Friend":"Tell a Friend",
+        "Language":"Language",
+        "John Doe":"John Doe",
+        "email":"email",
+        "This field is required!":"This field is required!",
+        "Your password is too short!":"Your password is too short!",
+        "Your password is too long!":"Your password is too long!",
+        "Email":"Email",
+        "Password":"Password",
+        "Login":"Login",
+        "Login with Google":"Login with Google",
+        "Create account":"Create account",
+        "Its not an email!":"Its not an email!",
+        "Your name is too short!":"Your name is too short!",
+        "Username":"Username",
+        "Confirm Password":"Confirm Password",
+        "SignUp":"SignUp",
+        "Passwords should match!":"Passwords should match!",
+        "Your title...":"Your title...",
+        "Your count...":"Your count...",
+        "Your number...":"Your number...",
+        "Back":"Back",
+        "Add":"Add",
+        "New target":"New target",
+        "Counts":"Counts",
+        "New count":"New count",
+        "At the moment you have no funds...":"At the moment you have no funds...",
+        "Targets":"Targets",
+        "At the moment you have no targets...":"At the moment you have no targets..."
+
+    }
+}

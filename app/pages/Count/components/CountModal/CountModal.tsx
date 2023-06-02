@@ -2,6 +2,7 @@
 import React, { useContext, useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity } from 'react-native';
 import { colors } from 'shared/assets/styles/local.style';
+import i18n from 'shared/config/i18n/i18n';
 import themeContext from 'shared/lib/context/themeContext';
 
 import { useActions } from 'shared/lib/hooks/useActions';
@@ -46,7 +47,7 @@ const CountModal: FC<CountModalProps> = ({
       <View style={[styles.modalPopUpContent]}>
         <TextInput
           style={[styles.modalCountText, { color: theme.color, borderBottomColor: theme.color }]}
-          placeholder='Your number...'
+          placeholder={i18n.t('Your number...')!}
           placeholderTextColor={colors.gray}
           keyboardType='numeric'
           onChangeText={(input) => {
@@ -59,13 +60,13 @@ const CountModal: FC<CountModalProps> = ({
           onPress={() => {
             setModalVisible(false);
           }}>
-          <Text style={[styles.modalPopUpButton, { color: theme.color }]}>Back</Text>
+          <Text style={[styles.modalPopUpButton, { color: theme.color }]}>{i18n.t('Back')}</Text>
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() => {
             addCountHandler(countElement.index);
           }}>
-          <Text style={[styles.modalPopUpButton, { color: theme.color }]}>Add</Text>
+          <Text style={[styles.modalPopUpButton, { color: theme.color }]}>{i18n.t('Add')}</Text>
         </TouchableOpacity>
       </View>
     </CustomModal>

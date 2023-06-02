@@ -2,6 +2,7 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 import React, { useCallback, useContext, useRef } from 'react';
 import { TextInput, View, TouchableOpacity } from 'react-native';
 
+import i18n from 'shared/config/i18n/i18n';
 import themeContext from 'shared/lib/context/themeContext';
 
 import { useActions } from 'shared/lib/hooks/useActions';
@@ -76,7 +77,7 @@ const CountBottomSheetContent: FC<CountBottomSheetContentProps> = ({ scrollTo, c
           onChangeText={(enteredText) => {
             changeTitleHandler(countElement.index, enteredText);
           }}
-          placeholder='Your title...'
+          placeholder= {i18n.t('Your title...')!}
           placeholderTextColor={theme.backgroundColor}
         />
         <TextInput
@@ -86,7 +87,7 @@ const CountBottomSheetContent: FC<CountBottomSheetContentProps> = ({ scrollTo, c
             countChangeHandler(countElement.index, enteredText);
           }}
           keyboardType='numeric'
-          placeholder='Your count...'
+          placeholder={i18n.t('Your count...')!}
           placeholderTextColor={theme.backgroundColor}
         />
       </View>

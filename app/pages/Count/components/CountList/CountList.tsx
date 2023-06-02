@@ -3,6 +3,7 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 import React, { useContext } from 'react';
 import { View, Text, TouchableOpacity, Pressable } from 'react-native';
 
+import i18n from 'shared/config/i18n/i18n';
 import themeContext from 'shared/lib/context/themeContext';
 
 import { useActions } from 'shared/lib/hooks/useActions';
@@ -29,14 +30,14 @@ const CountList: FC<CountListProps> = ({ handleModalOpen }) => {
 
   return (
     <>
-      <Title>Counts</Title>
+      <Title>{i18n.t('Counts')}</Title>
 
       {count.length == 0 ? (
         <View style={styles.accountsNoFundMessage}>
           <Text style={[styles.h2Text, { color: theme.color }]}>
-            At the moment you have no funds...
+            {i18n.t('At the moment you have no funds...')}
           </Text>
-          <Pressable onPress={() => handleAddCount({ title: 'New count' })}>
+          <Pressable onPress={() => handleAddCount({ title: i18n.t('New count') })}>
             <Ionicons name='add-outline' size={35} color={theme.color} />
           </Pressable>
         </View>
@@ -53,7 +54,7 @@ const CountList: FC<CountListProps> = ({ handleModalOpen }) => {
               </TouchableOpacity>
             ))}
             {count.length < 5 ? (
-              <Pressable onPress={() => handleAddCount({ title: 'New count' })}>
+              <Pressable onPress={() => handleAddCount({ title: i18n.t('New count') })}>
                 <Ionicons name='add-outline' size={35} color={theme.color} />
               </Pressable>
             ) : (

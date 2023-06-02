@@ -2,6 +2,7 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import React, { useContext } from 'react';
 
+import i18n from 'shared/config/i18n/i18n';
 import themeContext from 'shared/lib/context/themeContext';
 import HeaderThemeSwitch from 'shared/ui/HeaderThemeSwitch/HeaderThemeSwitch';
 
@@ -43,6 +44,7 @@ const DrawerNavigator = () => {
         component={BottomTabNavigator}
         options={{
           drawerIcon: ({ color }) => <Ionicons name='disc' size={22} color={color} />,
+          title:i18n.t('Home')!
         }}
       />
       <Drawer.Screen
@@ -50,6 +52,7 @@ const DrawerNavigator = () => {
         component={SignInStackNavigator}
         options={{
           drawerIcon: ({ color }) => <Ionicons name='ios-enter-outline' size={22} color={color} />,
+          title:i18n.t('SignIn')!
         }}
       />
     </Drawer.Navigator>
