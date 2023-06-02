@@ -3,8 +3,8 @@ import React, { useContext } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 
 import { View, Text, TextInput, TouchableOpacity, SafeAreaView } from 'react-native';
-
 import { colors } from 'shared/assets/styles/local.style';
+import i18n from 'shared/config/i18n/i18n';
 import themeContext from 'shared/lib/context/themeContext';
 
 import { styles } from './SignIn.styles';
@@ -48,7 +48,7 @@ const SignIn: FC<SignInScreenProps> = ({ navigation }) => {
   return (
     <View style={[styles.registration, { backgroundColor: theme.backgroundColor }]}>
       <View style={[styles.registrationTitle]}>
-        <Text style={[styles.title, { color: theme.color }]}>SignIn</Text>
+        <Text style={[styles.title, { color: theme.color }]}>{i18n.t('SignIn')}</Text>
       </View>
       <SafeAreaView style={[styles.registrationBox]}>
         <Controller
@@ -60,18 +60,18 @@ const SignIn: FC<SignInScreenProps> = ({ navigation }) => {
                 { color: theme.color, borderBottomColor: theme.color },
               ]}
               {...register('email', {
-                required: 'This is required field!',
+                required: i18n.t('This field is required!')!,
                 pattern: {
                   value:
                     // eslint-disable-next-line no-useless-escape
                     /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-                  message: 'Its not an email!',
+                  message: i18n.t('Its not an email!'),
                 },
               })}
               onBlur={onBlur}
               onChangeText={onChange}
               value={value}
-              placeholder='Email'
+              placeholder={i18n.t('Email')!}
               placeholderTextColor={colors.gray}
             />
           )}
@@ -82,14 +82,14 @@ const SignIn: FC<SignInScreenProps> = ({ navigation }) => {
         <Controller
           control={control}
           rules={{
-            required: 'This field is required!',
+            required: i18n.t('This field is required!')!,
             minLength: {
               value: 8,
-              message: 'Your password is too short!',
+              message: i18n.t('Your password is too short!'),
             },
             maxLength: {
               value: 10,
-              message: 'Your password is too long!',
+              message: i18n.t('Your password is too long!'),
             },
           }}
           render={({ field: { onChange, onBlur, value } }) => (
@@ -101,7 +101,7 @@ const SignIn: FC<SignInScreenProps> = ({ navigation }) => {
               onBlur={onBlur}
               onChangeText={onChange}
               value={value}
-              placeholder='Password'
+              placeholder={i18n.t('Password')!}
               secureTextEntry
               placeholderTextColor={colors.gray}
             />
@@ -112,16 +112,16 @@ const SignIn: FC<SignInScreenProps> = ({ navigation }) => {
       </SafeAreaView>
       <View style={styles.registrationLinks}>
         <TouchableOpacity onPress={handleSubmit(onSubmit)}>
-          <Text style={[styles.authButton, { color: theme.color }]}>Login</Text>
+          <Text style={[styles.authButton, { color: theme.color }]}>{i18n.t('Login')}</Text>
         </TouchableOpacity>
         <TouchableOpacity onPress={handleSubmit(onSubmit)}>
-          <Text style={[styles.authButton, { color: '#ff4d4d' }]}>Login with Google</Text>
+          <Text style={[styles.authButton, { color: '#ff4d4d' }]}>{i18n.t('Login with Google')}</Text>
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() => {
             navigation.navigate('SignUpDrawer', { name: '' });
           }}>
-          <Text style={[styles.authButton, { color: theme.color }]}>Create account</Text>
+          <Text style={[styles.authButton, { color: theme.color }]}>{i18n.t('Create account')}</Text>
         </TouchableOpacity>
       </View>
     </View>
