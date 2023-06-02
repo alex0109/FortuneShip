@@ -4,7 +4,7 @@ import { getCoordinatesForIndex } from 'pages/Chart/lib/helpers/helpers';
 import { mockCat } from 'pages/Chart/lib/store/data';
 
 import React, { useCallback, useContext, useRef, useState } from 'react';
-import { Dimensions, TouchableOpacity, View, Text } from 'react-native';
+import { Dimensions, TouchableOpacity, View, Text, Pressable } from 'react-native';
 import themeContext from 'shared/lib/context/themeContext';
 
 import { useActions } from 'shared/lib/hooks/useActions';
@@ -75,11 +75,11 @@ const Chart: FC = () => {
             {categories.length >= 12 ? (
               <></>
             ) : (
-              <TouchableOpacity onPress={() => handleAddCategory()}>
-                <View style={[styles.addItemCircle, { borderColor: theme.color }]}>
+              <View style={[styles.addItemCircle, { borderColor: theme.color }]}>
+                <Pressable onPress={() => handleAddCategory()}>
                   <Ionicons name={'add-outline'} size={35} color={theme.color} />
-                </View>
-              </TouchableOpacity>
+                </Pressable>
+              </View>
             )}
           </View>
         </View>

@@ -16,12 +16,18 @@ const AnalyticHistoryList = () => {
     <View style={[styles.container]}>
       <Title>History</Title>
       <ScrollView style={styles.historiesContainer}>
-        {history.map((item, index) => (
-          <View key={index}>
-            <Text style={styles.historyTitle}>{moment(item.date).format('ddd - MMM DD YYYY')}</Text>
-            <AnalyticHistoryItem values={item.values} />
-          </View>
-        ))}
+        {history.length == 0 ? (
+          <Text style={styles.historyTitle}>I'm feeling alone here :(</Text>
+        ) : (
+          history.map((item, index) => (
+            <View key={index}>
+              <Text style={styles.historyTitle}>
+                {moment(item.date).format('ddd - MMM DD YYYY')}
+              </Text>
+              <AnalyticHistoryItem values={item.values} />
+            </View>
+          ))
+        )}
       </ScrollView>
     </View>
   );

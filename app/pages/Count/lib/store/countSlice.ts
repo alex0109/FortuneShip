@@ -20,6 +20,7 @@ export const countSlice = createSlice({
         history: [
           {
             date: moment().format('YYYY-MM-DD'),
+            title: action.payload.title,
             value: 0,
           },
         ],
@@ -43,6 +44,7 @@ export const countSlice = createSlice({
       countToChange!.value = countToChange!.value + action.payload.value;
       countToChange!.history.push({
         date: moment().format('YYYY-MM-DD'),
+        title: countToChange!.title,
         value: action.payload.value,
       });
       return state;

@@ -1,16 +1,16 @@
 import { Canvas, Line, Path, Skia, vec } from '@shopify/react-native-skia';
 
 import { curveBasis, line, scaleLinear, scaleTime } from 'd3';
-import { getHistory } from 'pages/Analytic/lib/helpers/helpers';
+
 import React, { useContext } from 'react';
 import { View, Pressable, Text, Dimensions } from 'react-native';
 
 import themeContext from 'shared/lib/context/themeContext';
-import { useTypedSelector } from 'shared/lib/hooks/useTypedSelector';
 
 import { styles } from './AnalyticGraph.styles';
 
 import type { SkPath } from '@shopify/react-native-skia';
+import type { FC } from 'react';
 import type { IHistory } from 'shared/types/IHistory';
 
 const { width, height } = Dimensions.get('window');
@@ -21,14 +21,15 @@ interface GraphData {
   curve: SkPath;
 }
 
-const AnalyticGraph = () => {
-  const theme = useContext<{ backgroundColor?: string; color?: string }>(themeContext);
+interface AnalyticGraphProps {
+  history: IHistory[];
+}
 
-  const { categories } = useTypedSelector((state) => state);
+const AnalyticGraph: FC<AnalyticGraphProps> = ({ history }) => {
+  const theme = useContext<{ backgroundColor?: string; color?: string }>(themeContext);
 
   const GRAPH_HEIGHT = height / 2.5;
   const GRAPH_WIDTH = width - 20;
-  const history = getHistory(categories);
 
   const makeGraph = (data: IHistory[]): GraphData => {
     const min = Math.min(...data.map((val) => val.value));

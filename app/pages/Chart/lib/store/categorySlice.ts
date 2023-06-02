@@ -19,7 +19,7 @@ const initialState: ICategory[] = [
     percent: 0,
     history: [
       {
-        date: moment().format('YYYY-MM-03'),
+        date: moment().format('YYYY-05-27'),
         title: 'Pets',
         value: 1,
       },
@@ -171,7 +171,6 @@ export const categoriesSlice = createSlice({
         percent: 0,
         history: [],
       });
-      return state;
     },
     handleDeleteCategory: (state, action: PayloadAction<{ index: string }>) =>
       state.filter((item) => item.index !== action.payload.index),

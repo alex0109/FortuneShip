@@ -14,7 +14,13 @@ export const getHistory = (arr: ICategory[]): IHistory[] => {
     }
   }
 
-  return res.sort((a, b) => moment(a.date).unix() - moment(b.date).unix());
+  return res
+    .sort((a, b) => moment(a.date).unix() - moment(b.date).unix())
+    .filter(
+      (item) =>
+        moment(item.date).unix() >= moment().startOf('month').unix() &&
+        moment(item.date).unix() <= moment().endOf('month').unix()
+    );
 };
 
 export const getWeekHistory = (arr: IHistory[]) => {
